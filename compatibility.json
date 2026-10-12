@@ -5,7 +5,7 @@
       "distribution": "llm-architecture",
       "version": "0.1.0",
       "path": "../LLM-Architecture",
-      "commit": "c33462047ad75b67d39ffbaf4a95e064fbbe5be4",
+      "commit": "d80d32828f5191a835cd96510c3719120804d365",
       "state": "pinned-sibling"
     },
     "LLM-Tokenizer": {
@@ -19,21 +19,21 @@
       "distribution": "llm-data",
       "version": "0.1.0",
       "path": "../LLM-Data",
-      "commit": "86d2b93944a4f47c14d8bb273f3bd0925780d6ec",
+      "commit": "929a8282f678849e326ca11d62bd659f8eded6b0",
       "state": "pinned-sibling"
     },
     "LLM-Training": {
       "distribution": "llm-training",
       "version": "0.1.0",
       "path": "../LLM-Training",
-      "commit": "208cede89176f9bdcca193b666f33d06155ef65c",
+      "commit": "4622b5089d3c2e5ce87cc6d2aa008c7f1addc32e",
       "state": "pinned-sibling"
     },
     "LLM-Inference": {
       "distribution": "llm-inference",
       "version": "0.1.0",
       "path": "../LLM-Inference",
-      "commit": "48a9f4b7fb5b4eef20fe9ce61f2089396b1fc244",
+      "commit": "0a9c12cca68e201e4ba687fa07c8beda3453d510",
       "state": "pinned-sibling"
     },
     "LLM-Memory": {
@@ -53,7 +53,25 @@
   },
   "environments": {
     "generative": ".venv/bin/python",
-    "specialist": ".venv-specialist/bin/python"
+    "specialist": ".venv-specialist/bin/python",
+    "current_development": "tools/codexa-dev"
+  },
+  "tooling": {
+    "workspace-infrastructure": {
+      "path": "../workspace-infrastructure",
+      "commit": "ed64917",
+      "kind": "local-sibling-git-repository"
+    }
+  },
+  "historical_identity": {
+    "run": "codexa-934m-foundation-5h-v1",
+    "environment": ".venv/bin/python without workspace_bootstrap (installed wheels; do not reinstall)",
+    "component_commits": {
+      "LLM-Architecture": "c33462047ad75b67d39ffbaf4a95e064fbbe5be4",
+      "LLM-Inference": "48a9f4b7fb5b4eef20fe9ce61f2089396b1fc244"
+    },
+    "preserved_source": "outputs/preservation/historical-source/codexa-934m-foundation-5h-v1/MANIFEST.json",
+    "documentation": "documentation/workspace/ENVIRONMENTS.md"
   },
   "memory_transport": "JSON lines over separate subprocess",
   "assets": "artifact-catalog/catalog.json",

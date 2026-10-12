@@ -7,6 +7,7 @@ import random
 import tempfile
 
 import numpy as np
+import pytest
 import torch
 
 from src.checkpointing import (
@@ -168,6 +169,7 @@ def test_rng_round_trip() -> None:
     assert torch.equal(expected[2], actual[2])
 
 
+@pytest.mark.usefixtures("development_training_environment")
 def test_save_load_retention_and_corruption() -> None:
     config = project_config()
     set_deterministic_seed(config.training.seed)
@@ -289,6 +291,7 @@ def test_save_load_retention_and_corruption() -> None:
         assert_raises(ValueError, verify_checkpoint_checksum, corrupted)
 
 
+@pytest.mark.usefixtures("development_training_environment")
 def test_exact_resume() -> tuple[TrainingState, list]:
     config = project_config()
 

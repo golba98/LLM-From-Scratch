@@ -74,7 +74,14 @@ def test_model_code_and_tiny_outputs_match_preserved_original():
     path = ORIGINAL / "src/model.py"
     if not path.is_file():
         pytest.skip("Preserved original source fixture is local-only")
-    assert path.read_bytes() == (WORKSPACE / "LLM-Architecture/src/llm_architecture/model.py").read_bytes()
+    # Migration parity is byte-exact against the historical architecture revision (the one hash-bound
+    # into codexa-934m-foundation-5h-v1). The current source deliberately adds the masked KV-cache
+    # repair, so it must instead keep state-dict keys, initialization and unmasked outputs identical.
+    manifest = json.loads((ROOT / "compatibility.json").read_text())
+    historical = manifest["historical_identity"]["component_commits"]["LLM-Architecture"]
+    migrated = subprocess.run(["git", "-C", str(WORKSPACE / "LLM-Architecture"), "show",
+                               f"{historical}:src/llm_architecture/model.py"], capture_output=True, check=True).stdout
+    assert path.read_bytes() == migrated
     spec = importlib.util.spec_from_file_location("_original_model_parity", path)
     module = importlib.util.module_from_spec(spec)
     sys.modules[spec.name] = module

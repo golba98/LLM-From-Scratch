@@ -1,0 +1,218 @@
+run_name: codexa-900m-chat-end3-confirmation-v1
+status: PROPOSED_NOT_AUTHORIZED_NOT_LAUNCHED
+architecture_sha256: 4f4739f333cd67efd382942b44bac689332762231e2d1b558f4e637f242b5545
+required_free_gpu_bytes: 11771314176
+spec:
+  purpose: experimental
+  model:
+    vocab_size: 16384
+    context_length: 2048
+    num_layers: 24
+    hidden_size: 1536
+    num_heads: 24
+    intermediate_size: 6144
+    dropout: 0.0
+    tie_embeddings: true
+    position_embedding_type: learned
+    rope_theta: 10000.0
+  training:
+    micro_batch_size: 1
+    gradient_accumulation_steps: 8
+    learning_rate: 5.0e-06
+    weight_decay: 0.1
+    warmup_steps: 20
+    max_steps: 512
+    gradient_clip: 1.0
+    precision: bf16
+    checkpoint_interval: 128
+    evaluation_interval: 128
+    seed: 74
+  initialization:
+    path: /home/k9-vortex/Development/3-Python/31-LLM Source/checkpoints/codexa-900m-sft-repair-v1/latest.pt
+    sha256: c55f4edd1477a8ffefd03ce63d033a291eb261f6047b129baa47e10756899a4f
+    semantics: weights_initialization
+  tokenizer:
+    path: /home/k9-vortex/Development/3-Python/31-LLM Source/checkpoints/tokenizer-base-v1/tokenizer.json
+    sha256: a710b68c646d4b375331f65ee164aed4456813cc1c1b7dcc7fa2bafc9450854e
+  data:
+    train: /home/k9-vortex/Development/3-Python/31-LLM Source/data/processed/general-chat-sft-v2/train.jsonl
+    validation: /home/k9-vortex/Development/3-Python/31-LLM Source/data/processed/general-chat-sft-v2/validation.jsonl
+    train_sha256: 15d29ea23ddb57c70067643e9feb641f03b9cd42bdecace7cb710eab784d61e0
+    validation_sha256: 30f0fcde04cf4f9b34f4e42f5c7941036a8509e81a8d9e1ad7cbc49fd823b074
+    manifest_sha256: 3b1741ae312316172a1cb0f8a6457cebf2603fcbf1f7ba8896a56fcc4ac60f0d
+    maximum_epochs: 1
+    workers: 0
+    balanced: false
+    bucket_size: 128
+    sampling: seeded_no_replacement_epoch_shuffle
+    packing: false
+    sequence_policy: complete_conversation_dynamic_right_padding
+    validation_indices:
+    - 10039
+    - 10040
+    - 10041
+    - 10042
+    - 10043
+    - 10044
+    - 10045
+    - 10046
+    - 10047
+    - 10048
+    - 10049
+    - 10050
+    - 10051
+    - 10052
+    - 10053
+    - 10054
+    - 10055
+    - 10056
+    - 10057
+    - 10058
+    - 10059
+    - 10060
+    - 10061
+    - 10062
+    - 10063
+    - 10064
+    - 10065
+    - 10066
+    - 10067
+    - 10068
+    - 10069
+    - 10070
+    - 10071
+    - 10072
+    - 10073
+    - 10074
+    - 10075
+    - 10076
+    - 10077
+    - 10078
+    - 10079
+    - 10080
+    - 10081
+    - 10082
+    - 10083
+    - 10084
+    - 10085
+    - 10086
+    - 10087
+    - 10088
+    - 10089
+    - 10090
+    - 10091
+    - 10092
+    - 10093
+    - 10094
+    - 10095
+    - 10096
+    - 10097
+    - 10098
+    - 10099
+    - 10100
+    - 10101
+    - 10102
+    - 10103
+    - 10104
+    - 10105
+    - 10106
+    - 10107
+    - 10108
+    - 10109
+    - 10110
+    - 10111
+    - 10112
+    - 10113
+    - 10114
+    - 10115
+    - 10116
+    - 10117
+    - 10118
+    - 10119
+    - 10120
+    - 10121
+    - 10122
+    - 10123
+    - 10124
+    - 10125
+    - 10126
+    - 10127
+    - 10128
+    - 10129
+    - 10130
+    - 10131
+    - 10132
+    - 10133
+    - 10134
+    cache_bytes: 67108864
+  optimization:
+    optimizer: adamw8bit
+    gradient_checkpointing: true
+    compile: false
+    tf32: false
+    loss_normalization: supervised_tokens
+    betas:
+    - 0.9
+    - 0.95
+    epsilon: 1.0e-08
+    minimum_headroom_bytes: 1610612736
+    deterministic_algorithms: true
+    cublas_workspace_config: :4096:8
+    allocator: expandable_segments:True
+    release_cached_segments_at_boundary: true
+    target_token_weights:
+      '7': 3.0
+    objective_description: sum(assistant CE with END weight3) / actual assistant targets;
+      validation remains unweighted
+  evaluation:
+    validation_batches: 96
+    quality_reserve_seconds: 120
+    validation_reserve_seconds: 120
+    development_suite_sha256: 1e9765e6dfa67fcc94a13df242a13e0aae7149ed7ab592337b525c19c55e13bc
+    acceptance_suite_sha256: 4c8679b9288e13f764c3cc643e8b6ebb2e70af8a64a28f254a4099f6ed9b125c
+    regression_patience: 2
+    regression_policy:
+      task_drop: 0.05
+      END_drop: 0.1
+      degeneration_increase: 0.1
+      empty_increase: 0.05
+      role_switch_increase: 0.05
+      special_token_maximum: 0.25
+      length_ratio_minimum: 0.3
+  checkpoint:
+    minimum_save_seconds: 50.105593050004245
+    slots: 6
+    storage_backend: legacy
+    reclamation_mode: disabled
+    reserve_bytes: 107374182400
+  baseline_quality:
+    cases: 64
+    category_pass_rates:
+      arithmetic: 0.0
+      coherence_proxy: 0.0
+      factual: 0.375
+      instruction: 0.0
+      length: 0.0
+      logic: 0.0
+      multi_turn: 0.625
+      uncertainty: 0.0
+    macro_task_accuracy: 0.14285714285714285
+    END_rate: 0.6875
+    EOS_rate: 0.0
+    length_limit_rate: 0.3125
+    severe_degeneration_rate: 0.359375
+    empty_rate: 0.0
+    role_switch_rate: 0.0
+    mean_generated_tokens: 59.578125
+    special_token_dominated_rate: 0.0
+    mean_repeated_4gram_rate: 0.2503361911389545
+    entry_gate_passed: false
+  wall_clock_seconds: 1200
+  finalization_reserve_seconds: 180
+  evaluation_suite_version: codexa-chat-local-v1
+  architecture_sha256: 4f4739f333cd67efd382942b44bac689332762231e2d1b558f4e637f242b5545
+limitations:
+- Not production-ready; previous instruction/arithmetic failures remain
+- Validation historical exposure remains; source proportional sampling is not source-balanced
+  token weighting
+- Protected acceptance suite not used to tune this replication

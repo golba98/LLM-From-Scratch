@@ -9,6 +9,7 @@ import sys
 import tempfile
 
 import numpy as np
+import pytest
 import torch
 from torch import nn
 from torch.utils.data import DataLoader, Dataset, TensorDataset
@@ -197,6 +198,7 @@ def test_seed_device_and_precision() -> None:
             assert not requires_grad_scaler(bf16)
 
 
+@pytest.mark.usefixtures("development_training_environment")
 def test_optimizer_groups() -> None:
     model = tiny_model()
     optimizer = create_adamw_optimizer(
@@ -296,6 +298,7 @@ def run_cpu_training(
     return state, metrics, model
 
 
+@pytest.mark.usefixtures("development_training_environment")
 def test_training_and_cycling() -> tuple[TrainingState, list[TrainingMetrics]]:
     set_deterministic_seed(9)
     baseline = tiny_model()
@@ -362,6 +365,7 @@ def test_training_and_cycling() -> tuple[TrainingState, list[TrainingMetrics]]:
     return state, metrics
 
 
+@pytest.mark.usefixtures("development_training_environment")
 def test_validation() -> None:
     model = tiny_model()
     loader = tiny_loader(examples=3, batch_size=2)
@@ -535,6 +539,7 @@ training:
     return config_path, train_path, validation_path, manifest_path
 
 
+@pytest.mark.usefixtures("development_training_environment")
 def test_cli_cpu() -> None:
     with tempfile.TemporaryDirectory() as temporary_directory:
         root = Path(temporary_directory)

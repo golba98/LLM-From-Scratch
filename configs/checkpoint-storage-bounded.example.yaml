@@ -1,0 +1,9 @@
+# Fragment for a NEW, separately reviewed chat configuration. Not a launch configuration.
+checkpoint_storage_backend: optimized
+checkpoint_store_root: checkpoint-groups/new-bounded-experiment-v1
+checkpoint_retention:
+  max_snapshots: 6
+  # max_checkpoint_bytes and max_bytes are derived conservatively from FP32 model/Adam
+  # state sizes unless declared explicitly. All registered runs share this group cap.
+  # One final slot and two checkpoint byte bounds are reserved per active run.
+  # No rotation or GC: training stops safely before exhausting the cap.

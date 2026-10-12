@@ -14,6 +14,8 @@ dependencies = ["llm-architecture==0.1.0", "llm-tokenizer==0.1.0", "llm-data[tor
 [project.optional-dependencies]
 specialist = ["llm-specialist==0.1.0"]
 test = ["pytest>=9,<10"]
+# Live training dashboard (scripts/training_dashboard.py). Not yet in requirements-generative.lock.
+viewer = ["rich>=13"]
 
 [project.scripts]
 codexa = "codexa_workspace.cli:main"
@@ -21,6 +23,9 @@ codexa = "codexa_workspace.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["codexa_workspace*"]
+
+[tool.setuptools.package-data]
+codexa_workspace = ["review_dashboard.html"]
 
 [tool.pytest.ini_options]
 pythonpath = [".", "src"]

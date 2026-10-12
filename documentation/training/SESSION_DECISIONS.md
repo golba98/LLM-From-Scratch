@@ -1771,3 +1771,487 @@ User explicitly authorized saving and publishing LLM-Data and LLM-From-Scratch c
 ## 2026-10-09 — Save every remaining workspace source/documentation change
 
 User authorized PRs for all remaining unsaved files. Six remaining component README/AGENTS changes are saved on their existing review branches. Integration compatibility pins advance to their saved commits. Workspace-level README, instructions and shared-infrastructure README now have single canonical tracked owners in documentation/workspace with local links. Every public source/documentation change is reviewed and published; private assets/configuration/environments/recovery records remain preserved and excluded from public Git. No merge, repository deletion, original-project mutation or production training is authorized.
+
+
+## 2026-10-09 — Finish Source storage consolidation and remove obsolete NumPy shortcuts
+
+- Decision: At the user's explicit request, physically relocate the remaining PyTorch `data/` and `logs/` plus shared `recovery/` from `/home/k9-vortex/Development/LLM-Assets-Staging/` into `/home/k9-vortex/Development/3-Python/31-LLM Source/`. Move the remaining compatibility tree under `31-LLM Source/compatibility/LLM-Assets-Staging`; leave the old staging location as a symlink to retain required model-path compatibility. Configure active workspaces to use direct Source paths.
+- Evidence: All 882 moved file/link entries match before/after relative paths, inode/device, byte size, and modification timestamps. Both original and direct model/data/recovery paths resolve correctly. All 13 NumPy packaging/launcher/preservation checks and both PyTorch workspace-path tests pass. Historical output protection was checked. The 31 Source folder now contains approximately 92 GiB; 32 Source contains approximately 38 GiB.
+- Cleanup: Removed only `/home/k9-vortex/Development/3-Python/32-LLM (NumPy) [Deprecated]` and `/home/k9-vortex/Development/3-Python/32-LLM (NumPy)-local-artifacts`, after confirming they were symlinks and verifying all preserved archived entries under `32-LLM Source/legacy/`. No actual archived contents or model files were deleted; reclaimed model/artifact size is 0 bytes. Exactly two 32-prefixed entries remain at the Python folder root: `32-LLM (NumPy)` and `32-LLM Source`.
+- Affected paths: The exact staging/data/logs/recovery/compatibility paths above; local settings in active 37/38 and original 32; agent notes in the Source folders and related workspaces; and NumPy recovery links, now pointing directly into 31 Source recovery. Historical records/manifests were preserved.
+- Next action: Use the Source folders as canonical local storage and preserve the old staging compatibility symlink. No training, checkpoint deletion, commits, or pushes occurred.
+
+
+## 2026-10-09 — Read-only ChatGPT environment audit
+
+Decision: record the verified current environment in `CHATGPT_CURRENT_STATE.md`; assess ten-hour training as NOT READY AS CONFIGURED, without changing or launching any pipeline.
+Evidence: current component sources/Git/configuration, meta-device model count (934,356,480), small checkpoint/NPZ metadata, saved training/test reports, hardware snapshot, and missing production validation binary/index. Current large-checkpoint hashes and functional recovery were NOT VERIFIED; historical results are explicitly separated from fresh observations.
+Affected paths: `CHATGPT_CURRENT_STATE.md`, `documentation/training/SESSION_DECISIONS.md`, `documentation/training/100M_PROGRESS_LOG.md`. No model, tokenizer, dataset, checkpoint, exporter, Git history, or system settings changed.
+Next action: user reviews the handoff; separately authorize checkpoint recovery verification, validation resolution and a chosen training phase before any ten-hour run.
+
+## 2026-10-09 — Begin 900M ten-hour conversational preparation
+
+- Decision: Implement the approved modular successor and bounded preparation, with a two-hour GPU preparation ceiling. Production remains unlaunched and requires explicit approval. Preserve the original ten-hour deadline, including downtime on resume.
+- Evidence: Live architecture construction and five strict GPU checkpoint restores confirm 934,356,480 tied parameters and finite forward outputs; candidate hashes match. General Chat v2 hashes match, with 182,892 training conversations and 147,584,268 recorded assistant tokens. Current split roots/groups/content hashes do not overlap, but historical exposure is widespread. Eight common greedy development probes show serious behavioral failures; no initialization has been accepted. Baseline integration: 121 passed, 5 skipped; component suites: Architecture 5, Tokenizer 6, Data 12, Training 10, Inference 1 passed.
+- Affected paths: LLM-Data dataset/sampling helpers; LLM-Training runtime, recovery, monitoring and tests; LLM-From-Scratch evaluation/controller/configuration/report. Existing integration dirty instruction/record files and CHATGPT_CURRENT_STATE.md are preserved.
+- Next action: Implement and test supervision, budget and recovery contracts; rebuild local wheels; compare candidates with reproducible development diagnostics and run isolated bounded 934M checks. No historical checkpoint, export, data, NumPy code, or inference default is changed.
+
+## 2026-10-09 — Full conversational audit and candidate behavior baseline
+
+- Decision: Treat all five historical candidates as failing the production experiment-entry quality floor. Use repair only as the provisional technical starting point for isolated benchmarks/recovery and a bounded corrective phase; no conversational checkpoint is accepted for a ten-hour launch.
+- Evidence: Recomputed serialization, token counts, shifted assistant masks and normalized content hashes for all 202,901 General Chat v2 conversations. Current split root/group/content overlap is zero. Training contains 147,584,268 assistant tokens; validation/test have extensive potential historical SFT exposure. Fixed 64-case greedy evaluation gives zero exact instruction, arithmetic and output-line compliance for every candidate. END rates: base 0%, Stage 2 40.625%, balanced/v2 75%, repair 68.75%. Speaker-aware scoring prevents an assistant's “My new number” from passing user-memory checks; raw generations and the original reference-only scores are retained separately. Repair has the strongest literal task combination but severe degeneration in 35.9375% of cases.
+- Affected paths: outputs/preparation/codexa-900m-chat-10h-v1; LLM-Data chat_dataset.py; integration chat_evaluation.py and preparation/controller modules; training runtime/recovery tests. Historical checkpoints/data are untouched. The protected acceptance suite has not been executed.
+- Next action: Measure worst-case 934M training memory/throughput, verify full 8-bit optimizer recovery and run one corrective pilot within the two-hour preparation ceiling. Block production if behavioral gates remain unmet. No production launch, promotion, cleanup, commit or push.
+
+## 2026-10-09 — Memory reserve and full recovery evidence
+
+- Decision: Preserve failed memory-reserve pilots, and test a separate preparation configuration that releases unused CUDA cache at optimizer boundaries. Microbatch 1, accumulation 32 and the learning objective remain fixed. Production remains blocked.
+- Evidence: Seven fixed-shape 934M optimizer benchmarks passed. Full recovery restores all model/optimizer bytes, scheduler and counters, with finite continuation; bitwise continuation differs (second resumed loss 2.068998 versus reference 2.069218), so the strict continuity gate fails. Both default and expandable-segment-only corrective pilots stopped after two updates at the 1.5 GiB headroom gate and published verified final recovery checkpoints. The third isolated pilot explicitly enables boundary cache release; its viewer was closed after attachment at step 5, and training continued. Five exact development prompt matches occur in the training corpus; zero exact protected prompt matches does not certify semantic independence.
+- Affected paths: LLM-Training recovery/chat runtime; integration chat validation/operations and outputs/preparation/codexa-900m-chat-10h-v1. No historical artifact or unrelated process was altered.
+- Next action: Test controlled interruption and original-budget resume; complete sampled and retention diagnostics; issue a BLOCKED readiness report unless every mandatory gate is proven.
+
+## 2026-10-10 — Final 934M conversational preparation handoff
+
+- Decision: BLOCKED; do not launch the ten-hour operation. The successor implementation and A–L readiness report are complete, but initialization quality, corrective behavioral improvement, trustworthy held-out provenance and strict live memory headroom are unmet.
+- Evidence: All 202,901 chat records audited; five compatible checkpoints compared with fixed greedy and sampled settings. The 128-step repair-initialized pilot processed 3,326,471 assistant tokens and 4,275,413 context tokens across 4,096 unique conversations. SIGTERM/full-state resume preserves the original deadline and sampler continuity; viewer closure did not stop training. Deterministic algorithms with CUBLAS workspace :4096:8 yielded bitwise-equal optimizer/model continuation. Corrective instruction/arithmetic compliance remains zero; END stops fall to 50% and severe degeneration rises to 53.125%. A separate strict allocator-limit test safely recorded CUDA OOM without promoting a checkpoint. Latest regression: integration 126 passed / 5 sklearn specialist skips; five component suites plus controller tests 56 passed; pip check passed. Relevant installed wheel sources match source bytes. Recorded preparation-stage runtime 2616.7 seconds; this ledger excludes earlier exploratory audit probes.
+- Affected repositories: LLM-Data, LLM-Training and LLM-From-Scratch only; exact files, commits, dirty status, native recovery paths, hashes, benchmark evidence and operator commands are in documentation/training/CODEXA_900M_CHAT_10H_READINESS.md and outputs/preparation/codexa-900m-chat-10h-v1/launch-manifest.json.
+- Preservation: No ten-hour production namespace/process, accepted-model replacement, export, old-run cleanup, dataset download/regeneration, NumPy modification, commit, push, merge or release. Historical asset digests rechecked. All new isolated smoke checkpoints retained; main storage has about 218 GiB free.
+- Next action: Review the blocked report; investigate existing supervision/behavior, exposure provenance and memory availability before a separately approved corrective phase. A production launch still requires explicit user approval after mandatory gates pass.
+
+
+## 2026-10-10 — Two-hour session requested
+
+Decision: user replaced the ten-hour proposal with a two-hour session and intends continuation tomorrow. Added isolated configs/chat-2h-v1.yaml; configurable budget now flows through specification, supervisor deadline and throughput projection. Evidence: prior readiness remains BLOCKED for conversational quality, exposure provenance and strict memory headroom; fresh GPU snapshot 13,156/16,376 MiB free. No training launched, no gate bypassed and no historical state overwritten. Affected integration paths: chat_preparation.py, chat_operations.py, chat_validation.py, test_chat_preparation.py, new configuration and CODEXA_900M_CHAT_2H_STATUS.md. Next action: resolve corrective-phase quality and memory gates, then establish a sealed two-hour manifest; tomorrow needs explicitly authorized additional budget and full-state continuity, not silent deadline reset.
+
+
+## 2026-10-10 — Explicit two-hour experimental training authorization
+
+User explicitly instructed immediate two-hour training after disclosure of blockers. Authorize isolated codexa-900m-chat-2h-v1 experimental phase, repair weights initialization (not exact resume), conservative LR5e-6, micro1/accum32, max1100 steps, 7200-second total deadline with800-second finalization reserve. Preserve original failed readiness gates honestly; permit only documented quality/provenance/headroom-benchmark exceptions, retaining live preflight memory checks, runtime1.5GiB headroom, finite-gradient/OOM recovery, signal/deadline watchdog and periodic quality/validation early stopping. Seven controller tests pass; integration wheel rebuilt/reinstalled without dependencies. No protected final acceptance during this experiment; no promotion. All historical assets preserved. Next action: launch, verify optimizer updates and visible viewer, record PID and deadline.
+
+
+2026-10-10: Initial2h launch refused before run creation because conservative mixedaccum32 free-memory threshold exceeded live availability. Fresh experimental configuration accumulation8/effective8, micro1 unchanged, max4000updates, checkpoint400/eval800. Requiredfree11.8GB derived long-micro1 peak+headroom, not an accumulation8 benchmark claim. Live1.5GiB check and OOM recovery remain enabled; no existing run batching changed. Retry authorized2h experimental launch.
+
+
+2026-10-10: Two-hour experimental phase RUNNING verified at optimizerstep5; finite loss2.43947, initial recoverable slot-0 checkpoint published, viewer attached/viewer_closed=false. Detached supervisorPID549510, workerPID549511; deadline2026-10-10T06:32:51.500343+02:00. User requested leave independent job running and will notify completion. No further automatic sessions authorized. Output: /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/chat-training/codexa-900m-chat-2h-v1. Next action on user return: inspect report/recovery and compare development behavior; do not promote automatically.
+
+
+2026-10-10 — Two-hour experiment completed and assessed: step4000 STEP_CAP, session6326.50seconds, 25,912,988assistanttokens/32,000conversations. Common validation2.229543→1.964267; literal task macro14.29→10.71%, END68.75→62.50%, severe degeneration35.94→40.63%. No behavioral improvement demonstrated; no promotion. Finalslot2 SHA374f3f1746b0ff0b24febc5176f3d20f5bb4ccadc3fb6aa24a120d1f31481918 rehashed and actualCPUload succeeded. Source/checkpoint paths and results in CODEXA_900M_CHAT_2H_RESULTS.md; nextaction investigate degeneration before new authorized phase, preserve all recovery artifacts.
+
+
+## 2026-10-10 — Four-hour regression investigation authorized
+
+User authorized investigation now with a four-hour ceiling. Begin isolated outputs/investigation/chat-regression-20261010; persist original UTCdeadline including interruptions. Diagnostics pair original/final outputs, inspect source supervision/END fractions, measure source-stratified teacher-forced content/END losses, local-data generations and cached/uncached generation parity for repair, balanced and completed2h weights. Planned bounded2x2 initialization/source-mixture pilots only if diagnostics justify them, with viewer/recovery enabled; no protected acceptance, promotion, new datasets or historical overwrites. Owner: integration chat_investigation.py/script/tests. Two focused paired-diagnostic tests pass. Nextaction inspect results before training ablations.
+
+
+2026-10-10 investigation evidence: source-stratified48record diagnostics show repair→2h OASST contentloss2.53779→2.44063 but ENDloss1.44426→1.89861; UltraChatcontent2.37014→2.05361 and END0.94558→0.77378. Local12promptdegeneration41.67→66.67%, END50→25%. Current heldoutpopulation mayhave historicalexposure. Paired64devcases1taskimproved/3regressed,12newdegenerate/9fixed; differences small and taskmetric counts some incoherent factualkeywordanswers aspassing. Four bounded2x2 repair/balanced×proportional/balanced pilots justified; seed73 LR5e-6 micro1acc8 max512updates1200sec reserve180 each, retainrecoveries; onlydevelopmentprobes. NoENDweightingimplementedbefore ablationevidence.
+
+
+2026-10-10: Historical repair-anchor audit found71trainanchors/26uniquecontents and25validationanchors/19uniquecontents; all19uniquevalidationanchorcontentsalsointraining. Eleven arithmetictraininganchors sum42(seven),13(two),17(two), matching the restricted answer totals observed on new arithmeticdevprompts. This strengthens template-memorization and historical-validation-exposure concerns; currentGeneralChatgroupisolation isseparateandunchanged. Full48recordprotocolinspection passed, no causalshift/assistantENDmask defect found. Preserveoldrepairdata; no historicalresults rewritten. Nextaction finishmatchedablationandcachedprefixnumericalcheck.
+
+
+2026-10-10: Trainingowner quality_guard.py extracts existingbehavioral comparison with backward-compatible defaults and validated optionalthresholds; chat_run.py reads optionalregression_policy/patience. Proposednextphase configchat-behavior-guard-v1.yaml uses taskdrop5pp ENDdrop10pp degenerationincrease10pp patience2. Offlineprevious2hcounterfactual firststop1600; not a real new-policy run result. Activefourablationtrials retain already-imported legacywheelpolicy for faircomparison. Seven guard/pairedtestcases pass including malformedthresholds. No activeconfigchanged. Nextaction finishablations, rebuildaffectedwheels and regressiontest beforehand off.
+
+### 2026-10-10T09:15:34.140640+02:00 — Completed conversational regression investigation
+
+Decision: Retain all models without promotion; do not continue the original two-hour schedule unchanged. Five isolated 512-update pilots completed. END3 vs matched repair-proportional control improved END 57.8125%→75% and degeneration 45.3125%→29.6875%, with task macro unchanged at 14.2857%; instruction/arithmetic remained zero. All 4,096 sample identities matched exactly. No protected acceptance suite opened.
+
+Evidence: Protocol audit passed 48 real records; UltraChat supplied 92.98% of original supervised tokens. Historical repair split shared 1,258 roots and 24 normalized complete contents; all 19 unique validation anchors were exposed in training. FP32 cache/full-prefix argmax matched all 27 checks; BF16 differed once near a tie. Five final checkpoint hashes verified; END3 native full payload reloaded. Integration tests 130 passed/5 optional specialist skips; final focused tests 65 passed. Installed changed wheels match source; pip check and three repository diff checks passed. Free disk 106.2 GiB, below existing 180 GiB production storage gate. No assets deleted.
+
+Affected paths: LLM-Data repair_split.py, prepare_repair_sft.py and tests; LLM-Training quality_guard.py, token_objective.py, training.py, chat_run.py and tests; integration chat_investigation.py, investigation CLI/tests, chat_preparation.py and proposed guard config. Full report: documentation/training/CODEXA_900M_CHAT_REGRESSION_INVESTIGATION.md; artifacts: outputs/investigation/chat-regression-20261010.
+
+Next action: Review report; validate END3 on a second seed/independent training window and review instruction coverage/evaluation provenance before authorizing a new training phase. Budget and disk policy must be explicit; no automatic restart, export or promotion.
+
+### 2026-10-10T13:48:36.828918+02:00 — Begin opt-in checkpoint component storage implementation
+
+Decision: Implement immutable SHA256 model/optimizer/recovery objects shared only within new experiment groups; legacy stays default, no GC/migration. Evidence: separate legacy copy manager and rotating conversational native writer; repeated final tensor payloads with distinct recovery metadata. Affected repositories: Architecture, Training, Inference, integration. Validation budget: 512 MiB, no full-size checkpoint copies or production training. Next action: bounded fixtures, exact continuation/fault tests and physical-space benchmarks; report full-size qualification limits.
+
+### 2026-10-10T14:09:51.414081+02:00 — Checkpoint component backend validation handoff
+
+Decision: Keep legacy default; optimized immutable experiment-group backend requires additional validation. Implemented lossless model/optimizer/recovery components, atomic manifests/indexes, native compatibility, group references, no GC/migration and storage planning retaining the 180 GiB reserve.
+
+Evidence: Installed-wheel suites 218 passed/5 sklearn skips/10 existing return-value warnings; CPU stochastic continuation bitwise equal. Synthetic unchanged-save growth reduced 99.8376%; refined changed save 72.491 vs 72.547 ms. Load regression 10.68%, longer sample 16.78%, so latency gate failed. Full-size CUDA/8-bit optimizer qualification not performed. Historical base 5,636,066,645 bytes loaded read-only in FakeTensorMode after checksum verification. 1,331 historical file metadata records unchanged; validation allocation 331,091,968 bytes; free disk 105.74 GiB below 180 GiB.
+
+Affected paths: Architecture component_checkpoint.py/checkpointing.py; Training optimized_recovery.py/recovery.py/checkpointing.py/chat_run.py/preflight.py/CLI/tests; Inference native readers/export readers; integration preparation/operations/benchmark/config example/tests. Report: documentation/training/CODEXA_CHECKPOINT_STORAGE_OPTIMIZATION.md. No training or historical artifact cleanup.
+
+Next action: Profile loader overhead and separately authorize bounded full-size qualification with adequate storage. No default activation, migration, pruning, production run or model promotion.
+
+### 2026-10-10T14:31:43.204851+02:00 — Begin checkpoint storage v2
+
+Decision: Extend component-checkpoint-v1 for fresh stores only. Selected six snapshot cap with safe stopping, final reservations, no GC; legacy remains default. Profile loader without weakening integrity and benchmark bounded nonzero fixtures. Evidence: v1 exact CPU recovery passed but append-only storage and +10.68–16.78% restore regression remain; current free space ~105.74 GiB fails unchanged 180 GiB floor. Affected owners: Architecture/Training/integration, compatibility readers as necessary. Next action: implement policy/planner/leases/quota and tests; full-size GPU work remains blocked and unauthorized.
+
+### 2026-10-10T15:00:53.814832+02:00 — Checkpoint storage v2 handoff
+
+Decision: Legacy remains default; new bounded component stores use six snapshots, hard byte accounting, per-run final reservations and safe stopping, without GC. Implemented dependency/refcount dry-run planning, mapped storage reader leases, explicit previous fallback and verified loader optimization.
+
+Evidence: Final installed regression 231 passed/5 sklearn skips/10 existing warnings. Refined 50-repeat nonzero restores: 12 MiB legacy 6.369 ms vs direct 6.660/store 6.758 ms (+4.58/+6.12%); 96 MiB 48.227 vs47.982/48.072 ms (-0.51/-0.32%). Both benchmark sets pass <=10%. CPU stop/final-reservation and exact continuation tests passed. Historical base SHA/FakeTensorMode load passed; 1,472 historical file metadata records unchanged. V2 outputs ~454 MB under512MiB. Current free ~105.31GiB fails180GiB; conservative bounded934M quota needs194.006GiB. Full-size GPU work not started.
+
+Affected owners: Architecture component_checkpoint.py; Training checkpoint_retention.py, optimized_recovery.py/recovery.py/checkpointing.py/preflight.py/chat_run.py/baseCLI and tests; integration preparation/benchmark/planCLI/new bounded config fragment. Report: documentation/training/CODEXA_CHECKPOINT_STORAGE_V2.md. V1 report and historical artifacts preserved.
+
+Next action: Review stopped-at-cap semantics; provide sufficient storage and separate bounded full-model CUDA/bitsandbytes/throughput qualification authorization. No cleanup, GC, default activation, long training or automatic model promotion.
+
+### 2026-10-10T15:04:08.872180+02:00 — Final v2 concurrency acceptance correction
+
+Correction/evidence: The first final 231-test run had 230 passes and one concurrent-initializer race failure. Corrected the shared-store writer to wait read-only on an existing initializer lock before rejecting temporary marker publication. Thirty simultaneous fresh-store writer trials passed. Rebuilt Architecture wheel; final installed suites now 231 passed / 5 skipped / 10 warnings (7.81s). Installed source identity checks passed and 1,472 historical files remained unchanged. Report updated with this failed-run evidence; no historical artifacts modified or GC performed. Next action remains storage-gated, separately authorized full-size qualification.
+
+## 2026-10-10 — Checkpoint storage V3 implementation
+
+Decision: extend the existing component format with continuous new-store retention,
+reader admission, dependency pins and separately granted journaled reclamation.
+Legacy remains the default; no historical adoption, production grant issuance or
+real-store executor invocation is permitted in this session.
+Evidence: V2 six-publication admission stops; V3 isolated tests exercised 66
+publications, exact CPU continuation and process termination/crash replay. Matched
+one-pass restore measurements passed the 10% gate. END3 SHA256
+4f4e5d1540eb6813ad6d6f91f1a1a503bf8952632d51f9dc6410343a8e0c456b
+verified actual uint8 optimizer storage. Current storage reserve fails.
+Affected paths: Architecture component_checkpoint/checkpoint_inspection; Training
+checkpoint_retention/checkpoint_reclamation/optimized_recovery/recovery/checkpointing/
+chat_run/preflight; integration configuration, CPU benchmarks and qualification tools.
+Next action: installed-wheel regressions, preservation inventory, archival assessment
+and CODEXA_CHECKPOINT_STORAGE_V3.md; full-model GPU execution remains blocked.
+
+## 2026-10-10 — Checkpoint storage V3 acceptance evidence
+
+Decision: REQUIRES ADDITIONAL VALIDATION. Legacy remains the production default; no real-store reclamation grant was issued, no historical cleanup or full-model GPU workload ran. V3 extends component-checkpoint-v1 with new-store-only continuous retention, protected dependency roots, reader admission/leases and independently authorized journaled reclamation.
+
+Evidence: final installed restore medians passed the 10% CPU gate (+7.26% at 12 MiB, -3.09% at 96 MiB); 62-publication fixture retained six states. Save+rotation median was 204.356 ms versus legacy 66.675 ms, requiring representative profiling. Latest aggregate repository invocations: 304 passed, 10 optional skips, zero final failures; initial Specialist import failures and warnings remain documented. Installed package/source byte checks and pip check passed. Historical metadata checks covered 1,540 + 35 files with zero changes. Fixture-only reclamation occurred in task-created namespaces.
+
+Affected paths: Architecture component_checkpoint/checkpoint_inspection; Training retention/reclamation/optimized recovery/chat controller/preflight; integration operational scripts, qualification harness, experimental configuration and CODEXA_CHECKPOINT_STORAGE_V3.md. Artifacts: outputs/checkpoint-storage-v3-validation.
+
+Next action: obtain at least approximately 77.9 GiB additional actual free capacity to satisfy the unchanged 180 GiB reserve, sufficient host RAM and separate bounded GPU authorization; then qualify actual 934M AdamW8bit recovery, save/load latency, throughput and representative continuous rotation. No production reclamation issuer is supplied.
+
+## 2026-10-10 — V3.1 measured checkpoint-boundary optimization
+
+Decision: preserve V3 format and durability barriers; optimize fresh inode traversal and completed-status parsing only. Original 120-publication CPU profile attributed 15.206 s to unknown-file discovery, 5.545 s to accounting and 6.567 s to fsync (inclusive stage times overlap). New traversal rejects symlinks without repeatedly resolving every ancestor. Completed status parsing is reused only while fresh device/inode/size/mtime/ctime identity matches, bounded to 4096 records; graph/deletion integrity is never cached across transactions. GPU harness comparisons now compare bytes rather than numerical torch.equal, and record host RSS.
+
+Affected paths: Architecture component_checkpoint.py; Training checkpoint_reclamation.py/tests; integration qualification harness, profiling wrapper and tests. Evidence: outputs/checkpoint-storage-v3.1-validation. Historical storage/device investigation remains read-only; no real-store grant or GPU execution. Next: complete 500-publication timing, final regressions and capacity/archival readiness report.
+
+## 2026-10-10 — V3.1 performance and readiness acceptance
+
+Decision: REQUIRES ADDITIONAL VALIDATION; legacy default and disabled real reclamation unchanged. Matched 12 MiB save+rotation improved 210.910 to 163.061 ms at publication 62 (22.7%); CPU median 177.571 to 129.145 ms. Small-state 500-publication retention passed with six states, exact latest/previous/best recovery and quota accounting. Restore +7.04%/−1.13% versus legacy at 12/96 MiB passes CPU gate. Fresh audit accounting remains O(history); near-legacy save performance and full-model throughput are unresolved.
+
+Evidence: final required-owner rerun 242 passed/5 skipped; aggregate current repository invocations 307 passed/10 optional skips/zero failures. Original development reporting failures are retained. Wheels/source identities and pip check passed. Historical metadata: 1,575 protected files, zero changes. New persistent validation approximately 228.55 MiB; only disposable fixture reclamation occurred. Final hardware plan reports 99.469 GiB free, 80.531 GiB below unchanged 180 GiB reserve, 15.560 GiB available RAM below 16 GiB gate; no GPU execution authorization.
+
+Affected paths: Architecture fresh store traversal/accounting, Training bounded status cache/unknown-file traversal, integration bytewise GPU state checks/RSS/profile script/tests/example fragment and CODEXA_CHECKPOINT_STORAGE_V3_1.md. Next action: independently verify archive destination/dependencies if separately approved, obtain actual capacity and RAM headroom, then explicitly approve and execute bounded 934M recovery/performance qualification. No historical archival/copy/removal or real-store execution was performed.
+
+### 2026-10-10 — V3.1 final byte-edge verification
+
+Initial added edge test incorrectly expected NaN checkpoint storage; the existing finite-state guard rejected it (101 passed/1 failed, log preserved). Corrected test verifies signed-zero/finite-subnormal bytes and nonfinite rejection without losing prior recovery. Final Training rerun: 102 passed/2 warnings; latest aggregate repository invocations: 308 passed/10 optional skips/zero final failures. No implementation safety guard was weakened. Decision remains REQUIRES ADDITIONAL VALIDATION. Next action remains resource restoration and separately approved GPU qualification, not production deployment.
+
+## 2026-10-10 — Authorized selective cleanup started
+
+Target 200 GiB actual free space; deletion restricted to five user-allowlisted experiment areas. Source assets, END3, original two-hour recovery, deterministic recovery and corrective-02 active roles remain protected. New lossless initializer exports and CPU smoke/bitwise equivalence are prerequisite gates. Evidence: outputs/storage-cleanup/20261010-controlled-01. No training or real-store garbage collection is authorized.
+
+## 2026-10-10 — Controlled retired checkpoint cleanup
+
+Retired /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/investigation/chat-regression-20261010/pilots/repair-proportional/checkpoints; 13 explicitly inventoried files, 20645732253 apparent bytes. Actual observed free-space increase 15853170688 bytes. Selected initializer exports passed CPU native/export smoke and bitwise tensor checks; deterministic replacement recovery retained. Evidence: /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/storage-cleanup/20261010-controlled-01. Next: verify protected assets and readiness; no training launched.
+
+## 2026-10-10 — Controlled retired checkpoint cleanup
+
+Retired /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/investigation/chat-regression-20261010/pilots/repair-balanced/checkpoints; 13 explicitly inventoried files, 20645732219 apparent bytes. Actual observed free-space increase 19481157632 bytes. Selected initializer exports passed CPU native/export smoke and bitwise tensor checks; deterministic replacement recovery retained. Evidence: /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/storage-cleanup/20261010-controlled-01. Next: verify protected assets and readiness; no training launched.
+
+## 2026-10-10 — Controlled retired checkpoint cleanup
+
+Retired /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/investigation/chat-regression-20261010/pilots/balanced-proportional/checkpoints; 13 explicitly inventoried files, 20645732272 apparent bytes. Actual observed free-space increase 21679349760 bytes. Selected initializer exports passed CPU native/export smoke and bitwise tensor checks; deterministic replacement recovery retained. Evidence: /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/storage-cleanup/20261010-controlled-01. Next: verify protected assets and readiness; no training launched.
+
+## 2026-10-10 — Controlled retired checkpoint cleanup
+
+Retired /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/investigation/chat-regression-20261010/pilots/balanced-balanced/checkpoints; 13 explicitly inventoried files, 20645732238 apparent bytes. Actual observed free-space increase 20025335808 bytes. Selected initializer exports passed CPU native/export smoke and bitwise tensor checks; deterministic replacement recovery retained. Evidence: /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/storage-cleanup/20261010-controlled-01. Next: verify protected assets and readiness; no training launched.
+
+## 2026-10-10 — Controlled retired checkpoint cleanup
+
+Retired /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/preparation/codexa-900m-chat-10h-v1/pilots/corrective-00/checkpoints; 7 explicitly inventoried files, 9373588623 apparent bytes. Actual observed free-space increase 8742764544 bytes. Selected initializer exports passed CPU native/export smoke and bitwise tensor checks; deterministic replacement recovery retained. Evidence: /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/storage-cleanup/20261010-controlled-01. Next: verify protected assets and readiness; no training launched.
+
+## 2026-10-10 — Controlled retired checkpoint cleanup
+
+Retired /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/preparation/codexa-900m-chat-10h-v1/pilots/corrective-01/checkpoints; 7 explicitly inventoried files, 9373588623 apparent bytes. Actual observed free-space increase 9305767936 bytes. Selected initializer exports passed CPU native/export smoke and bitwise tensor checks; deterministic replacement recovery retained. Evidence: /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/storage-cleanup/20261010-controlled-01. Next: verify protected assets and readiness; no training launched.
+
+## 2026-10-10 — Controlled retired checkpoint cleanup
+
+Retired /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/preparation/codexa-900m-chat-10h-v1/recovery/recoverable; 7 explicitly inventoried files, 11272459637 apparent bytes. Actual observed free-space increase 11270492160 bytes. Selected initializer exports passed CPU native/export smoke and bitwise tensor checks; deterministic replacement recovery retained. Evidence: /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/storage-cleanup/20261010-controlled-01. Next: verify protected assets and readiness; no training launched.
+
+## 2026-10-10 — Controlled retired checkpoint cleanup
+
+Retired /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/preparation/codexa-900m-chat-10h-v1/pilots/corrective-02/checkpoints/slot-1/checkpoint.pt; 3 explicitly inventoried files, 5636390972 apparent bytes. Actual observed free-space increase 0 bytes. Selected initializer exports passed CPU native/export smoke and bitwise tensor checks; deterministic replacement recovery retained. Evidence: /home/k9-vortex/Development/3-Python/37-LLM From Scratch (PyTorch Codexa v1)/LLM-From-Scratch/outputs/storage-cleanup/20261010-controlled-01. Next: verify protected assets and readiness; no training launched.
+
+## 2026-10-10 — Controlled cleanup complete; qualification remains blocked
+
+Removed 23 retired checkpoint payloads, 46 exclusively owned sidecars and seven inactive recovery indexes, all inside the five authorized areas; full paths/hashes in outputs/storage-cleanup/20261010-controlled-01/deleted-artifacts.json. Removed apparent bytes 118238956837; measured net free-space increase 109430419456 bytes, from 97.981609 to 199.896629 GiB after two verified selected native exports. Observed 200.147259 GiB before later background allocations; unchanged 180 GiB statfs gate passes. All 25 protected native files hash/load, 1059 protected metadata identities, data/tokenizer checks and ten live distinct recovery references passed; repository invocations 282 passed/5 skipped, no final failure. Legacy/default inference unchanged; no training, real GC, Git push or model promotion. Prepared seed-74 20-minute END3 replication config/operator, not authorized. Full-model GPU qualification remains blocked by 16 GiB RAM gate and separate approval; extended training also blocked by quality/provenance acceptance. Report: documentation/training/CODEXA_CONTROLLED_CLEANUP_TRAINING_READINESS.md. Next: obtain resources and explicit bounded qualification/experiment approval without changing reserve or historical assets.
+
+## 2026-10-10 — Controlled cleanup complete; qualification remains blocked
+
+Removed 23 retired checkpoint payloads, 46 exclusively owned sidecars and seven inactive recovery indexes, all inside the five authorized areas; full paths/hashes in outputs/storage-cleanup/20261010-controlled-01/deleted-artifacts.json. Removed apparent bytes 118238956837; measured net free-space increase 109295476736 bytes, from 97.981609 to 199.770954 GiB after two verified selected native exports. Observed 200.147259 GiB before later background allocations; unchanged 180 GiB statfs gate passes. All 25 protected native files hash/load, 1059 protected metadata identities, data/tokenizer checks and ten live distinct recovery references passed; repository invocations 282 passed/5 skipped, no final failure. Legacy/default inference unchanged; no training, real GC, Git push or model promotion. Prepared seed-74 20-minute END3 replication config/operator, not authorized. Full-model GPU qualification remains blocked by 16 GiB RAM gate and separate approval; extended training also blocked by quality/provenance acceptance. Report: documentation/training/CODEXA_CONTROLLED_CLEANUP_TRAINING_READINESS.md. Next: obtain resources and explicit bounded qualification/experiment approval without changing reserve or historical assets.
+
+## 2026-10-10 — Conversational readiness preparation
+
+Implemented streaming data audit, proposed 576-record curriculum, 240-case strict development scoring, finite token-aware mixture, source/END validation diagnostics and independent best-validation recovery role. Fresh 25 checkpoint SHA/native-load checks and 1,059 unchanged protected metadata identities passed. Final affected tests: Training107, Data25, integration159/5 optional skips; unchanged Architecture6/Tokenizer6/Inference1 passed. No GPU934 job, deletion, initializer promotion or training. Disk passes 180GiB; host RAM/approval and semantic review block qualification and pilots. Evidence/report: CODEXA_934M_PRETRAINING_READINESS.md and outputs/readiness/codexa-934m-20261010-v1. Next: independent human review and precisely approved baseline/GPU qualification after resource gates; no ten-hour launch.
+
+
+## 2026-10-11 — Final qualification execution
+
+Completed five protected candidates on the frozen240-case development suite within the original3600-second deadline (1240.992s); no candidate passes strict entry gates, so no initializer selected. Actual934M AdamW8bit CUDA recovery completed eight trajectory updates plus four replay calls in135.770s: bitwise continuation passed, throughput +0.169% passed, optimized restore +16.886% failed. Legacy remains default.156 curated reviews remain human-pending; no dataset admission or pilot launch. Final disk falls below180GiB reserve; no cleanup performed.1059 protected metadata identities and preserved proposal hashes unchanged. Evidence: outputs/qualification/codexa-934m-20261011-v1; report CODEXA_934M_FINAL_QUALIFICATION_MODEL_SELECTION.md. Integration evaluator/orchestrator/review modules and focused tests changed; final169 passed/5 optional skips. Next action: blinded human factual/retention review, then resolve performance/capacity before any separately approved GPU retry or pilot.
+
+
+## 2026-10-11 — Foundational diagnosis and matched-format preparation
+
+Reviewed the original base10000-step history and historical Git sampler:655.36M targets,0.7014 tokens/parameter; late train/validation losses still improve. Reconstructed320000 unique windows with saved cursors;956 overlap the later continuation validation range, which must not be called historically unseen. Bounded256-document read-only sample round-trips exactly and has EOS but no chat role/END IDs. Prepared24-concept/5-format/5-checkpoint inference diagnostic (600 generations,3600s,zero updates) at outputs/diagnosis/codexa-934m-foundation-20261011-v1/job-v2; no approved grant exists and fresh free169.104GiB fails180GiB gate. Original alias map appeared in inspection; fresh540-response anonymous review reuses existing outputs, without new generations or fabricated review. Legacy remains default; optional optimized restore failure unchanged. Integration diagnostic/CLI/review admission guard and focused tests implemented; final184 passed/5 optional skips.1059 protected metadata identities and previous proposal/comparison hashes unchanged. No cleanup, model changes or GPU training. Decision: INSUFFICIENT EVIDENCE — TARGETED DIAGNOSTIC REQUIRED. Next: human review and separately approved diagnostic after capacity passes. Report: CODEXA_934M_FOUNDATIONAL_CAPABILITY_DIAGNOSIS.md.
+
+## 2026-10-11T06:52:59.240299+00:00 — Frozen foundational diagnostic approval and blocked execution
+
+Decision: record the user's “Implement the plan.” instruction as approval for frozen inference-only job `3fbe4da47492667a63a8f5dcaba907058b126542a6f0318b48c34a918eb3348b`; retain all mandatory gates. Evidence: `outputs/diagnosis/codexa-934m-foundation-20261011-v1/execution-preflight-20261011T065259240299Z/preflight.json`, matching plan/suite/code/tokenizer, 1059 protected metadata identities unchanged. Existing validator refused before model loading: disk 169.100136 GiB, deficit 10.899864 GiB. Affected paths: `outputs/diagnosis/codexa-934m-foundation-20261011-v1/job-v2/approval.json` and new compact execution-preflight evidence. No diagnostic execution, cleanup, model changes or budget start. Next action: separately satisfy storage capacity, then recheck and run the existing approved 3,600-second inference job.
+
+## 2026-10-11T07:02:07.037595+00:00 — Preserve-and-add-capacity strategy; diagnostic remains blocked
+
+Decision: implement the user's selected preservation strategy without deletion or archival. Evidence: `outputs/diagnosis/codexa-934m-foundation-20261011-v1/capacity-status-20261011T070207037595Z/status.json`; free 169.101170 GiB, additional 10.898830 GiB to mandatory gate and 20.898830 GiB to selected target; RAM/VRAM pass; frozen plan/suite/code/tokenizer/approval match; 1059 protected metadata identities unchanged. Affected paths: only this new compact evidence/report and session/progress entries. Existing approval and frozen job unchanged; no budget started, cleanup, training or inference job. Next action: provide additional actual filesystem capacity, then recheck and execute approved inference only.
+
+### 2026-10-11 — Offline foundational-pretraining preparation
+
+Analyzed existing 1,200 chat generations without new inference. Evidence remains insufficient to choose foundational pretraining versus corrective SFT; the approved neutral-format diagnostic is still the next decision experiment. Created `outputs/readiness/codexa-934m-foundational-pretraining-v1/prepared`: indexed remaining-position training view (12,162,572,288 targets), 256 held-out windows with explicitly limited historical/content isolation, exact finite pilot exposure, disabled 256-update fresh-optimizer proposal and prioritized genuine-human-review queue. No GPU, training, cleanup or acceptance-data use. LLM-Data owns the indexed view; integration owns offline preparation and tests. Data suite: 37 passed; targeted integration: 53 passed, three existing warnings. Initial wrong warmup test expectation failed and was corrected; evidence preserved. Rebuilt only the Data wheel without dependency upgrades. See `CODEXA_934M_FOUNDATIONAL_PRETRAINING_READINESS.md`. Next: restore capacity under separate scope, run the unchanged approved diagnostic when gates pass, obtain semantic review; do not launch the provisional pilot yet.
+
+### 2026-10-11 — Human review dashboard and private-mapping exposure fix
+
+Diagnosed the unusable fresh-blinded-baseline page: the shared `qualification_review.PAGE` template stringifies every non-string field and renders all 540 items plus the overall panels in the header. Package data itself was complete. Two `npx live-server` processes on 0.0.0.0 (:8080, :45891) and Zed's localhost live-server were serving the directory containing `private-mapping.json`; they were stopped with the user's approval. `qualification_review.py` is hash-bound by job-v2 `code_identity`, so it is unchanged (hashes re-verified). Added `review_dashboard.py`/`.html`, `scripts/review_dashboard.py` and `tests/test_review_dashboard.py`. Published `outputs/diagnosis/codexa-934m-foundation-20261011-v1/review/fresh-blinded-baseline-public/index.html` (only file; package_sha256 5ec93e67… unchanged; mapping/comparison hashes omitted). Original package.json, review.html and private-mapping.json hashes are unchanged. Export stays codexa-human-review-export-v1: Unsure → pending + needs_review, undecided overall → null; legacy unchecked `false` overall values import as Not decided with a notice. Tests: 7 new + 20 existing review/diagnosis passed. Chrome automation verified rendering, navigation, filters, decisions, refresh recovery, legacy/mismatch/invalid import, export, live-server on 127.0.0.1, file://, narrow layout and XSS-inert rendering; Firefox headless render only. No inference, training, cleanup or model changes. See `HUMAN_REVIEW_DASHBOARD.md`.
+
+### 2026-10-11 — Codexa Native integrated into Ubume Dev
+
+Decision: expose all five explicit 934M candidates through the existing development-only native provider; retain greedy evaluation default, legacy training/storage behavior, and no model tools. Evidence: all five full SHA256 identities match; actual Balanced/END3 provider streaming, cancellation and switching passed (~33–35 generated tokens/s, ~3.64 GiB peak reserved). Both failed the READY instruction, so integration is not model-quality promotion. Sequential Ubume suite 2,135 passed; CPU inference 16 passed; architecture/model/identity 6 passed; integration generation/memory 12 passed. Failed earlier suites and final RAM-blocked repeat are retained in outputs/integration/ubume-native-20261011-v1. A single-hash native identity check and incomplete-turn recovery are separately covered by focused CPU tests. No training/checkpoint writes/cleanup occurred.
+
+Affected paths: Ubume Dev provider runtime/config, existing selectors/settings/commands/history/provenance, scripts and docs; LLM-Inference native bridge/callback/finite checks; LLM-Architecture checkpointing optional expected identity; integration ignored local registry and documentation/training/CODEXA_934M_UBUME_NATIVE_INTEGRATION.md. Complete file inventory: outputs/integration/ubume-native-20261011-v1/modified-files.json. Existing dirty work and NumPy assets preserved.
+
+Next action: launch Ubume Dev with bun run dev:run, choose Codexa Native → Codexa PyTorch → an explicit 934M model, and perform exploratory chats when the 16 GiB RAM / 8 GiB VRAM gates pass. Formal diagnostic approvals and model promotion remain separate.
+
+2026-10-11 completion addendum: final native/prompt/conversation-store recovery suite 18 passed; Biome and TypeScript checks pass. Task-created isolated PTY validation data (automatic local dev copies, no original assets) was disposed after identity checks; retained evidence is ~1.1 MiB. No historical storage cleanup occurred.
+
+## 2026-10-11T16:20:35Z — Five-hour foundational run launched under OS supervision
+
+Decision: the user approved the plan as the job-specific grant for frozen job `d7aa275e8904549ab799e283a0ef48d422bc5cc2393af544caf429a5c6eb01e6`. That job is the pilot proposal with only the ceilings changed: 18,000 s, 1,792 updates and generations at 0/896/final. The user explicitly overrode the "neutral-format evidence and genuine review" blocker. Wakeup uses Codex; there is no auto-resume.
+
+Implementation:
+- `LLM-Training`: `pretrain_run.py` plus a foundational viewer mode.
+- Integration: `foundation_training`, `training_supervisor`, `training_wakeup` and `training_status` modules, plus scripts.
+
+Evidence:
+- All 17 launch gates passed. Disk 235.894 GiB; base, tokenizer and selection hashes match; tests 12+36 passed.
+- Focused suites: Training 12 passed, supervisor 18 passed.
+- Real Codex and Claude CLI checks passed.
+- GPU smoke: 2 updates at 7.74k tok/s, 12.13 GiB peak reserved.
+
+Launch:
+- Unit `codexa-train-codexa-934m-foundation-5h-v1`; supervisor pid 32436, trainer pid 32460, run_id `d4080f1c…`.
+- Baseline CE 3.11296. Updates are occurring at ~8.0k tok/s.
+
+Incident: during testing, broken stub shebangs let about 16 read-only Codex runs and 1 Claude run ($0.34) execute on fake runs. Nothing in the repositories changed, and the tests now fail closed.
+
+No deletion, no Git commit and no protected-asset changes. Report: `CODEXA_934M_TRAINING_SUPERVISOR.md`.
+
+Next action: none until the supervisor's terminal event. Codex analysis and the human decision follow; no automatic follow-up training.
+
+## 2026-10-11T17:20Z — Notification spam root-caused; single at-most-once owner; Rich dashboard
+
+**Findings**
+- The five-hour run had already early-stopped at 16:43 UTC on `MEMORY_HEADROOM_GATE`: 0.96 GiB free VRAM against the 1.5 GiB guard, caused by other GPU clients.
+- The final step-129 checkpoint is verified, and Codex analysed the run once.
+- The user chose to leave training stopped.
+
+**Popup spam: root causes**
+- **Primary:** test stubs fell through to the real `notify-send`/`codex`.
+- **Structural:** production delivery had no execution-class guard.
+- **Design:** the legacy notifier sent two popups per event and could retry the desktop popup.
+
+**Decision**
+- New `training_notifications.py` is the sole notification owner.
+- Execution class comes from trusted configuration; tests use mocks only and a conftest downgrade.
+- Separate desktop and AI records.
+- At-most-once desktop delivery, with claim → send → result and `indeterminate` never resent.
+- One popup per event, sent only after AI submission.
+- Hash-bound modules left untouched; only the scripts were re-pointed.
+
+**Dashboard:** a new read-only Rich dashboard. Rich was added to `.venv` as a 3-package delta (optional extra `viewer`); the lock file was not regenerated.
+
+**Tests:** focused 69 passed; integration suite 278 passed with 5 skipped. The safety snapshot was unchanged.
+
+**Report:** `CODEXA_934M_TRAINING_SUPERVISOR.md`.
+
+**Next:** human decision on a new continuation job, ideally with GPU-heavy desktop apps closed.
+
+
+## 2026-10-11 18:37 UTC — third VRAM stop; resume 3; interactive agent window
+
+**Stop:** update 671 at 18:31 UTC, `MEMORY_HEADROOM_GATE`.
+- Free VRAM was about 1.27 GiB, under the 1.5 GiB guard.
+- Final checkpoint `slot-3` verified.
+- Validation 3.11296 → 3.10401.
+- One popup was sent and the Codex analysis was delivered.
+
+**Resume 3:** same job and limits. The user asked to continue.
+- Unit `codexa-train-codexa-934m-foundation-5h-v1-resume-1791743832`, trainer pid 65183.
+- Original deadline 21:20:35 UTC.
+
+**New:** an interactive codex/claude Kitty window opens at each terminal event.
+- Read-only sandbox, on-request approvals.
+- Runs in its own user unit; at most once per event.
+
+**Late-binding notifier:** the running supervisor uses the notification code on disk when the run ends.
+
+**Unchanged:** hash-bound files; `verify_job` passes.
+
+**Tests:** 80 passed (notifications, supervisor and dashboard).
+
+
+## 2026-10-11 ~18:50 UTC — every training start opens the Rich dashboard
+
+**Cause:** the trainer's `start_chat_viewer` hard-coded the old 100x22 viewer.
+
+**Fix:**
+- New `LLM_TRAINING_VIEWER_COMMAND` hook in LLM-Training. The LLM-Training AGENTS viewer rule was generalised at the user's request.
+- Integration attach mode opens or reuses one 120x30 dashboard in its own user unit.
+- `write_launch` sets the hook.
+
+**Tests:** 85 integration tests passed and 24 LLM-Training tests passed.
+
+**Wheel:** rebuilt in the scratchpad. It differs from the installed copy only in `conversational_training.py`.
+- Installing it during the live run was refused by the tool permission policy. It is pending the user's install, either now or after the run ends.
+- Until it is installed, starts fall back to the old viewer.
+
+
+## 2026-10-12 02:51 UTC — user-granted extension to finish 1,792 updates
+
+**Previous stop:** the run completed at 21:12 UTC on 2026-10-11 with `TRAINING_DEADLINE` at update 1,697 of 1,792.
+- Validation 3.11296 → 3.09144; checkpoint verified.
+
+**Grant:** the user said "it can finish the 1792 runs dw".
+
+**New `scripts/training_supervisor.py extend`:**
+- Allowed only for a verified deadline stop below the step cap, with an explicit statement.
+- Moves only the deadline: +2,400 s, of which 600 s is the reserve.
+- Records the grant in `config/budget-extensions.jsonl`, including the previous budget.
+- Re-runs every resume gate; if any fails, the budget is restored.
+- Then performs the same exact resume (segment archived).
+
+**Run:** unit `…-resume-1791773504`, trainer pid 117318, same trainer run_id `d4080f1c`. Update 1,699 was confirmed with 2,158 MiB of VRAM free.
+
+**Packages:** the LLM-Training wheel with the viewer hook was installed while no trainer was running. `pip check` is clean and `verify_job` passes.
+- The start opened the 120x30 Rich dashboard in its own unit (`codexa-dashboard-…`).
+- The old viewer did not open.
+
+**Tests:** 86 passed.
+
+2026-10-12: Added verified foundation step-1792 checkpoint to ubume-dev as codexa-934m-foundation-5h (SHA256 ca779a1640fa8f664356faf6db0897c9e9669b90a2e3ed35a7a23fc13144236e). Preserved existing model choices; no training started.
+
+
+## 2026-10-12 — Post-training generation diagnostic completed
+
+Investigated the verified foundation step-1792 checkpoint against its authentic base initializer, without training, optimizer steps, checkpoint writes or production changes. Evidence: `outputs/diagnostics/post-training-generation-investigation/20261012T040042Z-10a1d256` (private, ignored). Final/base/tokenizer SHA-256 identities are preserved. Both 524,288-target validations reproduce CE exactly; 96 historical greedy generations reproduce their respective recorded token arrays. Across baseline and final, 35/48 token sequences change while exact/repetition/length failure aggregates remain unchanged.
+
+Complete selected-target scan finds 122,741 EOS targets and zero role/END targets; exact run source attribution is 71,696,026 FineWeb-Edu and 45,744,486 Wikipedia targets. Validation contains zero EOS/END targets. Sampling reduces repetition without demonstrating useful answers. A separate masked-cache position-offset defect is confirmed and corrected only through isolated call arguments; the historical generator does not use that mask path. BF16 branch ties and long-prefix numerical screening failures are preserved and localized.
+
+Created isolated diagnostic runner, report renderer and focused offline tests. Tests: 11 new checks plus 6 existing generation regressions passed; optimizer-bearing checkpoint fixture deselected. Human semantic review remains pending. Seven reports, raw generations, JSON/CSV metrics, numerical traces, blinded review packet and checked training/memory charts are retained. Proposed only a separately authorized, bounded complete-turn SFT feasibility pilot with usefulness gates; no long run is justified or started. No commit, push, PR, dependency change or asset deletion.
+
+
+### 2026-10-12 — Diagnostic report consolidation and ordered evidence
+
+User requested a single navigable report and cleanup. Canonical report is now `outputs/diagnostics/post-training-generation-investigation/20261012T040042Z-10a1d256/REPORT.md`; supersedes the seven separate diagnostic reports and README, retained under `archive/reports/`. Top level contains only REPORT.md, evidence/, figures/, archive/. All 109 original diagnostic files preserved byte-for-byte with SHA-256 relocation accounting. Organized evidence has generation, tokenizer, inference, data, training, verification folders; retry logs, older measurements, reproduction snapshot and helper are archived. Renderer supports flat input and organized rebuilding without model loading. Verified 131 report links, 20 source links, all 72 original generation excerpts, structured evidence readability and byte-identical repeat rendering; four bounded offline organization tests passed. No training, model evaluation, optimizer updates, checkpoint changes, commits or dependency installs.
+
+
+### 2026-10-12 — Conversational feasibility preparation (NOT READY)
+
+Preparation only; no optimizer construction, backward pass, training update or launch. Independent private namespace: `outputs/preparation/codexa-934m-conversational-feasibility/20261012T051805Z-a5c8725c`, entry point REPORT.md. Reverified final checkpoint SHA ca779a1640fa8f664356faf6db0897c9e9669b90a2e3ed35a7a23fc13144236e and protected original datasets/tokenizer/run records; component code preserved. Authored 64 constrained examples with explicit correctness oracles, 1,962 context tokens and 263 supervised tokens including END per pass. Reviewed 365 source conversations: 170 admission judgments, 195 rejects; three duplicate exclusions leave 167 provisional source candidates (153 UltraChat, 14 OASST1), 25,222 context tokens / 9,049 supervised tokens. No complete 512/32 manifest or invented baseline. Gold validation selection, baseline inference, full runtime/supervisor integration and final budget validation remain blocked. Ten offline tests and guarded preparation validation passed (audit EV-000010/EV-000011). Audit installed but automatic Codex hooks and both clients' full lifecycle/E2E remain unverified; use own manual session, preserve earlier records. No model/source-data/production edits, commits, upgrades or deletions.
+
+
+### 2026-10-12 — Masked KV-cache position repair (LLM-Architecture)
+
+Repaired the confirmed latent defect in `LanguageModel.forward` (LLM-Architecture `src/llm_architecture/model.py`, SHA-256 b7f857… → 3d4e9d1a…). There were two coupled causes. Default positions with an `attention_mask` were `cumsum(mask) - 1`, which ignored `past_length`. Attention also treated every cached key as valid (`past_mask = ones`), and the cache tuple stores no mask, so an offset alone cannot handle padded caches.
+
+API contract, now documented in the `forward` docstring:
+- `attention_mask` is either `[batch, past_length + sequence]` (full mask; required for correct padded caches; the caller keeps it across steps) or `[batch, sequence]` (current tokens; the cached prefix is defined as fully valid).
+- Default positions are `cumsum(full_mask) - 1` over the current tokens.
+- Unmasked paths are unchanged.
+- Explicit negative `position_ids` are rejected, and any other mask shape raises `ValueError`.
+- `CausalSelfAttention` accepts both mask forms.
+- Weights, state-dict keys, cache tuple, tokenizer and checkpoint format are unchanged.
+
+Read-only validation (`scripts/masked_cache_repair_validation.py`; private evidence `outputs/diagnostics/masked-kv-cache-repair/20261012T060900Z/REPORT.md`) ran on both checkpoints, with SHA unchanged and no optimizer:
+- The FP32 masked cached max logit error falls from 5.794949 to 1.907e-05 on the final checkpoint, and from 6.122253 to 1.431e-05 on the baseline.
+- The full-mask left-padded cached step is ≤2.34e-05.
+- The original 48-prompt BF16 greedy benchmark gives 48/48 historical token matches before and after on both checkpoints, with 48/48 before/after identical generations and bit-identical unmasked logits digests.
+
+New tests are `LLM-Architecture/tests/test_kv_cache_masking.py` (57) and `LLM-Inference/tests/test_cached_generation_regression.py` (16). The integration diagnostic test was updated to assert the repaired behavior. The architecture tests failed 41/57 before the fix (TDD). Focused suites after the fix: Architecture 64 passed, Inference 32 passed, integration 24 passed with 1 optimizer-constructing CLI test deselected, Training mask check 1 passed; 0 failed, 0 skipped.
+
+Consequences:
+- `llm_architecture.model` is hash-bound into the COMPLETED run `codexa-934m-foundation-5h-v1` `code_identity`. `verify_job`/resume and the old readiness identity checks will now refuse that run (accepted by the user; no resume is intended).
+- The `.venv` site-packages copy of `llm_architecture` was not reinstalled. Consumers outside `workspace_bootstrap` keep the old behavior.
+- No production caller passed masks with caches, so historical generation is unaffected. Conversational quality is not improved by this repair.
+
+No training, optimizer, checkpoint write, dataset change, commit or dependency install.
+
+
+### 2026-10-12 — Post-repair integration, historical environment and dual-agent audit enforcement
+
+**Commits.** Local commits, all through the audit pre-commit hook; no push, no PR:
+
+- LLM-Architecture `bdf3683`: masked KV-cache repair and tests;
+- LLM-Inference `4758dee`: cached generation regressions;
+- LLM-From-Scratch `55812c6`: diagnostic tooling;
+- LLM-From-Scratch `a763027`: repair validator;
+- LLM-From-Scratch `79a75c6`: environment docs and tooling, pins advanced to bdf3683/4758dee, with `historical_identity` keeping c334620/48a9f4b;
+- LLM-From-Scratch `fc022b3`: migration byte-parity test pinned to historical c334620, after it failed against the intentional repair.
+
+**Environments.** No `.venv` mutation and no new venv.
+
+- `.venv` without the bootstrap is the historical environment. It still reproduces `codexa-934m-foundation-5h-v1` `code_identity` exactly, because `verify_job` resolves the installed wheels. This corrects the earlier note that the repair broke that run's verification; that holds only source-first.
+- Current development is source-first: bootstrap scripts, the `codexa` CLI, pytest and the new `tools/codexa-dev`.
+- `scripts/environment_identity.py --expect current|historical` reports the context.
+- 10 of the 12 hash-bound sources were never committed. They are preserved, read-only, in `outputs/preservation/historical-source/codexa-934m-foundation-5h-v1` (231 files, 12/12 match).
+- 48/48 historical generations hold in both environments on both checkpoints.
+- Decision needed later: the supervisor and the trainer still resolve the historical wheels. Future training must choose its environment explicitly.
+
+**Audit.**
+
+- Doctor separates isolated from real-workspace E2E and reports per-agent ENFORCEMENT.
+- The user approved the Codex hooks via `/hooks`. The first attempt failed because the running Codex had cwd `~`.
+- Real-workspace E2E: Claude 9/9; Codex 9/9 (side-effect variant). Two explicit Codex runs scored 7/9 because Codex documented proactively.
+- Doctor: claude ENFORCED, codex ENFORCED.
+- `workspace-infrastructure` is not under git.
+
+Report: `outputs/diagnostics/post-repair-integration/20261012T095454Z/REPORT.md`. No training, optimizer, checkpoint, tokenizer or dataset changes.
+
+## 2026-10-12 — Phase 4 conversational SFT preparation (Claude Code; no training)
+
+- Single report: `outputs/preparation/codexa-934m-sft-phase4/20261012T145429Z-643f4379/SFT_PHASE4_READINESS_REPORT.md`. Verdict is stated in section A.
+- Frozen manifest `f5514dceabcfbb462a0a2173daf0947eed56de32ea174499cc3c47d8f6d54509`:
+  - training: 224 OASST1 + 224 UltraChat + 64 authored;
+  - validation: 16 + 16;
+  - 1,024 presentations in seed-73 then seed-74 order;
+  - 25,513 assistant-supervised training tokens per pass.
+- Admission required both an agent first-pass admit and a lead second-pass admit. This is engineering review, not human review.
+- The 30% category cap was not raised.
+- The OASST1 validation pool was exhausted at 15 records, so a documented general-chat-v2 test-split extension supplied the rest.
+- Step zero was sealed with the same evaluation code the pilot would use. Results:
+  - 0/16 natural endings and 15/16 severe degeneration;
+  - gold END NLL 18.16;
+  - reference CE equal to the diagnostic's;
+  - 64/64 greedy generations identical to the diagnostic.
+- Budget: the full evaluation schedule needs about 974 s, which exceeds the proposed 900 s. Choosing a 1,200 s cap or a reduced intermediate schedule is a decision for authorization.
+- The SFT runtime consumes Codex's `tools/training_environment_guard.py` read-only. It currently refuses a new development job because of uncommitted executed source.
+- The commit is blocked: the Phase 4 modules depend on Codex-owned, uncommitted `sft_feasibility.py`.
+
+## 2026-10-12 — Step 5A integration and SFT pilot readiness gate (Claude Code; no training)
+
+- Single report: `outputs/preparation/codexa-934m-sft-step5a/20261012T170336Z-3d5556ba/CODEXA_STEP5A_FINAL_READINESS.md`. Verdict is stated in section A; readiness is not authorization.
+- Uncommitted completed work in Architecture, Data, Training, Inference and the integration repository was reviewed, tested and committed in scoped commits (no push). Pins moved to the new HEADs; `historical_identity` is unchanged.
+  - 11 of the 12 hash-bound historical files are now in Git byte-identical to the job hashes.
+  - `model.py` differs only by the intended masked KV-cache repair.
+- Codex's guard now accepts a new development job.
+  - Historical verification and the source archive (231 files, 12/12 identities) still pass.
+  - The guard itself was not modified.
+- Test repairs:
+  - The guard-broken trainer tests select `development` explicitly; the real guard validates the real workspace.
+  - The supervisor "timeout" was a missing selection plus unbounded polling, now bounded and fail-fast.
+  - Codex's dirty-tree test uses an isolated Git workspace.
+- Frozen SFT job v2 `924da9f34272f3d2c80ae43f6eec0cd12b9dbdb6ec67026726961e08dff067a3`. It reuses the Phase 4 data manifest and step zero, and binds the guard report and component commits.
+  - Proposed cap 1,200 s with a 180 s reserve; intermediate evaluations are reduced (greedy-16, gold, reference), the final one is full.
+  - The data was independently re-derived: 25,513 supervised tokens per pass, isolation clean.
+  - The validation exception record is isolated.
+  - Earlier SFT models are siblings, not ancestors, of the initialization checkpoint.
+  - Step zero reconfirmed 16/16 token-identical under the committed identity.
+- GO/NO-GO: `tools/codexa-dev scripts/sft_readiness.py --experiment <job.json>`. Authorization-time commands are `scripts/sft_pilot.py approve|launch`; neither was run.

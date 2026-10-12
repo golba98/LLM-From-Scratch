@@ -44,6 +44,8 @@ from llm_training.training import (
 
 def build_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--environment", choices=("development", "historical"),
+                        help="Required training identity, checked before model setup")
     parser.add_argument("--config", type=Path, default=Path("configs/tiny_overfit.yaml"))
     parser.add_argument(
         "--tokenizer",
@@ -313,6 +315,9 @@ def run(arguments: argparse.Namespace) -> dict[str, object]:
 
 
 def main() -> None:
+    if "--help" not in sys.argv:
+        from training_environment_guard import require_environment
+        require_environment("new")
     arguments = build_argument_parser().parse_args()
     from llm_training.viewer import attached_viewer
     config = load_config(arguments.config)

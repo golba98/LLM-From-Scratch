@@ -42,3 +42,6 @@ LLM-From-Scratch/
 /build
 /preservation
 /validation
+
+# Local Ubume Native checkpoint registry
+/artifacts.codexa-native.local.json

@@ -46,6 +46,8 @@ def build_parser() -> argparse.ArgumentParser:
     """Build the diagnostic command-line parser."""
 
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--environment", choices=("development", "historical"),
+                        help="Required training identity, checked before model setup")
     parser.add_argument(
         "--tokenizer",
         type=Path,
@@ -192,6 +194,9 @@ def run(arguments: argparse.Namespace) -> dict[str, object]:
 
 
 if __name__ == "__main__":
+    if "--help" not in sys.argv:
+        from training_environment_guard import require_environment
+        require_environment("new")
     arguments = build_parser().parse_args()
     from llm_training.viewer import attached_viewer
     with attached_viewer(metrics_path=arguments.log_dir / arguments.run_name / "train_metrics.jsonl",

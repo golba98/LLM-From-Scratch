@@ -45,6 +45,7 @@ def test_preparation_split_groups_and_shifted_targets():
         assert all(torch.equal(a[0], b[0]) for a, b in zip(datasets[0].items, repeated.items))
 
 
+@pytest.mark.usefixtures("development_training_environment")
 def test_training_deadline_before_update():
     model = LanguageModel(ModelConfig(vocab_size=32, context_length=8, hidden_size=16, num_heads=4, num_layers=1, intermediate_size=32))
     optimizer = torch.optim.AdamW(model.parameters(), lr=0.001)
@@ -59,6 +60,7 @@ def test_training_deadline_before_update():
     assert all(torch.equal(original[key], value) for key, value in model.state_dict().items())
 
 
+@pytest.mark.usefixtures("development_training_environment")
 def test_partial_accumulation_deadline_restores_counters(monkeypatch):
     import src.training as training_module
     model = LanguageModel(ModelConfig(vocab_size=32, context_length=8, hidden_size=16, num_heads=4, num_layers=1, intermediate_size=32))

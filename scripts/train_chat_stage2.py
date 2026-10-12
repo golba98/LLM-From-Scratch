@@ -32,7 +32,12 @@ from llm_training.training import (JsonlRunLogger, TrainingState, autocast_conte
 
 def main() -> None:
     """Run the explicit command-line operation with validated inputs."""
+    if '--help' not in sys.argv:
+        from training_environment_guard import require_environment
+        require_environment('new')
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--environment', choices=('development', 'historical'),
+                        help='Required training identity; verified before model or optimizer setup')
     parser.add_argument('--view', type=Path)
     parser.add_argument('--checkpoint', type=Path, default=Path('checkpoints/codexa-900m-base-v1/latest.pt'))
     parser.add_argument('--tokenizer', type=Path, default=Path('checkpoints/tokenizer-base-v1/tokenizer.json'))
