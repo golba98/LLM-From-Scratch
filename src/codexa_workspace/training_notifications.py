@@ -189,7 +189,7 @@ class RecordingAgentBackend:
 # Non-secret variables only: these travel on the systemd-run command line. CLIs use their own stored login.
 WINDOW_ENVIRONMENT = ('PATH', 'HOME', 'USER', 'LOGNAME', 'LANG', 'SHELL', 'WAYLAND_DISPLAY', 'DISPLAY',
                       'XDG_RUNTIME_DIR', 'XDG_SESSION_TYPE', 'XDG_CURRENT_DESKTOP', 'DBUS_SESSION_BUS_ADDRESS')
-WINDOW_SIZE = ('initial_window_width=120c', 'initial_window_height=30c')
+WINDOW_SIZE = ('initial_window_width=100c', 'initial_window_height=22c')
 
 
 def window_prompt(run_dir: Path, provider: str, completion: dict, session_id: str | None, ai_status: str) -> str | None:

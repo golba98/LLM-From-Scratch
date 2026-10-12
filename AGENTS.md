@@ -62,7 +62,7 @@ While a job may still resume, put changes in new modules or the unhashed `script
 - `src/codexa_workspace/training_notifications.py` is the sole owner. It sends one at-most-once desktop popup per real terminal event, plus one AI wakeup (Codex by default) as a fresh session.
 - Production status comes only from trusted configuration: `launch.json` `execution_class` or an approved job grant. Never from run-id text.
 - Tests, simulations and dry runs must never reach the real `notify-send`, `codex` or `claude`. Use injected mocks and a fail-closed PATH. `conftest.py` sets `CODEXA_EXECUTION_CLASS=unit_test`.
-- **Agent window at run end.** Once the AI analysis finishes, it opens one 120x30 Kitty window with an interactive session.
+- **Agent window at run end.** Once the AI analysis finishes, it opens one 100x22 Kitty window with an interactive session.
   - Codex: `codex resume <analysis session> -s read-only -a on-request`. Claude: `--resume <id> --permission-mode default`.
   - If the analysis failed, it starts a fresh session with the prompt.
   - The window runs in its own `systemd-run --user` unit, so it outlives the supervisor.

@@ -328,7 +328,7 @@ def test_kitty_backend_runs_in_its_own_user_unit_without_secrets(tmp_path, monke
     argv = seen['argv']
     assert argv[:5] == ['systemd-run', '--user', '--collect', '--no-block', '--unit=codexa-agent-x']
     assert '--setenv=WAYLAND_DISPLAY=wayland-0' in argv and not any('sk-secret' in part for part in argv)
-    assert 'initial_window_width=120c' in argv and 'initial_window_height=30c' in argv
+    assert 'initial_window_width=100c' in argv and 'initial_window_height=22c' in argv
     assert argv[-3:] == ['codex', 'resume', 's'] and result['success']
 
 

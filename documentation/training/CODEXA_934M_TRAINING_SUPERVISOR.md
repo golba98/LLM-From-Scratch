@@ -173,7 +173,7 @@ The viewer, status tool, trainer and reconcile code never notified.
 
 When the AI outcome for a terminal event is final, `deliver` opens one interactive agent window.
 - **When it opens:** after the analysis succeeds, or when the AI status is `failed_final`.
-- **Window:** a 120x30 Kitty window titled `Codexa agent — <run>: <STATE>`.
+- **Window:** a 100x22 Kitty window titled `Codexa agent — <run>: <STATE>`.
 - **What it runs:**
 
 | Situation | Command |

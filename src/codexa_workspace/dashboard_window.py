@@ -15,10 +15,11 @@ import subprocess
 import sys
 import time
 
-from .training_notifications import WINDOW_ENVIRONMENT, WINDOW_SIZE
+from .training_notifications import WINDOW_ENVIRONMENT
 from .training_supervisor import process_start_ticks
 
 TITLE = 'Codexa training dashboard'
+WINDOW_SIZE = ('initial_window_width=120c', 'initial_window_height=30c')  # the dashboard layout is designed for 120x30
 SCRIPT = Path(__file__).resolve().parents[2] / 'scripts/training_dashboard.py'
 
 
