@@ -18,5 +18,5 @@ setsid .venv/bin/python -u scripts/train_conversational_sft.py \
   --optimizer adamw8bit \
   >"/tmp/$run.log" 2>&1 &
 pid=$!
-"$repo/scripts/training_viewer.sh" "$run" 6000 "$log" "checkpoints/$run/latest.pt" "$pid" "CONVERSATIONAL SFT"
+"$repo/scripts/legacy/training_viewer.sh" "$run" 6000 "$log" "checkpoints/$run/latest.pt" "$pid" "CONVERSATIONAL SFT"
 wait "$pid"

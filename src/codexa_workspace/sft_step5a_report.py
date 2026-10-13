@@ -244,9 +244,9 @@ def write_report(directory: Path) -> dict:
                   'Smallest user actions for Step 5B (not performed here):', '',
                   '```bash', 'cd LLM-From-Scratch', f'EXPERIMENT="{experiment}"',
                   'tools/codexa-dev scripts/sft_readiness.py --experiment "$EXPERIMENT"   # must print READY FOR AUTHORIZATION',
-                  f'tools/codexa-dev scripts/sft_pilot.py approve --experiment "$EXPERIMENT" '
+                  f'tools/codexa-dev scripts/sft/sft_pilot.py approve --experiment "$EXPERIMENT" '
                   f"--job-sha256 {job['job_sha256']} --statement '<your explicit authorization>'",
-                  'tools/codexa-dev scripts/sft_pilot.py launch --experiment "$EXPERIMENT" --provider <codex|claude>',
+                  'tools/codexa-dev scripts/sft/sft_pilot.py launch --experiment "$EXPERIMENT" --provider <codex|claude>',
                   '```', '', 'Readiness is not authorization. Step 5B must be explicitly authorized separately.']
     text = '\n'.join(lines).rstrip() + '\n'
     (directory / TITLE).write_text(text)

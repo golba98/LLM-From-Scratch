@@ -546,20 +546,20 @@ def write_report(root: Path, directory: Path) -> Path:
         '```bash',
         (
             'CUBLAS_WORKSPACE_CONFIG=:4096:8 PYTORCH_ALLOC_CONF=expandable_segments:True '
-            'OMP_NUM_THREADS=2 .venv/bin/python scripts/investigate_chat_regression.py --stage '
+            'OMP_NUM_THREADS=2 .venv/bin/python scripts/legacy/investigate_chat_regression.py --stage '
             'diagnostics'
         ),
         (
             'CUBLAS_WORKSPACE_CONFIG=:4096:8 PYTORCH_ALLOC_CONF=expandable_segments:True '
-            'OMP_NUM_THREADS=2 .venv/bin/python scripts/investigate_chat_regression.py --stage pilots'
+            'OMP_NUM_THREADS=2 .venv/bin/python scripts/legacy/investigate_chat_regression.py --stage pilots'
         ),
         (
             'CUBLAS_WORKSPACE_CONFIG=:4096:8 PYTORCH_ALLOC_CONF=expandable_segments:True '
-            'OMP_NUM_THREADS=2 .venv/bin/python scripts/investigate_chat_regression.py --stage cache'
+            'OMP_NUM_THREADS=2 .venv/bin/python scripts/legacy/investigate_chat_regression.py --stage cache'
         ),
         (
             'CUBLAS_WORKSPACE_CONFIG=:4096:8 PYTORCH_ALLOC_CONF=expandable_segments:True '
-            'OMP_NUM_THREADS=2 .venv/bin/python scripts/investigate_chat_regression.py --stage report'
+            'OMP_NUM_THREADS=2 .venv/bin/python scripts/legacy/investigate_chat_regression.py --stage report'
         ),
         '```',
         '',

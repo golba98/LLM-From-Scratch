@@ -30,8 +30,8 @@ pid=$!
 
 if command -v kitty >/dev/null 2>&1 && [[ -n "${DISPLAY:-}${WAYLAND_DISPLAY:-}" ]]; then
   kitty --title "Codexa 900M Balanced SFT" --hold sh -lc \
-    "'$repo/scripts/training_viewer.sh' '$run' 6000 '$log' '$checkpoint' '$pid' '900M BALANCED SFT'"
+    "'$repo/scripts/legacy/training_viewer.sh' '$run' 6000 '$log' '$checkpoint' '$pid' '900M BALANCED SFT'"
 else
-  "$repo/scripts/training_viewer.sh" "$run" 6000 "$log" "$checkpoint" "$pid" "900M BALANCED SFT"
+  "$repo/scripts/legacy/training_viewer.sh" "$run" 6000 "$log" "$checkpoint" "$pid" "900M BALANCED SFT"
 fi
 wait "$pid"

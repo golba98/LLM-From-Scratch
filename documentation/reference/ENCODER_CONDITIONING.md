@@ -2,7 +2,7 @@
 
 ## Evidence
 
-The pinned text-only EmbeddingGemma 2 loads 271,002,624 frozen parameters. A real CPU FP32 probe returned `[1, 15, 768]` projected token states, with 24 intermediate `[1, 15, 512]` tensors followed by the projected final state. No parameters were trainable. The reproducible result is `logs/memory/token-state-probe-v1.json`; use `scripts/probe_embedding_states.py` to repeat it.
+The pinned text-only EmbeddingGemma 2 loads 271,002,624 frozen parameters. A real CPU FP32 probe returned `[1, 15, 768]` projected token states, with 24 intermediate `[1, 15, 512]` tensors followed by the projected final state. No parameters were trainable. The reproducible result is `logs/memory/token-state-probe-v1.json`; use `scripts/diagnostics/probe_embedding_states.py` to repeat it.
 
 The installed Transformers implementation constructs bidirectional full/sliding masks and projects each final 512-dimensional text state to 768 dimensions before Sentence Transformers pools and normalizes it. `output_hidden_states=True` exposes token states; the final tensor is projected, so do not assume it has width 512. A hook on the final text normalization could expose the final unprojected tensor. See [Transformers EmbeddingGemma2 documentation](https://huggingface.co/docs/transformers/model_doc/embedding_gemma2).
 

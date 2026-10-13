@@ -1,16 +1,23 @@
+# Python, environments and build output
 .venv/
 .venv-specialist/
 __pycache__/
 *.py[cod]
 *.egg-info/
 .pytest_cache/
+build/
+dist/
+
+# Runtime asset directories (only .gitkeep is tracked)
 checkpoints/*
 logs/*
 data/raw/*
 data/processed/*
 data/tokenized/*
+data/memory/
 releases/*
 backups/*
+exports/*
 !checkpoints/.gitkeep
 !logs/.gitkeep
 !data/raw/.gitkeep
@@ -18,33 +25,25 @@ backups/*
 !data/tokenized/.gitkeep
 !releases/.gitkeep
 !backups/.gitkeep
-exports/*
 !exports/.gitkeep
-.codex/
-.DS_Store
-CLAUDE.md
 
-data/memory/
-
-validation/
-artifacts-local/
-*.egg-info/
-build/
-dist/
-
-# Local migration recovery and protected inputs
-preservation/
-artifacts.local.json
+# Local run state, protected inputs and migration recovery (never committed)
 outputs/
+artifacts-local/
+artifacts.local.json
+/artifacts.codexa-native.local.json
+preservation/
+validation/
 LLM-From-Scratch/
 
-# Shared infrastructure links are local, not packaged source
+# Shared-infrastructure symlinks (a dir/ rule does not match a symlink)
 /build
 /preservation
 /validation
 
-# Local Ubume Native checkpoint registry
-/artifacts.codexa-native.local.json
-
-# Private local status report (machine paths, asset inventory); kept with docs, never committed
+# Private local status report (machine paths, asset inventory)
 /documentation/workspace/CHATGPT_CURRENT_STATE.md
+
+# Editor / tool state
+.codex/
+.DS_Store

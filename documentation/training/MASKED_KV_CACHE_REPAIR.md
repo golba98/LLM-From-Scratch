@@ -38,7 +38,7 @@ Tests:
 - `LLM-Architecture/tests/test_kv_cache_masking.py` (57 cases, CPU and CUDA/BF16);
 - `LLM-Inference/tests/test_cached_generation_regression.py` (16; `4758dee`);
 - the integration `tests/test_post_training_generation_diagnostic.py`;
-- the checkpoint validator `scripts/masked_cache_repair_validation.py` (`--historical-context` runs the installed `.venv` wheels).
+- the checkpoint validator `scripts/diagnostics/masked_cache_repair_validation.py` (`--historical-context` runs the installed `.venv` wheels).
 
 Private evidence:
 

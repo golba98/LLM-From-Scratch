@@ -31,8 +31,8 @@ pid=$!
 
 if command -v kitty >/dev/null 2>&1 && [[ -n "${DISPLAY:-}${WAYLAND_DISPLAY:-}" ]]; then
   kitty --title "Codexa 900M Base Continuation" --hold sh -lc \
-    "'$repo/scripts/training_viewer.sh' '$run' 2000 '$log' '$checkpoint' '$pid' '900M BASE CONTINUATION'"
+    "'$repo/scripts/legacy/training_viewer.sh' '$run' 2000 '$log' '$checkpoint' '$pid' '900M BASE CONTINUATION'"
 else
-  "$repo/scripts/training_viewer.sh" "$run" 2000 "$log" "$checkpoint" "$pid" "900M BASE CONTINUATION"
+  "$repo/scripts/legacy/training_viewer.sh" "$run" 2000 "$log" "$checkpoint" "$pid" "900M BASE CONTINUATION"
 fi
 wait "$pid"

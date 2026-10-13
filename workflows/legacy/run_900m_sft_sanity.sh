@@ -27,8 +27,8 @@ pid=$!
 
 if command -v kitty >/dev/null 2>&1 && [[ -n "${DISPLAY:-}${WAYLAND_DISPLAY:-}" ]]; then
   kitty --title "Codexa 900M SFT Sanity" --hold sh -lc \
-    "'$repo/scripts/training_viewer.sh' '$run' 205 '$log' '$checkpoint' '$pid' '900M SFT SANITY'"
+    "'$repo/scripts/legacy/training_viewer.sh' '$run' 205 '$log' '$checkpoint' '$pid' '900M SFT SANITY'"
 else
-  "$repo/scripts/training_viewer.sh" "$run" 205 "$log" "$checkpoint" "$pid" "900M SFT SANITY"
+  "$repo/scripts/legacy/training_viewer.sh" "$run" 205 "$log" "$checkpoint" "$pid" "900M SFT SANITY"
 fi
 wait "$pid"

@@ -135,7 +135,7 @@ def benchmark(root: Path, directory: Path, baseline: Path) -> dict:
         memory = {}
         for name, store in stores.items():
             process = subprocess.run([sys.executable, '-B',
-                str(root / 'scripts/benchmark_checkpoint_storage_v3.py'),
+                str(root / 'scripts/storage/benchmark_checkpoint_storage_v3.py'),
                 '--memory-worker', name, '--checkpoint-directory', str(store.directory),
                 '--baseline', str(baseline)], capture_output=True, text=True, check=True)
             memory[name] = json.loads(process.stdout)
@@ -213,7 +213,7 @@ def restore_existing(root: Path, directory: Path, baseline: Path,
         memory = {}
         for name, store in (('legacy',legacy),('v2',v2),('v3',v3)):
             process = subprocess.run([sys.executable, '-B',
-                str(root/'scripts/benchmark_checkpoint_storage_v3.py'), '--memory-worker', name,
+                str(root/'scripts/storage/benchmark_checkpoint_storage_v3.py'), '--memory-worker', name,
                 '--checkpoint-directory', str(store.directory), '--baseline', str(baseline)],
                 capture_output=True, text=True, check=True)
             memory[name] = json.loads(process.stdout)

@@ -12,13 +12,13 @@ No dependency packages were upgraded. Existing environments remain separate: gen
 
 - `src/memory/__init__.py`, `client.py`, `context.py`, `service.py`, `store.py`
 - `src/data/general_chat.py`, `src/conversational_training.py`
-- `scripts/memory_worker.py`, `prepare_general_chat.py`, `evaluate_memory.py`, `evaluate_chat_memory.py`, `train_chat_stage2.py`, `export_chat_native.py`, `probe_embedding_states.py`, `summarize_chat_memory.py`, `evaluate_chat_decoding.py`
+- `scripts/inference/memory_worker.py`, `prepare_general_chat.py`, `evaluate_memory.py`, `evaluate_chat_memory.py`, `train_chat_stage2.py`, `export_chat_native.py`, `probe_embedding_states.py`, `summarize_chat_memory.py`, `evaluate_chat_decoding.py`
 - `tests/test_memory.py`, `test_native_memory.py`, `test_general_chat.py`, `tests/fixtures/memory_retrieval.json`
 - `documentation/reference/CONVERSATIONAL_MEMORY.md`, `ENCODER_CONDITIONING.md`, and this report
 
 ## Files modified
 
-`.gitignore`, `README.md`, `src/specialist/encoder.py`, `src/native_chat.py`, `src/training.py`, `scripts/chat_native.py`, `scripts/native_chat_bridge.py`, `scripts/train_conversational_sft.py`, `scripts/validate_run_manifest.py`, `tests/test_config.py`, `tests/test_training.py`, `documentation/reference/SPECIALIST.md`, and both required session/progress journals. This inventory describes Stage 2 edits, not the repository's unrelated pre-existing changes.
+`.gitignore`, `README.md`, `src/specialist/encoder.py`, `src/native_chat.py`, `src/training.py`, `scripts/inference/chat_native.py`, `scripts/inference/native_chat_bridge.py`, `scripts/train_conversational_sft.py`, `scripts/legacy/validate_run_manifest.py`, `tests/test_config.py`, `tests/test_training.py`, `documentation/reference/SPECIALIST.md`, and both required session/progress journals. This inventory describes Stage 2 edits, not the repository's unrelated pre-existing changes.
 
 Fixes include incorrect history trimming without a system prompt, rollback after failed generation, reserved-token injection into role boundaries, accidental base replay at ratio zero, stale parameter counts/configuration fixtures, and tokenizer compatibility checks. The new SFT launcher uses separate owned artifact namespaces and recoverable atomic checkpoints. Future launches additionally perform two-update steady-state preflight and reject another active CUDA compute process; the completed run used a one-update preflight and empirically stayed below the gate through all 200 steps.
 
@@ -121,19 +121,19 @@ Recommended next stage: keep retrieval A opt-in; obtain broader independently la
 
 ```bash
 # Working conversational system using the existing checkpoint and opt-in memory.
-.venv/bin/python scripts/chat_native.py \
+.venv/bin/python scripts/inference/chat_native.py \
   --checkpoint checkpoints/codexa-900m-sft-repair-v1/latest.pt \
   --tokenizer checkpoints/tokenizer-base-v1/tokenizer.json \
   --memory ephemeral
 
 # Experimental pilot export, explicitly not the recommended checkpoint.
-.venv/bin/python scripts/chat_native.py \
+.venv/bin/python scripts/inference/chat_native.py \
   --checkpoint exports/codexa-900m-chat-stage2-pilot-v1/model.pt \
   --tokenizer exports/codexa-900m-chat-stage2-pilot-v1/tokenizer.json \
   --memory ephemeral
 
 # A separately named future bounded pilot; never silently extends this experiment.
-.venv/bin/python scripts/train_chat_stage2.py \
+.venv/bin/python scripts/legacy/train_chat_stage2.py \
   --run-name codexa-900m-chat-stage2-pilot-new-run --max-steps 200 --minutes 60
 ```
 

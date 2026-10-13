@@ -45,7 +45,7 @@ No syscall tracer or GPU synchronization profiler was used. Per-stage read/write
 | Integration `src/codexa_workspace/checkpoint_gpu_qualification.py` | Tensor equality now compares contiguous dtype-preserving byte views; NumPy equality checks dtype/shape/bytes. Signed zero differences are rejected and equal NaN payloads accepted. Complete optimizer recovery state is required. Linux process peak host RSS is recorded. |
 | Training `tests/test_checkpoint_reclamation.py` | New in-place completed-status corruption invalidation and symlink/unknown-file traversal tests. Existing reader, writer, stale-plan, exact-continuation and fault tests remain. |
 | Integration `tests/test_checkpoint_v3_operations.py` | Byte-level signed-zero and NaN comparison tests. |
-| Integration `scripts/profile_checkpoint_storage_v31.py` | Bounded original-source/legacy/current profiling and unprofiled history runner, 6–500 publications, 128/1024-side nonzero tensors, exclusive output creation, next-fixture allocation guard and CPU/I/O reports. Destructive behavior remains inside factory-created fixture grants. |
+| Integration `scripts/storage/profile_checkpoint_storage_v31.py` | Bounded original-source/legacy/current profiling and unprofiled history runner, 6–500 publications, 128/1024-side nonzero tensors, exclusive output creation, next-fixture allocation guard and CPU/I/O reports. Destructive behavior remains inside factory-created fixture grants. |
 | Integration configuration/documentation | Experimental V3 fragment comments link this migration-free report; session/progress journals record evidence and acceptance. |
 
 All source changes use existing ownership and APIs. Project wheels were rebuilt/reinstalled with `--no-index --no-deps --no-build-isolation`; installed module bytes match Architecture, Training and integration source. No dependency upgrade occurred; `pip check` passed.
@@ -165,13 +165,13 @@ Final observed resources: RTX 4080 free 12,558 MiB; host available RAM 15.560 Gi
 Read-only plan command:
 
 ```bash
-.venv/bin/python scripts/checkpoint_gpu_qualification.py --checkpoint /absolute/path/to/verified/native/checkpoint.pt --output outputs/codexa-934m-v31-gpu-qualification --updates 8 --sequence-length 2048
+.venv/bin/python scripts/storage/checkpoint_gpu_qualification.py --checkpoint /absolute/path/to/verified/native/checkpoint.pt --output outputs/codexa-934m-v31-gpu-qualification --updates 8 --sequence-length 2048
 ```
 
 Only after all gates pass and separate approval is issued:
 
 ```bash
-CUBLAS_WORKSPACE_CONFIG=:4096:8 .venv/bin/python scripts/checkpoint_gpu_qualification.py --checkpoint /absolute/path/to/verified/native/checkpoint.pt --output outputs/codexa-934m-v31-gpu-qualification --updates 8 --sequence-length 2048 --execute --approval-file /absolute/path/to/approved-bounded-job.json
+CUBLAS_WORKSPACE_CONFIG=:4096:8 .venv/bin/python scripts/storage/checkpoint_gpu_qualification.py --checkpoint /absolute/path/to/verified/native/checkpoint.pt --output outputs/codexa-934m-v31-gpu-qualification --updates 8 --sequence-length 2048 --execute --approval-file /absolute/path/to/approved-bounded-job.json
 ```
 
 Approval format/fields remain `codexa-gpu-qualification-approval-v1`, approved=true, exact output/updates/context and input SHA. Output must be fresh. Run is bounded to 2–8 updates and 900 seconds, reserves finalization at boundaries, automatically opens visible Kitty progress and respects SIGINT/SIGTERM. Interruptions preserve verified published states; unsaved work is not promised recoverable. GPU approval does not authorize real-store reclamation. Actual full-model failure recovery, latency ≤10%, update throughput ≤5% regression and realistic continuous operation remain mandatory before production promotion.
@@ -190,8 +190,8 @@ Reproducible commands, from integration root:
 
 ```bash
 .venv/bin/python -m pytest -c /dev/null -p no:cacheprovider ../LLM-Architecture/tests ../LLM-Training/tests tests --basetemp outputs/NEW-task-owned-test-directory -q
-.venv/bin/python scripts/profile_checkpoint_storage_v31.py --output outputs/NEW-task-owned-validation-root/run --publications 500 --no-profile
-.venv/bin/python scripts/checkpoint_storage_capacity.py --checkpoint /absolute/path/to/verified/native/checkpoint.pt
+.venv/bin/python scripts/storage/profile_checkpoint_storage_v31.py --output outputs/NEW-task-owned-validation-root/run --publications 500 --no-profile
+.venv/bin/python scripts/storage/checkpoint_storage_capacity.py --checkpoint /absolute/path/to/verified/native/checkpoint.pt
 .venv/bin/python -m pip check
 ```
 

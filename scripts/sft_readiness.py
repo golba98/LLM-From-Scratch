@@ -5,7 +5,7 @@
   .venv/bin/codexa sft_readiness --experiment <step5a-dir>/config/job.json
 
 Exit status: 0 READY FOR AUTHORIZATION, 3 CONDITIONALLY READY, 2 NOT READY.
-Readiness is never authorization: the user grants that separately (scripts/sft_pilot.py approve).
+Readiness is never authorization: the user grants that separately (scripts/sft/sft_pilot.py approve).
 """
 from __future__ import annotations
 

@@ -1,6 +1,6 @@
 # Consolidation report — implementation ready for review
 
-Canonical PyTorch and NumPy code and asset relocation are implemented; retirement remains pending review/merge and independent backup. See [migration mapping and recovery](../../MIGRATION.md), [validation](../../VALIDATION.md), [environment limits](ENVIRONMENTS.md), and [module ownership](module-mapping.json).
+Canonical PyTorch and NumPy code and asset relocation are implemented; retirement remains pending review/merge and independent backup. See [migration mapping and recovery](MIGRATION.md), [validation](../../VALIDATION.md), [environment limits](../workspace/ENVIRONMENTS.md), and [module ownership](module-mapping.json).
 
 ## Original repository inventory
 

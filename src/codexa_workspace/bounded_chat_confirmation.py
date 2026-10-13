@@ -72,7 +72,7 @@ def preflight(root: Path, config: Path) -> dict:
         if any(marker in command for marker in ('chat_training.py\x00_worker', 'chat_training.py\x00_supervise', 'bounded_chat_confirmation.py\x00_worker', 'train_chat_stage2.py')):
             raise RuntimeError('Conflicting training process: ' + proc.name)
     return dict(gates=gates, passed=all(gates.values()), free_bytes=free, hardware=observed,
-                operator_files_sha256={str(p):file_sha256(p) for p in (root / 'scripts/bounded_chat_confirmation.py', Path(__file__))},
+                operator_files_sha256={str(p):file_sha256(p) for p in (root / 'scripts/legacy/bounded_chat_confirmation.py', Path(__file__))},
                 config_sha256=file_sha256(config), spec=spec, run_name=document['run_name'],
                 requires_separate_approval=True, quality_entry_gate_passed=False,
                 purpose='Replication of END3 termination effect, not a production-quality model claim')
@@ -99,7 +99,7 @@ def launch(root: Path, config: Path, approval: Path, started: tuple[float, float
     atomic_document(directory / 'budget.json', budget.document())
     atomic_document(directory / 'launch.json', dict(evidence=evidence, spec=evidence['spec'], authorization=authorization))
     with (directory / 'console.log').open('x') as console:
-        child = subprocess.Popen([sys.executable, str(root / 'scripts/bounded_chat_confirmation.py'),
+        child = subprocess.Popen([sys.executable, str(root / 'scripts/legacy/bounded_chat_confirmation.py'),
             '_supervise', '--config', str(config.absolute())], cwd=root,
             stdout=console, stderr=subprocess.STDOUT, start_new_session=True)
     print(json.dumps(dict(supervisor_pid=child.pid, directory=str(directory))))
@@ -113,7 +113,7 @@ def supervise(root: Path, config: Path) -> int:
     with (directory.parent / '.training.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         budget = SessionBudget.resume(json.loads((directory / 'budget.json').read_text()))
-        child = subprocess.Popen([sys.executable, str(root / 'scripts/bounded_chat_confirmation.py'),
+        child = subprocess.Popen([sys.executable, str(root / 'scripts/legacy/bounded_chat_confirmation.py'),
             '_worker', '--config', str(config.absolute())], cwd=root, start_new_session=True)
         atomic_document(directory / 'process.json', dict(supervisor_pid=os.getpid(), worker_pid=child.pid,
             deadline_utc=budget.deadline_utc,

@@ -54,9 +54,14 @@ def main() -> int:
             parser.error("module requires a module name.")
         command = [str(python), "-m", *args.arguments]
     else:
-        script = ROOT / "scripts" / (args.command.removesuffix(".py") + ".py")
+        name = args.command.removesuffix(".py") + ".py"
+        script = ROOT / "scripts" / name
         if not script.is_file():
-            parser.error(f"Unknown command: {args.command}")
+            # Helpers are grouped in scripts/<area>/; operator commands stay at the top level.
+            grouped = sorted((ROOT / "scripts").glob(f"*/{name}"))
+            if len(grouped) != 1:
+                parser.error(f"Unknown command: {args.command}")
+            script = grouped[0]
         arguments = normalize_paths(ROOT, args.arguments, training=args.command in {"train", "train_conversational_sft"})
         command = [str(python), str(script), *arguments]
     return subprocess.call(command, cwd=cwd, env=env)

@@ -15,7 +15,7 @@ That module is hash-bound by the approved `job-v2/plan.json` `code_identity`, so
 
 - `src/codexa_workspace/review_dashboard.py`: the generator and blinding checks.
 - `src/codexa_workspace/review_dashboard.html`: a vanilla HTML/CSS/JS template. It loads no external resources and has a restrictive CSP.
-- `scripts/review_dashboard.py`: the CLI.
+- `scripts/evaluation/review_dashboard.py`: the CLI.
 - `tests/test_review_dashboard.py`: the tests.
 
 ## Fresh blinded baseline (934M)
@@ -36,7 +36,7 @@ Alternative: `python3 -m http.server 8080 --bind 127.0.0.1 -d <public dir>`. Ope
 Regenerate it into a new directory, because publishing refuses to overwrite:
 
 ```sh
-.venv/bin/python scripts/review_dashboard.py publish \
+.venv/bin/python scripts/evaluation/review_dashboard.py publish \
   --source outputs/diagnosis/codexa-934m-foundation-20261011-v1/review/fresh-blinded-baseline \
   --output <new public dir> \
   --mapping outputs/diagnosis/codexa-934m-foundation-20261011-v1/review/fresh-blinded-baseline/private-mapping.json \

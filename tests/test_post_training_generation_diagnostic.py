@@ -9,7 +9,7 @@ import torch
 from llm_architecture.model import LanguageModel, ModelConfig
 from llm_inference.generate import GenerationConfig, generate_sequences
 
-spec = importlib.util.spec_from_file_location("post_training_diagnostic", Path(__file__).parents[1] / "scripts/post_training_generation_diagnostic.py")
+spec = importlib.util.spec_from_file_location("post_training_diagnostic", Path(__file__).parents[1] / "scripts/diagnostics/post_training_generation_diagnostic.py")
 diagnostic = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(diagnostic)
 

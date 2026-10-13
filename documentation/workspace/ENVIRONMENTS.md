@@ -79,7 +79,7 @@ Checked statically; they use the identical `sys.path.insert(0, ROOT / "src")` se
 
 The supervisor launches the trainer with `PYTHONPATH=src` only, so a supervised trainer also uses the installed wheels.
 
-These paths continue to load historical packages for read-only verification. Training-capable commands require explicit environment selection and identity validation. For corrected inference, use the bootstrap scripts (`scripts/chat_native.py`, `scripts/generate.py`, `scripts/evaluate_checkpoint.py`), the `codexa` CLI, or `tools/codexa-dev -m <module>`.
+These paths continue to load historical packages for read-only verification. Training-capable commands require explicit environment selection and identity validation. For corrected inference, use the bootstrap scripts (`scripts/inference/chat_native.py`, `scripts/inference/generate.py`, `scripts/evaluation/evaluate_checkpoint.py`), the `codexa` CLI, or `tools/codexa-dev -m <module>`.
 
 The `.venv/bin/codexa` console script is current: it launches its subcommands with a source-first `PYTHONPATH`.
 

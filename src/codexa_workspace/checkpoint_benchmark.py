@@ -101,7 +101,7 @@ def benchmark(root: Path, directory: Path) -> dict:
     """Run isolated subprocess measurements with a total 512 MiB ceiling."""
     directory.mkdir(parents=True, exist_ok=False)
     results = []
-    script = root / 'scripts/benchmark_checkpoint_storage.py'
+    script = root / 'scripts/storage/benchmark_checkpoint_storage.py'
     for backend in ['legacy', 'optimized', 'copy-manager']:
         result = subprocess.run([str(root / '.venv/bin/python'), str(script), '--worker', backend,
             '--output', str(directory / backend)], capture_output=True, text=True, check=True)

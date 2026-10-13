@@ -14,5 +14,5 @@ setsid .venv/bin/python -u scripts/train_conversational_sft.py \
   --run-name "$run" --max-steps 2000 --train-limit 60000 --validation-limit 1000 \
   >/tmp/codexa-100m-sft-pilot.log 2>&1 &
 pid=$!
-"$repo/scripts/training_viewer.sh" "$run" 2000 "$log" "checkpoints/$run/latest.pt" "$pid" "CONVERSATIONAL SFT"
+"$repo/scripts/legacy/training_viewer.sh" "$run" 2000 "$log" "checkpoints/$run/latest.pt" "$pid" "CONVERSATIONAL SFT"
 wait "$pid"

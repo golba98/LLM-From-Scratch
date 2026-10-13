@@ -173,7 +173,7 @@ def write_report(directory: Path) -> dict:
               '- `sft_pilot_trainer.py`: supervisor-compatible train mode (heartbeat, `metrics/report.json`, verified `final` '
               'role, checkpoints at 64 and final, evaluations at 32/64/128). **Never executed**; control flow tested with fakes.',
               '- `sft_pilot_evaluation.py`: the single evaluation path for step zero and future checkpoints.',
-              '- `scripts/sft_phase4.py`: CLI with no launch subcommand.',
+              '- `scripts/sft/sft_phase4.py`: CLI with no launch subcommand.',
               '- Codex dependency: Codex installed `tools/training_environment_guard.py` (explicit `--environment` / '
               '`CODEXA_TRAINING_ENVIRONMENT`, import-time guard on `create_adamw_optimizer`/`train_model`/`run_chat`/'
               '`run_pretraining`) during this phase. Train mode consumes it through `TrainingGuardProvider` (runs the guard CLI '
@@ -244,7 +244,7 @@ def write_report(directory: Path) -> dict:
               '- Launch prerequisites: resolve the conditions in section A; close GPU applications until ≥ 13,928 MiB is free; '
               'Codex environment enforcement tested; budget decision recorded; written approval grant bound to the job hash.', '',
               '**NOT AUTHORIZED — DO NOT EXECUTE.** Intended future procedure, for documentation only:', '',
-              '```text', '1. Re-verify: tools/codexa-dev scripts/sft_phase4.py verify --directory <this directory>',
+              '```text', '1. Re-verify: tools/codexa-dev scripts/sft/sft_phase4.py verify --directory <this directory>',
               '2. Copy config/job.json into a new run directory <run>/config/job.json; user writes <run>/config/approval.json',
               '   {format: codexa-sft-pilot-approval-v1, approved: true, job_sha256: <job hash>, statement: <user words>}',
               '3. Supervisor launch.json per sft_pilot_runtime.launch_plan(); start via the OS supervisor with the read-only dashboard.',

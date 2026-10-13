@@ -2363,3 +2363,53 @@ Report: `outputs/diagnostics/post-repair-integration/20261012T095454Z/REPORT.md`
   on the encrypted Fedora system; an independent copy is still required.
 - Operational commands, exact drive identity, rollback instructions and validation
   artifacts are documented in Documents/codexa-migration outside Git.
+
+
+## 2026-10-13 — Authorized SSD dataset cutover and selective cleanup
+
+Copied, SHA-256 verified and published 319 dataset files (36,629,431,092 bytes)
+on the dedicated SSD; originals remain intact. Updated ignored local settings
+for eight smoke aliases, historical NumPy datasets and separate SSD output roots.
+Added an SSD-only future supervisor wrapper without changing frozen job modules.
+Four wrapper tests passed. Native protocol-v2 CPU loading and one-token inference
+passed from the SSD under the unchanged RAM gate. Four NumPy smoke checkpoints
+restored model/optimizer state and produced finite CPU logits without training.
+
+Deleted six manifest-original payload files (15,320,576,183 logical bytes) under
+explicit user authorization. Three had identical retained original survivors;
+three exports were tensor-by-tensor proven reconstructible from retained native
+training sources. Fresh source/destination/recovery hashes and visible dependency
+checks preceded each unlink; durable transaction logs and compatibility links
+preserve exact mappings. No SSD payload was deleted or changed. Initial measured
+net available-space gain was 9,533,263,872 bytes (8.87854 GiB); live background
+writes and Btrfs accounting affect later free-space readings.
+
+210 original manifest files remain (225,072,916,224 logical bytes), including
+69 payloads and all 141 companions. Unverified recovery coverage prevents wider
+retirement. No independent external backup/restore was established, no snapshots
+or caches were cleared, no training/service restart/commit/push occurred. Frozen
+historical jobs retain prepared-input paths; their migration is a separate
+review. The existing retired-path legacy inference service remains unresolved.
+Current full report, proofs, exact deleted/retained inventories and rollback
+limitations: `/home/k9-vortex/Documents/codexa-migration/CLEANUP-REPORT.md`.
+
+
+## 2026-10-13 — Integration repository layout reorganization
+
+Decision: make the integration repository navigable without moving anything a
+frozen job, systemd unit, venv hook or gate refers to. AGENTS.md is now a short
+index of hard rules; topic detail lives in `documentation/operations/`
+(TRAINING_OPERATIONS, NOTIFICATIONS, STORAGE_AND_ASSETS, FROZEN_CODE). The three
+storage sections were merged into one current statement (`/mnt/codexa` SSD is
+canonical). FROZEN_CODE lists the full union of every job's `CODE_FILES`.
+Superseded docs moved to `documentation/archive/` under their original names;
+`documentation/README.md` maps every document.
+
+73 helper scripts moved into `scripts/{data,evaluation,diagnostics,inference,
+storage,sft,monitoring,legacy}/`; 17 operator, hash-bound or flat-lookup scripts
+stay at the top level and `run.py` falls back to a unique grouped script. 52 tests
+moved into area subpackages; the 7 tests that gates run by path stay at the top
+level. Only verified non-hash-bound src modules were edited (script path strings)
+plus `cli.py`. sha256 of every other protected file is unchanged and the then-current
+10-hour job and FROZEN_JOB_MANIFEST code_identity matched 11/11 at verification time.
+No training, asset change or service restart occurred.

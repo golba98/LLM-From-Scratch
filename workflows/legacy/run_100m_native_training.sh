@@ -12,5 +12,5 @@ setsid .venv/bin/python -u scripts/train.py \
   --run-name "$run" --log-dir logs --checkpoint-dir checkpoints \
   --optimizer adamw --overwrite-log >/tmp/codexa-100m-native-training.log 2>&1 &
 pid=$!
-"$repo/scripts/training_viewer.sh" "$run" 10000 "$log" "checkpoints/$run/latest.pt" "$pid" "NATIVE BASE TRAINING"
+"$repo/scripts/legacy/training_viewer.sh" "$run" 10000 "$log" "checkpoints/$run/latest.pt" "$pid" "NATIVE BASE TRAINING"
 wait "$pid"

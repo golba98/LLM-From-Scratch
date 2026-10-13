@@ -28,8 +28,8 @@ pid=$!
 
 if command -v kitty >/dev/null 2>&1 && [[ -n "${DISPLAY:-}${WAYLAND_DISPLAY:-}" ]]; then
   kitty --title "Codexa 900M Repair SFT" --hold sh -lc \
-    "'$repo/scripts/training_viewer.sh' '$run' 2000 '$log' '$checkpoint' '$pid' '900M REPAIR SFT'"
+    "'$repo/scripts/legacy/training_viewer.sh' '$run' 2000 '$log' '$checkpoint' '$pid' '900M REPAIR SFT'"
 else
-  "$repo/scripts/training_viewer.sh" "$run" 2000 "$log" "$checkpoint" "$pid" "900M REPAIR SFT"
+  "$repo/scripts/legacy/training_viewer.sh" "$run" 2000 "$log" "$checkpoint" "$pid" "900M REPAIR SFT"
 fi
 wait "$pid"

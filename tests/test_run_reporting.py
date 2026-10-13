@@ -9,7 +9,7 @@ import pytest
 from codexa_workspace import run_reporting as reporting
 from codexa_workspace import training_notifications as notifications
 from codexa_workspace import training_telemetry as telemetry
-from tests.test_training_notifications import Agent, Desktop
+from tests.operations.test_training_notifications import Agent, Desktop
 
 
 def evaluation(step, *, natural=11, severe=5, strict=0, ce=2.26, end=1.14, premature=0.007, wiki=3.04, fineweb=3.17,

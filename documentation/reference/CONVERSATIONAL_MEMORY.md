@@ -8,18 +8,18 @@ Run commands from the repository root. Existing environments are retained: `.ven
 
 ```bash
 # Existing conversational checkpoint; memory stays off.
-.venv/bin/python scripts/chat_native.py \
+.venv/bin/python scripts/inference/chat_native.py \
   --checkpoint checkpoints/codexa-900m-sft-repair-v1/latest.pt \
   --tokenizer checkpoints/tokenizer-base-v1/tokenizer.json
 
 # Explicit opt-in, RAM-only memory.
-.venv/bin/python scripts/chat_native.py \
+.venv/bin/python scripts/inference/chat_native.py \
   --checkpoint checkpoints/codexa-900m-sft-repair-v1/latest.pt \
   --tokenizer checkpoints/tokenizer-base-v1/tokenizer.json \
   --memory ephemeral
 
 # Explicitly persistent, user-scoped local storage.
-.venv/bin/python scripts/chat_native.py \
+.venv/bin/python scripts/inference/chat_native.py \
   --checkpoint checkpoints/codexa-900m-sft-repair-v1/latest.pt \
   --tokenizer checkpoints/tokenizer-base-v1/tokenizer.json \
   --memory persistent --user-id my-user \
@@ -79,14 +79,14 @@ Prompt fitting never changes archived history. Failed generation leaves history 
 The retrieval fixture contains 60 synthetic evaluation-only queries across direct references, paraphrases, long-distance references, related distractors, updated preferences, and no-context requests. Development and test use different conversation families (30 queries each). These fixtures are not training data.
 
 ```bash
-.venv-specialist/bin/python scripts/evaluate_memory.py \
+.venv-specialist/bin/python scripts/evaluation/evaluate_memory.py \
   --device cpu --output logs/memory/retrieval-new-run
 
-.venv/bin/python scripts/evaluate_chat_memory.py \
+.venv/bin/python scripts/evaluation/evaluate_chat_memory.py \
   --checkpoint checkpoints/codexa-900m-sft-repair-v1/latest.pt \
   --output logs/memory/chat-new-run
 
-.venv/bin/python scripts/evaluate_chat_memory.py \
+.venv/bin/python scripts/evaluation/evaluate_chat_memory.py \
   --checkpoint checkpoints/codexa-900m-sft-repair-v1/latest.pt \
   --memory-device cuda --output logs/memory/chat-cuda-new-run
 ```
@@ -128,11 +128,11 @@ Existing UltraChat and OpenAssistant prepared derivatives are reused. Balanced a
 
 ```bash
 # Existing output is protected; choose a fresh path for another preparation.
-.venv/bin/python scripts/prepare_general_chat.py \
+.venv/bin/python scripts/data/prepare_general_chat.py \
   --output data/processed/general-chat-sft-v2-new-run
 
 # Hard limits remain <=200 steps and <=60 minutes.
-.venv/bin/python scripts/train_chat_stage2.py \
+.venv/bin/python scripts/legacy/train_chat_stage2.py \
   --run-name codexa-900m-chat-stage2-pilot-new-run \
   --max-steps 200 --minutes 60
 ```
@@ -148,11 +148,11 @@ The pilot is experimental and is not promoted automatically. A native weights-on
 Native chat exposes the decoder's existing `--greedy`, `--seed`, `--repetition-penalty` and `--no-repeat-ngram-size` controls; defaults are unchanged. Repetition controls can inhibit useful repetitions and copying names from context. They do not supply missing knowledge.
 
 ```bash
-.venv/bin/python scripts/evaluate_chat_decoding.py \
+.venv/bin/python scripts/evaluation/evaluate_chat_decoding.py \
   --checkpoint checkpoints/codexa-900m-sft-repair-v1/latest.pt \
   --output logs/memory/decoding-new-run.json
 
-.venv-specialist/bin/python scripts/probe_embedding_states.py \
+.venv-specialist/bin/python scripts/diagnostics/probe_embedding_states.py \
   --device cpu --output logs/memory/token-state-probe-new-run.json
 ```
 
@@ -163,8 +163,8 @@ See `ENCODER_CONDITIONING.md` for architecture A/B/C, accessible token states, t
 ```bash
 .venv/bin/python -m pytest -q
 .venv-specialist/bin/python -m pytest -q \
-  tests/test_specialist.py tests/test_memory.py \
-  tests/test_native_memory.py tests/test_general_chat.py
+  tests/inference/test_specialist.py tests/inference/test_memory.py \
+  tests/inference/test_native_memory.py tests/sft/test_general_chat.py
 ```
 
 Existing classifier contracts and all 39 specialist tests are preserved. Tests cover role safety, context fitting with/without a system prompt, rollback, normalized shapes, scopes, deterministic ranking, persistence, deletion, safe rebuild failure, unsupported prompts, unavailable encoder fallback, shifted assistant targets, duplicate splits, deadlines and tiny native checkpoint inference.

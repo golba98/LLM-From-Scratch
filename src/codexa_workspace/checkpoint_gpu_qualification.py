@@ -51,7 +51,7 @@ def qualification_plan(checkpoint: Path, output: Path, *, updates: int = 8,
         hardware=observed, execution_requires_separate_approval=True,
         max_wall_clock_seconds=900, checkpoint_reclamation_enabled=False,
         implementation_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-        wrapper_sha256=hashlib.sha256((Path(__file__).parents[2]/'scripts/checkpoint_gpu_qualification.py').read_bytes()).hexdigest(),
+        wrapper_sha256=hashlib.sha256((Path(__file__).parents[2]/'scripts/storage/checkpoint_gpu_qualification.py').read_bytes()).hexdigest(),
         full_model_qualified=False)
 
 

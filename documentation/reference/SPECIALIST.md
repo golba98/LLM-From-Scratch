@@ -18,8 +18,8 @@ requirements, and generative runtime are untouched. On a clean checkout:
 ```bash
 uv venv --python .venv/bin/python .venv-specialist
 uv pip install --python .venv-specialist/bin/python -r requirements-specialist.lock
-.venv-specialist/bin/python scripts/specialist.py --help
-.venv-specialist/bin/python -m pytest -q tests/test_specialist.py
+.venv-specialist/bin/python scripts/inference/specialist.py --help
+.venv-specialist/bin/python -m pytest -q tests/inference/test_specialist.py
 ```
 
 The lock targets Linux x86-64 and Python 3.14.7. Direct dependencies are listed in
@@ -127,33 +127,33 @@ Run each command's `--help` before starting its pipeline. From the repository ro
 
 ```bash
 # Real encoder only; no classification training or ground-truth labels.
-.venv-specialist/bin/python scripts/specialist.py smoke-encoder \
+.venv-specialist/bin/python scripts/inference/specialist.py smoke-encoder \
   --config configs/specialist.yaml
 
 # Requires the real labeled JSONL file supplied through annotation.
-.venv-specialist/bin/python scripts/specialist.py prepare \
+.venv-specialist/bin/python scripts/inference/specialist.py prepare \
   --config configs/specialist.yaml \
   --dataset data/raw/specialist/programming_requests.jsonl \
   --output-dir data/processed/specialist/programming-v1
 
 # Both heads, with an automatic visible Kitty viewer for each head.
-.venv-specialist/bin/python scripts/specialist.py train \
+.venv-specialist/bin/python scripts/inference/specialist.py train \
   --config configs/specialist.yaml \
   --prepared-dir data/processed/specialist/programming-v1 \
   --run-name programming-v1 --model both
 
 # Validation-selected checkpoints evaluated against the same held-out test set.
-.venv-specialist/bin/python scripts/specialist.py evaluate \
+.venv-specialist/bin/python scripts/inference/specialist.py evaluate \
   --prepared-dir data/processed/specialist/programming-v1 \
   --run-name programming-v1
 
 # Requires the head checkpoint produced by the labeled-data training command.
-.venv-specialist/bin/python scripts/specialist.py infer \
+.venv-specialist/bin/python scripts/inference/specialist.py infer \
   --checkpoint checkpoints/specialist/programming-v1/mlp/best.pt \
   --text 'Explain what this function does.'
 
 # Optional additional reviewed ambiguity/OOD records, with no invented gold label.
-.venv-specialist/bin/python scripts/specialist.py challenge \
+.venv-specialist/bin/python scripts/inference/specialist.py challenge \
   --checkpoint checkpoints/specialist/programming-v1/mlp/best.pt \
   --dataset data/raw/specialist/challenge.jsonl
 ```
@@ -230,7 +230,7 @@ Created:
 
 - `src/specialist/`: `__init__.py`, `config.py`, `artifacts.py`, `encoder.py`,
   `models.py`, `data.py`, `training.py`, `evaluation.py`, and `viewer.py`.
-- `scripts/specialist.py`, `configs/specialist.yaml`, `requirements-specialist.txt`,
+- `scripts/inference/specialist.py`, `configs/specialist.yaml`, `requirements-specialist.txt`,
   `requirements-specialist.lock`, `tests/test_specialist.py`, and this document.
 
 Modified: `.gitignore` to ignore the isolated environment, plus appended dated
