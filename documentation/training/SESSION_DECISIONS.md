@@ -2413,3 +2413,35 @@ level. Only verified non-hash-bound src modules were edited (script path strings
 plus `cli.py`. sha256 of every other protected file is unchanged and the then-current
 10-hour job and FROZEN_JOB_MANIFEST code_identity matched 11/11 at verification time.
 No training, asset change or service restart occurred.
+
+
+## 2026-10-13 — Full rewrite of the integration tree
+
+Decision (user-approved): unfreeze the integration code, delete legacy and finished-experiment
+material, and restructure the repository so the tree is readable. Everything removed is
+recoverable from git tag `pre-rewrite-2026-10-13`.
+
+- `src/codexa_workspace` is layered (`paths`/`hashing` → `assets` → `evaluation` → `training`
+  → `notifications` → `monitoring` → jobs and operator tools); `tests/infra/test_layering.py`
+  enforces it. Helpers that current code borrowed from experiment modules were extracted first
+  (`training/gates.py`, `training/environment.py`, `evaluation/generation.py`,
+  `evaluation/language_suite.py`, `hashing.py`); then the 900M chat stack, storage benchmarks,
+  selective cleanup, SFT pilot/phase-4/step-5A code, the 5h foundation job code and the
+  diagnosis runner were deleted with their scripts, tests and configs.
+- The supervisor is split into state, runner, systemd and a CLI that only `run`s a prepared run
+  or `reconcile`s; job lifecycle (prepare/approve/launch/resume) belongs to each job's CLI.
+  `reconcile` now also scans the SSD output root. Operator commands default to the latest run.
+- Scripts are thin entry points that import `workspace_bootstrap`; this also fixes the login
+  reconcile unit and the dashboard window, which crashed under plain `.venv` because the installed
+  `llm_training` predates its telemetry module. `.venv` was not reinstalled.
+- Removed: 38 `src/*` adapters, 32 sibling-CLI wrapper scripts (`run.py <name>` resolves sibling
+  commands), sibling-duplicate and empty tests, `workflows/`, `schemas/`, historical configs and
+  superseded documentation. Documentation is now guides/reference/reports/live logs.
+- The prepared 10h continuation job cannot launch (its code identity predates this restructure
+  and the LLM-Architecture refactor); prepare a fresh job before any approval.
+
+Verification: 220 tests pass; 26 fail only because the training guard rejects the current
+workspace (LLM-Architecture `a63ef01` differs from its pin and moved the repair marker; the SSD
+is unmounted). The supervisor tests pass 16/18 under a guard-free harness. 33 sibling CLIs answer
+`--help`, the integration wheel contains the new layout and data files, and the historical source
+archive verifies (231 files, 12 code identities). No training, asset change or service restart.

@@ -120,7 +120,13 @@ def inspect(environment: str, operation: str = "inspect") -> dict:
     repaired = bool(arch["path"] and REPAIR_MARKER in Path(arch["path"]).read_bytes())
     revisions = {}
     if environment == "historical":
+        missing = [name for name in frozen["code_identity"] if name.startswith("src/") and not (ROOT / name).is_file()]
+        if missing:
+            errors.append("The 5h foundation job's integration source is not in this tree; restore it with "
+                          "tools/historical_source_archive.py verify --restore <new-dir>")
         for name, expected in frozen["code_identity"].items():
+            if name in missing:
+                continue
             path = ROOT / name if name.startswith("src/") else loaded_file(name)
             actual = sha256(path) if path and path.is_file() else None
             if actual != expected:
@@ -238,7 +244,7 @@ def install() -> None:
     # used. Check the invocation before the module starts or builds a model.
     original = list(getattr(sys, "orig_argv", []))
     modules = ("llm_training.cli.train", "llm_training.cli.train_conversational_sft",
-               "codexa_workspace.foundation_training")
+               "codexa_workspace.training.foundation.continuation")
     for index, arg in enumerate(original[:-1]):
         if arg == "-m" and original[index + 1] in modules:
             if "--help" in sys.argv:
@@ -255,22 +261,17 @@ def install() -> None:
                 os._exit(2)
             break
     script = Path(original[1]).name if len(original) > 1 and not original[1].startswith("-") else ""
-    if script in ("training_supervisor.py", "chat_training.py") and "--help" in sys.argv:
+    if script == "training_supervisor.py" and "--help" in sys.argv:
         print(HELP_TEXT, file=sys.stderr)
-    if script in ("training_supervisor.py", "chat_training.py") and "--help" not in sys.argv:
+    if script == "training_supervisor.py" and "--help" not in sys.argv:
         command = next((arg for arg in sys.argv[1:] if not arg.startswith("-")), "")
-        if script == "training_supervisor.py":
-            operation = {"validate": "verify", "approve": "verify", "resume": "resume",
-                         "extend": "resume", "prepare": "new", "launch": "new", "run": "new"}.get(command)
-            if command == "run" and "--run-dir" in sys.argv:
-                position = sys.argv.index("--run-dir")
-                if position + 1 < len(sys.argv):
-                    launch = Path(sys.argv[position + 1]) / "supervisor/launch.json"
-                    if launch.is_file() and "--resume" in json.loads(launch.read_text()).get("command", []):
-                        operation = "resume"
-        else:
-            operation = {"start": "new", "resume": "resume", "_supervise": "new",
-                         "_worker": "new"}.get(command)
+        operation = {"run": "new"}.get(command)          # reconcile never trains
+        if command == "run" and "--run-dir" in sys.argv:
+            position = sys.argv.index("--run-dir")
+            if position + 1 < len(sys.argv):
+                launch = Path(sys.argv[position + 1]) / "supervisor/launch.json"
+                if launch.is_file() and "--resume" in json.loads(launch.read_text()).get("command", []):
+                    operation = "resume"
         if operation:
             try:
                 require_environment(operation)

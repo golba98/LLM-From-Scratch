@@ -25,7 +25,8 @@ where = ["src"]
 include = ["codexa_workspace*"]
 
 [tool.setuptools.package-data]
-codexa_workspace = ["review_dashboard.html"]
+"codexa_workspace.review" = ["dashboard.html"]
+"codexa_workspace.evaluation.capability" = ["suites/*.json"]
 
 [tool.pytest.ini_options]
 pythonpath = [".", "src"]

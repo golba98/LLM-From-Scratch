@@ -1,1 +1,0 @@
-"""Catalog-driven operator workflows."""

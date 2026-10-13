@@ -1,65 +1,67 @@
-# Documentation map
+# Documentation
 
-Start with [../AGENTS.md](../AGENTS.md) for the rules, then [operations/](operations/) for day-to-day work.
-Superseded material lives in [archive/](archive/) under its original file name.
-
-## operations/ — how to run things today
-| Doc | What it covers |
+| Folder | What is in it |
 | --- | --- |
-| [TRAINING_OPERATIONS.md](operations/TRAINING_OPERATIONS.md) | Dashboard, supervisor prepare/approve/launch/resume/extend, gates, GPU headroom |
-| [NOTIFICATIONS.md](operations/NOTIFICATIONS.md) | Run-end popup, AI wakeup, agent window |
-| [STORAGE_AND_ASSETS.md](operations/STORAGE_AND_ASSETS.md) | Where weights/data/outputs live (`/mnt/codexa` SSD), rules, history |
-| [FROZEN_CODE.md](operations/FROZEN_CODE.md) | Hash-bound files and paths that must not move |
-| [CODEXA_934M_TRAINING_SUPERVISOR.md](operations/CODEXA_934M_TRAINING_SUPERVISOR.md) | Supervisor design and 934M foundation run details |
+| [guides/](#guides) | How to work in this repository and run training: start here |
+| [reference/](#reference) | How the model and its components work |
+| [reports/](#reports) | Dated results and investigations (read-only history) |
+| [training/](#training-live-logs) | The two live logs that every session appends to |
+| [workspace/](#workspace) | Workspace-wide files (the workspace root symlinks to some of them) |
+| [migration/](#migration) | The eight-repository layout and how to check it out |
 
-## reference/ — how the system works
-| Doc | What it covers |
+Older material (archived reports, the 900M chat and storage-benchmark reports, the consolidation records) was removed on 2026-10-13. It is preserved at git tag `pre-rewrite-2026-10-13`.
+
+## guides
+
+| Guide | Covers |
 | --- | --- |
+| [DEVELOPMENT.md](guides/DEVELOPMENT.md) | Setup, repository layout, package layers, where new code and tests go |
+| [TRAINING_OPERATIONS.md](guides/TRAINING_OPERATIONS.md) | Preparing, approving, launching, resuming and monitoring a run; gates; GPU headroom |
+| [NOTIFICATIONS.md](guides/NOTIFICATIONS.md) | Run-end popup, AI wakeup, agent window |
+| [STORAGE_AND_ASSETS.md](guides/STORAGE_AND_ASSETS.md) | Where weights, data and outputs live (`/mnt/codexa` SSD) and the rules for them |
+| [CODE_IDENTITY.md](guides/CODE_IDENTITY.md) | What a frozen job binds, stable external paths, the historical source archive |
+| [HUMAN_REVIEW.md](guides/HUMAN_REVIEW.md) | Building human review packages and the public review page |
+
+## reference
+
+| Document | Covers |
+| --- | --- |
+| [MODEL_CARD.md](reference/MODEL_CARD.md) | The model, its current status, intended use and limits |
 | [ARCHITECTURE.md](reference/ARCHITECTURE.md) | Base architecture (`configs/1b.yaml`) |
 | [TOKENIZER.md](reference/TOKENIZER.md) | Byte-level BPE tokenizer |
 | [DATASET.md](reference/DATASET.md) | Base dataset strategy and provenance |
-| [CONVERSATIONAL_MEMORY.md](reference/CONVERSATIONAL_MEMORY.md) | Stage-2 scoped memory and chat |
-| [ENCODER_CONDITIONING.md](reference/ENCODER_CONDITIONING.md) | EmbeddingGemma representations and Codexa conditioning |
-| [SPECIALIST.md](reference/SPECIALIST.md) | Stage 1 programming-request specialist (frozen EmbeddingGemma 2 + small heads) |
+| [CONVERSATIONAL_MEMORY.md](reference/CONVERSATIONAL_MEMORY.md) | Scoped memory and retrieval for chat |
+| [ENCODER_CONDITIONING.md](reference/ENCODER_CONDITIONING.md) | EmbeddingGemma representations and conditioning options |
+| [SPECIALIST.md](reference/SPECIALIST.md) | The programming-request specialist (frozen EmbeddingGemma 2 + heads) |
 
-## training/ — results, reports and live logs
-| Doc | What it covers |
-| --- | --- |
-| [SESSION_DECISIONS.md](training/SESSION_DECISIONS.md) | **Live log:** append dated decisions and evidence (fixed path) |
-| [100M_PROGRESS_LOG.md](training/100M_PROGRESS_LOG.md) | **Live log:** milestones (fixed path) |
-| [CODEXA_934M_FOUNDATIONAL_PRETRAINING_READINESS.md](training/CODEXA_934M_FOUNDATIONAL_PRETRAINING_READINESS.md) | 934M foundational pretraining readiness (current) |
-| [CODEXA_934M_FOUNDATIONAL_CAPABILITY_DIAGNOSIS.md](training/CODEXA_934M_FOUNDATIONAL_CAPABILITY_DIAGNOSIS.md) | Language vs. chat capability diagnosis |
-| [CODEXA_934M_FINAL_QUALIFICATION_MODEL_SELECTION.md](training/CODEXA_934M_FINAL_QUALIFICATION_MODEL_SELECTION.md) | Final qualification and model selection |
-| [CODEXA_934M_UBUME_NATIVE_INTEGRATION.md](training/CODEXA_934M_UBUME_NATIVE_INTEGRATION.md) | Native integration with Ubume CLI |
-| [HUMAN_REVIEW_DASHBOARD.md](training/HUMAN_REVIEW_DASHBOARD.md) | Human review dashboard |
-| [MASKED_KV_CACHE_REPAIR.md](training/MASKED_KV_CACHE_REPAIR.md) | Masked KV-cache repair |
-| [CODEXA_CHECKPOINT_STORAGE_V3_1.md](training/CODEXA_CHECKPOINT_STORAGE_V3_1.md) | Checkpoint storage (latest; V1–V3 archived) |
-| [CODEXA_900M_CHAT_2H_RESULTS.md](training/CODEXA_900M_CHAT_2H_RESULTS.md) | 900M chat 2-hour run results |
-| [CODEXA_900M_CHAT_REGRESSION_INVESTIGATION.md](training/CODEXA_900M_CHAT_REGRESSION_INVESTIGATION.md) | Chat regression investigation (generated by code; fixed path) |
-| [CODEXA_900M_CHAT_10H_READINESS.md](training/CODEXA_900M_CHAT_10H_READINESS.md) | 10-hour chat readiness, blocked (generated by code; fixed path) |
-| [STAGE2_RESULTS.md](training/STAGE2_RESULTS.md) | Stage-2 results (historical, linked from MODEL_CARD) |
+## reports
 
-## migration/ — how the repo got its current shape
-| Doc | What it covers |
-| --- | --- |
-| [SIBLING_LAYOUT.md](migration/SIBLING_LAYOUT.md) | **Current** eight-sibling layout |
-| [MIGRATION.md](migration/MIGRATION.md) | 2026-10-08 consolidation and recovery record (historical) |
-| [CONSOLIDATION_REPORT.md](migration/CONSOLIDATION_REPORT.md) | Detailed consolidation report (historical submodule layout) |
-| [PUBLICATION_2026-10-09.md](migration/PUBLICATION_2026-10-09.md) | 2026-10-09 publication record |
-| `module-mapping.json` | Module ownership map, read by `tools/check_cli.py` |
+| Report | Date | About |
+| --- | --- | --- |
+| [CODEXA_934M_TRAINING_SUPERVISOR.md](reports/CODEXA_934M_TRAINING_SUPERVISOR.md) | 2026-10-11/12 | Supervisor design and the 934M foundation run |
+| [CODEXA_934M_FOUNDATIONAL_PRETRAINING_READINESS.md](reports/CODEXA_934M_FOUNDATIONAL_PRETRAINING_READINESS.md) | 2026-10-11 | Data selection and readiness for foundation pretraining |
+| [CODEXA_934M_FOUNDATIONAL_CAPABILITY_DIAGNOSIS.md](reports/CODEXA_934M_FOUNDATIONAL_CAPABILITY_DIAGNOSIS.md) | 2026-10-11 | Language vs. chat capability diagnosis |
+| [CODEXA_934M_FINAL_QUALIFICATION_MODEL_SELECTION.md](reports/CODEXA_934M_FINAL_QUALIFICATION_MODEL_SELECTION.md) | 2026-10-11 | Final qualification and model selection |
+| [CODEXA_934M_UBUME_NATIVE_INTEGRATION.md](reports/CODEXA_934M_UBUME_NATIVE_INTEGRATION.md) | 2026-10-11 | Native integration with the Ubume CLI |
+| [MASKED_KV_CACHE_REPAIR.md](reports/MASKED_KV_CACHE_REPAIR.md) | 2026-10-12 | Masked KV-cache repair in LLM-Architecture |
+| [STAGE2_RESULTS.md](reports/STAGE2_RESULTS.md) | 2026-10-08 | Stage 2 memory/chat pilot results |
 
-## workspace/ — workspace-level files (fixed paths; the workspace root symlinks here)
-| Doc | What it covers |
-| --- | --- |
-| [OVERVIEW.md](workspace/OVERVIEW.md) | Workspace README (symlinked as `../README.md`) |
-| [WORKSPACE_GUIDELINES.md](workspace/WORKSPACE_GUIDELINES.md) | Workspace AGENTS (symlinked as `../AGENTS.md`) |
-| [SHARED_INFRASTRUCTURE.md](workspace/SHARED_INFRASTRUCTURE.md) | `workspace-infrastructure/` README |
-| [ENVIRONMENTS.md](workspace/ENVIRONMENTS.md) | Interpreters, `tools/codexa-dev`, environment rebuilds (current) |
-| [HISTORICAL_SOURCE_RECOVERY.md](workspace/HISTORICAL_SOURCE_RECOVERY.md) | Historical source archive and recovery |
-| [REVIEW_STATUS.md](workspace/REVIEW_STATUS.md) | 2026-10-09 review snapshot (historical) |
+## training (live logs)
 
-## archive/ — superseded, kept for history
-- `training/`: checkpoint storage OPTIMIZATION, V2 and V3 (replaced by V3_1); `CODEXA_934M_PRETRAINING_READINESS` (replaced by FOUNDATIONAL); `CODEXA_900M_CHAT_2H_STATUS` (replaced by 2H_RESULTS); `TRAINING_VIEWER_STYLE` (old 100x22 viewer, replaced by the 120x30 dashboard); `CODEXA_CONTROLLED_CLEANUP_TRAINING_READINESS`.
-- `migration/ENVIRONMENTS.md`: replaced by `workspace/ENVIRONMENTS.md`.
-- `planning/`: the August phase and training-data plans.
-- `commands/`: old 100M viewer how-to. `project/`: draft issue board.
+Fixed paths; the sibling repositories point here.
+
+- [SESSION_DECISIONS.md](training/SESSION_DECISIONS.md): append dated decisions and evidence.
+- [100M_PROGRESS_LOG.md](training/100M_PROGRESS_LOG.md): append milestones.
+
+## workspace
+
+The workspace root's `README.md` and `AGENTS.md` are symlinks to `OVERVIEW.md` and `WORKSPACE_GUIDELINES.md`; see [workspace/README.md](workspace/README.md).
+
+- [ENVIRONMENTS.md](workspace/ENVIRONMENTS.md): current vs. historical interpreters and the training guard
+- [HISTORICAL_SOURCE_RECOVERY.md](workspace/HISTORICAL_SOURCE_RECOVERY.md): restoring the completed 5h run's exact source (inventory: `HISTORICAL_SOURCE_V1.json`)
+- [SHARED_INFRASTRUCTURE.md](workspace/SHARED_INFRASTRUCTURE.md): the `workspace-infrastructure` README
+
+## migration
+
+- [SIBLING_LAYOUT.md](migration/SIBLING_LAYOUT.md): the eight repositories, their dependencies and checkout
+- `submodules-before-2026-10-09.gitmodules`: clone URLs for the sibling repositories

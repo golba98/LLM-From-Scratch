@@ -1,11 +1,15 @@
-"""Legacy entry point for llm_inference.cli.native_chat_bridge."""
-import importlib
-from pathlib import Path
+#!/usr/bin/env python3
+"""Native chat bridge for the Ubume CLI (which runs this exact path).
+
+Implementation: ``llm_inference.cli.native_chat_bridge``, loaded source-first.
+"""
 import sys
-if __package__ in {None, ""}:
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-import workspace_bootstrap
-_impl = importlib.import_module('llm_inference.cli.native_chat_bridge')
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+import workspace_bootstrap  # noqa: E402,F401  (sibling component sources first)
+from llm_inference.cli.native_chat_bridge import main  # noqa: E402
+
 if __name__ == "__main__":
-    raise SystemExit(_impl.main())
-sys.modules[__name__] = _impl
+    raise SystemExit(main())

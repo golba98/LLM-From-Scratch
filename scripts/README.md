@@ -1,40 +1,20 @@
 # scripts/
 
-Top level = **operator commands**. Their paths are fixed: systemd units, `launch.json`, frozen job `code_identity` and the flat `run.py <name>` lookup refer to them. See [FROZEN_CODE.md](../documentation/operations/FROZEN_CODE.md). Everything else is grouped by area in subfolders.
+Operator entry points. Each script is about 15 lines: it puts the component sources first (`workspace_bootstrap`) and calls one `main` in the package, where all the logic lives. Run them directly (`scripts/<name>.py …`), through `tools/codexa-dev`, or as `python run.py <name> …`. Commands that act on a run default to the most recently active run; pass `--run-dir` for another.
 
-Run any script with `tools/codexa-dev scripts/<path>.py ...` (source-first), or by name with `python run.py <name> ...`. `run.py` also finds scripts inside the subfolders.
+| Script | What it does | Implementation |
+| --- | --- | --- |
+| `training_status.py` | Instant run status (`--json`, `--watch`) | `monitoring.status` |
+| `training_dashboard.py` | Live read-only 120x30 dashboard (`--once`, `--compact`, `--kitty`) | `monitoring.dashboard` |
+| `training_supervisor.py` | `run` one prepared run under OS supervision; `reconcile` after a restart | `training.supervisor.cli` |
+| `training_supervisor_ssd.py` | The supervisor, restricted to run directories on the SSD output tree | `training.supervisor.ssd` |
+| `training_wakeup.py` | Deliver a run's notification, reopen the agent window, test a provider | `notifications.cli` |
+| `foundation_continuation.py` | Foundation continuation job: baseline, freeze, readiness, approve, launch, resume | `training.foundation.cli` |
+| `environment_identity.py` | Which Codexa implementation this interpreter loads; training-guard preflight | `training.identity` |
+| `qualification_review.py` | Build human review packages or import reviewer decisions | `review.qualification` |
+| `review_dashboard.py` | Publish the public-safe human review page | `review.dashboard` |
+| `native_chat_bridge.py` | Native chat bridge used by the Ubume CLI | `llm_inference.cli.native_chat_bridge` |
 
-## Operator commands (top level)
+Sibling-package commands (data preparation, tokenizer training, generation, export, …) have no script here. Run them by name with `python run.py <name>` (the table is in `src/codexa_workspace/sibling_commands.py`), or with `python -m llm_<component>.cli.<name>`.
 
-| Script | Purpose |
-| --- | --- |
-| `training_supervisor.py` | OS-level supervisor: prepare / approve / launch / resume / extend / reconcile |
-| `training_supervisor_ssd.py` | Same supervisor, restricted to run directories on the `/mnt/codexa` SSD output tree |
-| `training_dashboard.py` | Read-only 120x30 Rich dashboard (`--once`, `--compact`, `--kitty`, `--attach`) |
-| `training_status.py` | Instant run status (`--json`) |
-| `training_wakeup.py` | Run-end AI wakeup delivery; `open-agent` reopens the agent window |
-| `foundation_continuation.py` | 10-hour 934M foundation continuation: prepare / approve / launch / resume |
-| `pretraining_readiness.py` | CPU-only foundational pretraining analysis and proposals |
-| `conversational_readiness.py` | CPU-safe conversational preparation and baseline comparison |
-| `chat_training.py` | 900M chat successor operator (preflight … evaluate) |
-| `sft_readiness.py` | GO/NO-GO verdict for the SFT pilot |
-| `prepare_sft_feasibility.py` | SFT feasibility evidence preparation |
-| `environment_identity.py` | Reports which implementation/environment is loaded (`--expect current`) |
-| `foundation_capability_probe.py` | Inference-only foundation capability probe |
-| `build_capability_suite_v2.py` | Builds the frozen capability suite v2 JSON (do not re-run casually) |
-| `train.py`, `train_conversational_sft.py`, `run_chat_overfit.py` | Base/SFT/overfit training entry points used by `workflows/recipes.json` |
-
-## Subfolders
-
-| Folder | Contents |
-| --- | --- |
-| `data/` | Corpus download/preparation, tokenization, token-data inspection/benchmarks, tokenizer training and comparison |
-| `evaluation/` | Checkpoint, chat-memory and decoding evaluation; comparisons; qualification review packages; review dashboard |
-| `diagnostics/` | Post-training generation diagnostic (run/organize/render), masked KV-cache validation, tiny overfit, embedding probes |
-| `inference/` | Generation, native chat and bridge, memory worker, specialist, native/LM Studio exports |
-| `storage/` | Checkpoint storage benchmarks (V1–V3.1), GPU qualification, retention/capacity planning, production-shape benchmark |
-| `sft/` | SFT phase 4 preparation, SFT pilot approve/launch, Step 5A verification, chat training audit |
-| `monitoring/` | GPU monitoring and training/GPU summaries |
-| `legacy/` | Historical one-offs: 100M/900M shell launchers and the 100x22 viewer, stage-2 chat pilot, chat-regression investigation, bounded chat confirmation, preflight, run-manifest validation |
-
-Many `data/`, `inference/` and `monitoring/` files are thin compatibility wrappers that forward to the owning sibling package (`llm_data`, `llm_inference`, `llm_training`, …). New reusable code belongs in that owner, not here.
+Paths that outside tools rely on (the systemd reconcile unit, the trainer viewer command, Ubume) must not move; see [CODE_IDENTITY.md](../documentation/guides/CODE_IDENTITY.md).

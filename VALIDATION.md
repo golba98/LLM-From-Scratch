@@ -1,39 +1,37 @@
-> Historical consolidation record. The current 2026-10-09 sibling layout and validation results are documented in documentation/migration/SIBLING_LAYOUT.md and ../workspace-infrastructure/audit-2026-10-09/REPORT.md.
+# Validation
 
-# Consolidation validation — 2026-10-08
+What to run before a PR, what results to expect, and what is not verified offline. All checks are bounded and synthetic: none of them trains a model, touches assets or contacts an AI service.
 
-Recorded on this machine after migration, not historical extraction results.
+## Commands
 
-| Check | Result |
-|---|---|
-| PyTorch integration, generative environment | 121 passed, 5 skipped; 8 inherited return-value warnings |
-| Specialist package | 39 passed |
-| Specialist integration/memory selection | 58 passed |
-| Architecture / Tokenizer / Data / Training / Inference / Memory | 5 / 6 / 15 / 10 / 1 / 5 passed |
-| NumPy complete suite | 126 passed, including CPU/CuPy and migration checks |
-| Component CLI help / installed NumPy CLI help | 33 / 15 passed |
-| Built distributions | 7 components + integration + NumPy; no private assets in wheels |
-| PyTorch environment dependency checks | Both profiles: no broken requirements |
-| Syntax / shell / whitespace | 447 Python files parsed; shell syntax and Git diff checks passed |
+From `LLM-From-Scratch`:
 
-The original 934,356,480-parameter PyTorch repair checkpoint loads strictly on CUDA. Two native conversation turns produce exactly the preserved implementation's greedy token sequences (bounded to eight new tokens each). KV-cache consistency and learned-position/RoPE compatibility are covered by regression tests. The full native base checkpoint reader verifies its sidecar and all expected model keys/shapes at recorded optimizer step 10,000; a complete large optimizer-resume run was not performed.
+| Check | Command |
+| --- | --- |
+| Integration tests | `tools/codexa-dev -m pytest -q` |
+| One sibling's tests | `python run.py --repo LLM-Data test -q` (any `LLM-*` name) |
+| Specialist tests | `python run.py --profile specialist --repo LLM-Specialist test -q` |
+| Package layering | `tools/codexa-dev -m pytest -q tests/infra` |
+| Every sibling CLI answers `--help` | `tools/codexa-dev tools/check_cli.py` |
+| Wheels build and contain no tests or data | `.venv/bin/python tools/build_packages.py` |
+| Training-guard verdict (no model built) | `tools/codexa-dev scripts/environment_identity.py --preflight-environment development --operation new` |
+| Historical 5h-run source archive | `python3 tools/historical_source_archive.py verify` |
 
-The original 253,284,096-parameter NumPy follow-up checkpoint loads on CuPy/CUDA and produces exactly the preserved implementation's four generated tokens. Fifty-three engine modules have identical ASTs after import namespace and blank-line docstring whitespace normalization; the only engine changes are explicit data roots and an additive inference-only checkpoint reader. All parameter shapes match. A deprecated demo checkpoint also loads and executes on CPU. These bounded comparisons do not prove equality of every possible training trajectory.
+## Expected results
 
-Each implementation completed a three-step tiny CUDA training smoke, with finite nonzero gradients, new outputs beneath its canonical outputs/ directory and checkpoint reload on CPU. The PyTorch run used a sample of the relocated corpus and the visible Kitty monitor. No large pretraining or SFT experiment was started.
+- The integration suite passes, except tests that start real training code, which need the training guard to accept the workspace:
+  - every sibling at its `compatibility.json` pin with no uncommitted source;
+  - the repaired architecture;
+  - a clean integration `src scripts tools`;
+  - the encrypted SSD mounted, for the tokenizer.
 
-The pinned, locally cached EmbeddingGemma encoder loads offline: 271,002,624 frozen parameters, 768-dimensional normalized embeddings, deterministic repeated output. A real isolated worker passes scoped-memory retrieval and clean shutdown. Its permissive retrieval threshold tests transport/isolation, not retrieval quality or classifier accuracy.
+  Otherwise they fail with `Codexa training environment rejected …` or `Explicit --environment … is required`. That reflects the workspace state, not the code under test.
+- Mock backends and `CODEXA_EXECUTION_CLASS=unit_test` keep tests away from the real `notify-send`, `codex` and `claude`.
 
-All 517 relocated assets (138,521,323,134 bytes) passed streaming SHA-256 verification before and after relocation. Later metadata checks remain unchanged. Actual NumPy tokenizer files round-trip Unicode and the relocated follow-up uint32 token shard opens successfully. Ten Git bundles verify and restore into bare repositories. Local evidence lives under validation/ and the protected recovery directory; it is intentionally excluded from public Git.
+## Not verified offline
 
-## Repeat bounded checks
+- Real GPU training, VRAM headroom and multi-hour supervision. These are exercised only by approved runs, whose evidence lives in their run directories and in `documentation/training/SESSION_DECISIONS.md`.
+- Large-model generation quality, which needs genuine human review.
+- An independent off-device backup of the asset store and the historical source archive.
 
-From the PyTorch root: `python run.py test -q`; `python run.py --profile specialist --repo LLM-Specialist test -q`; `python run.py --profile specialist test -q tests/test_specialist.py tests/test_memory.py tests/test_native_memory.py tests/test_general_chat.py`; `python tools/build_packages.py`; `python tools/check_cli.py`; `python tools/verify_preservation.py` (use --full only for streaming asset verification).
-
-From NumPy: `.venv/bin/python -m pytest -q -p no:cacheprovider tests`. Configure ignored artifacts.local.json before private checkpoint/data validation. See each README and environment records. Public-clone tests skip private reference/asset checks when those records are absent.
-
-## Limits
-
-Independent off-disk asset backup is still unavailable. NumPy's local environment inherits system libraries; a fresh isolated install is not validated. A full central suite in the specialist environment requires generative-only pyarrow; the separate generative suite and specialist integration selection above were used instead. Model quality was not improved or promoted by this restructuring.
-
-Fresh GitHub clones (including pinned submodules), without private path settings, also pass: integration 119 passed / 7 skipped; NumPy 126 passed. Two private preservation checks account for the integration difference. Existing environments were reused; this is not a clean-host installation claim.
+The 2026-10-08 consolidation results previously recorded here are preserved at git tag `pre-rewrite-2026-10-13`.
