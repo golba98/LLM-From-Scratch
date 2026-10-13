@@ -280,7 +280,7 @@ def test_agent_window_after_failed_analysis_starts_fresh_with_prompt(tmp_path, l
     assert not windows.exists()                       # one AI retry remains: not final yet
     deliver(run_dir, logs, agent=Agent(logs[1], success=False), window_backend=Window(windows))
     command = lines(windows)[0]['command']
-    assert 'resume' not in command and command[-1].startswith(notifications.prompt_text(run_dir, 'codex')[:40])
+    assert 'resume' not in command and command[-1].startswith(notifications.wakeup_prompt(run_dir, 'codex')[:40])
 
 
 def test_claude_window_command_and_disabled_window(tmp_path, logs):

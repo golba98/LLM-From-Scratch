@@ -1,0 +1,2977 @@
+{
+ "format": "codexa-foundation-capability-suite-v2",
+ "name": "v2",
+ "content_sha256": "d3e664fc7501123d5979cd349009ef8cb94c479cdbfffa26e7103373eaccb105",
+ "disjoint_from": "v1",
+ "review": "authored by Claude Code 2026-10-13 before any v2 model output; automated validation only; independent human review PENDING",
+ "items": [
+  {
+   "id": "v2-factual-01",
+   "category": "factual",
+   "plain": "The capital of Germany is",
+   "chat": "What is the capital of Germany? Reply with only one word.",
+   "gold": "Berlin",
+   "distractors": [
+    "Munich",
+    "Vienna",
+    "Hamburg",
+    "Paris"
+   ]
+  },
+  {
+   "id": "v2-factual-02",
+   "category": "factual",
+   "plain": "The capital of Spain is",
+   "chat": "What is the capital of Spain? Reply with only one word.",
+   "gold": "Madrid",
+   "distractors": [
+    "Barcelona",
+    "Lisbon",
+    "Seville",
+    "Rome"
+   ]
+  },
+  {
+   "id": "v2-factual-03",
+   "category": "factual",
+   "plain": "The capital of Canada is",
+   "chat": "What is the capital of Canada? Reply with only one word.",
+   "gold": "Ottawa",
+   "distractors": [
+    "Toronto",
+    "Vancouver",
+    "Montreal",
+    "Quebec"
+   ]
+  },
+  {
+   "id": "v2-factual-04",
+   "category": "factual",
+   "plain": "The capital of Australia is",
+   "chat": "What is the capital of Australia? Reply with only one word.",
+   "gold": "Canberra",
+   "distractors": [
+    "Sydney",
+    "Melbourne",
+    "Perth",
+    "Brisbane"
+   ]
+  },
+  {
+   "id": "v2-factual-05",
+   "category": "factual",
+   "plain": "The capital of Egypt is",
+   "chat": "What is the capital of Egypt? Reply with only one word.",
+   "gold": "Cairo",
+   "distractors": [
+    "Alexandria",
+    "Giza",
+    "Luxor",
+    "Tunis"
+   ]
+  },
+  {
+   "id": "v2-factual-06",
+   "category": "factual",
+   "plain": "The capital of Russia is",
+   "chat": "What is the capital of Russia? Reply with only one word.",
+   "gold": "Moscow",
+   "distractors": [
+    "Kiev",
+    "Minsk",
+    "Warsaw",
+    "Prague"
+   ]
+  },
+  {
+   "id": "v2-factual-07",
+   "category": "factual",
+   "plain": "The capital of China is",
+   "chat": "What is the capital of China? Reply with only one word.",
+   "gold": "Beijing",
+   "distractors": [
+    "Shanghai",
+    "Tokyo",
+    "Seoul",
+    "Taipei"
+   ]
+  },
+  {
+   "id": "v2-factual-08",
+   "category": "factual",
+   "plain": "The capital of Greece is",
+   "chat": "What is the capital of Greece? Reply with only one word.",
+   "gold": "Athens",
+   "distractors": [
+    "Sparta",
+    "Rome",
+    "Sofia",
+    "Istanbul"
+   ]
+  },
+  {
+   "id": "v2-factual-09",
+   "category": "factual",
+   "plain": "The chemical symbol for gold is",
+   "chat": "What is the chemical symbol for gold? Reply with only one word.",
+   "gold": "Au",
+   "distractors": [
+    "Ag",
+    "Fe",
+    "Go",
+    "Gd"
+   ]
+  },
+  {
+   "id": "v2-factual-10",
+   "category": "factual",
+   "plain": "The chemical symbol for sodium is",
+   "chat": "What is the chemical symbol for sodium? Reply with only one word.",
+   "gold": "Na",
+   "distractors": [
+    "So",
+    "Sd",
+    "K",
+    "Ne"
+   ]
+  },
+  {
+   "id": "v2-factual-11",
+   "category": "factual",
+   "plain": "The planet closest to the Sun is",
+   "chat": "Which planet is closest to the Sun? Reply with only one word.",
+   "gold": "Mercury",
+   "distractors": [
+    "Venus",
+    "Mars",
+    "Earth",
+    "Jupiter"
+   ]
+  },
+  {
+   "id": "v2-factual-12",
+   "category": "factual",
+   "plain": "The largest ocean on Earth is the",
+   "chat": "What is the largest ocean on Earth? Reply with only one word.",
+   "gold": "Pacific",
+   "distractors": [
+    "Atlantic",
+    "Indian",
+    "Arctic",
+    "Southern"
+   ]
+  },
+  {
+   "id": "v2-factual-13",
+   "category": "factual",
+   "plain": "The longest river in Africa is the",
+   "chat": "What is the longest river in Africa? Reply with only one word.",
+   "gold": "Nile",
+   "distractors": [
+    "Congo",
+    "Niger",
+    "Zambezi",
+    "Amazon"
+   ]
+  },
+  {
+   "id": "v2-factual-14",
+   "category": "factual",
+   "plain": "Romeo and Juliet was written by William",
+   "chat": "Who wrote Romeo and Juliet? Reply with only the surname.",
+   "gold": "Shakespeare",
+   "distractors": [
+    "Wordsworth",
+    "Blake",
+    "Dickens",
+    "Marlowe"
+   ]
+  },
+  {
+   "id": "v2-factual-15",
+   "category": "factual",
+   "plain": "The first person to walk on the Moon was Neil",
+   "chat": "Who was the first person to walk on the Moon? Reply with only the surname.",
+   "gold": "Armstrong",
+   "distractors": [
+    "Aldrin",
+    "Collins",
+    "Gagarin",
+    "Glenn"
+   ]
+  },
+  {
+   "id": "v2-factual-16",
+   "category": "factual",
+   "plain": "At sea level, water boils at 100 degrees",
+   "chat": "At sea level, water boils at 100 degrees on which temperature scale? Reply with only one word.",
+   "gold": "Celsius",
+   "distractors": [
+    "Fahrenheit",
+    "Kelvin",
+    "Rankine",
+    "Newton"
+   ]
+  },
+  {
+   "id": "v2-factual-17",
+   "category": "factual",
+   "plain": "The hardest natural substance is",
+   "chat": "What is the hardest natural substance? Reply with only one word.",
+   "gold": "diamond",
+   "distractors": [
+    "gold",
+    "iron",
+    "granite",
+    "quartz"
+   ]
+  },
+  {
+   "id": "v2-factual-18",
+   "category": "factual",
+   "plain": "Plants take in carbon",
+   "chat": "Plants take in carbon what from the air? Reply with only one word.",
+   "gold": "dioxide",
+   "distractors": [
+    "monoxide",
+    "oxide",
+    "dust",
+    "fibre"
+   ]
+  },
+  {
+   "id": "v2-factual-19",
+   "category": "factual",
+   "plain": "The currency of Japan is the",
+   "chat": "What is the currency of Japan? Reply with only one word.",
+   "gold": "yen",
+   "distractors": [
+    "won",
+    "yuan",
+    "dollar",
+    "euro"
+   ]
+  },
+  {
+   "id": "v2-factual-20",
+   "category": "factual",
+   "plain": "The currency of the United States is the",
+   "chat": "What is the currency of the United States? Reply with only one word.",
+   "gold": "dollar",
+   "distractors": [
+    "euro",
+    "pound",
+    "peso",
+    "yen"
+   ]
+  },
+  {
+   "id": "v2-factual-21",
+   "category": "factual",
+   "plain": "The largest animal on Earth is the blue",
+   "chat": "The largest animal on Earth is the blue what? Reply with only one word.",
+   "gold": "whale",
+   "distractors": [
+    "shark",
+    "bear",
+    "elephant",
+    "dolphin"
+   ]
+  },
+  {
+   "id": "v2-factual-22",
+   "category": "factual",
+   "plain": "The fastest land animal is the",
+   "chat": "What is the fastest land animal? Reply with only one word.",
+   "gold": "cheetah",
+   "distractors": [
+    "lion",
+    "horse",
+    "tiger",
+    "gazelle"
+   ]
+  },
+  {
+   "id": "v2-factual-23",
+   "category": "factual",
+   "plain": "Bees make",
+   "chat": "What food do bees make? Reply with only one word.",
+   "gold": "honey",
+   "distractors": [
+    "milk",
+    "silk",
+    "bread",
+    "wool"
+   ]
+  },
+  {
+   "id": "v2-factual-24",
+   "category": "factual",
+   "plain": "The organ that pumps blood around the body is the",
+   "chat": "Which organ pumps blood around the body? Reply with only one word.",
+   "gold": "heart",
+   "distractors": [
+    "liver",
+    "lung",
+    "brain",
+    "kidney"
+   ]
+  },
+  {
+   "id": "v2-factual-25",
+   "category": "factual",
+   "plain": "The number of continents on Earth is",
+   "chat": "How many continents are there on Earth? Reply with only the number word.",
+   "gold": "seven",
+   "distractors": [
+    "five",
+    "six",
+    "eight",
+    "nine"
+   ]
+  },
+  {
+   "id": "v2-factual-26",
+   "category": "factual",
+   "plain": "The number of legs on a spider is",
+   "chat": "How many legs does a spider have? Reply with only the number word.",
+   "gold": "eight",
+   "distractors": [
+    "six",
+    "four",
+    "ten",
+    "twelve"
+   ]
+  },
+  {
+   "id": "v2-factual-27",
+   "category": "factual",
+   "plain": "The main language spoken in Brazil is",
+   "chat": "What is the main language spoken in Brazil? Reply with only one word.",
+   "gold": "Portuguese",
+   "distractors": [
+    "Spanish",
+    "French",
+    "Italian",
+    "English"
+   ]
+  },
+  {
+   "id": "v2-factual-28",
+   "category": "factual",
+   "plain": "The tallest mountain in the world is Mount",
+   "chat": "What is the tallest mountain in the world? Reply with only the mountain name.",
+   "gold": "Everest",
+   "distractors": [
+    "Kilimanjaro",
+    "Fuji",
+    "Elbrus",
+    "Denali"
+   ]
+  },
+  {
+   "id": "v2-factual-29",
+   "category": "factual",
+   "plain": "The Great Pyramid of Giza is in",
+   "chat": "In which country is the Great Pyramid of Giza? Reply with only one word.",
+   "gold": "Egypt",
+   "distractors": [
+    "Mexico",
+    "Greece",
+    "Peru",
+    "India"
+   ]
+  },
+  {
+   "id": "v2-factual-30",
+   "category": "factual",
+   "plain": "The Colosseum is in the city of",
+   "chat": "In which city is the Colosseum? Reply with only one word.",
+   "gold": "Rome",
+   "distractors": [
+    "Athens",
+    "Paris",
+    "Venice",
+    "Naples"
+   ]
+  },
+  {
+   "id": "v2-factual-31",
+   "category": "factual",
+   "plain": "The opposite of north is",
+   "chat": "What is the opposite of north? Reply with only one word.",
+   "gold": "south",
+   "distractors": [
+    "east",
+    "west",
+    "up",
+    "down"
+   ]
+  },
+  {
+   "id": "v2-factual-32",
+   "category": "factual",
+   "plain": "The season after winter is",
+   "chat": "Which season comes after winter? Reply with only one word.",
+   "gold": "spring",
+   "distractors": [
+    "summer",
+    "autumn",
+    "fall",
+    "monsoon"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-01",
+   "category": "arithmetic",
+   "plain": "1 + 5 =",
+   "chat": "What is 1 + 5? Reply with only the number.",
+   "gold": "6",
+   "distractors": [
+    "5",
+    "7",
+    "4",
+    "15"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-02",
+   "category": "arithmetic",
+   "plain": "4 + 3 =",
+   "chat": "What is 4 + 3? Reply with only the number.",
+   "gold": "7",
+   "distractors": [
+    "6",
+    "8",
+    "1",
+    "43"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-03",
+   "category": "arithmetic",
+   "plain": "8 + 1 =",
+   "chat": "What is 8 + 1? Reply with only the number.",
+   "gold": "9",
+   "distractors": [
+    "8",
+    "10",
+    "7",
+    "81"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-04",
+   "category": "arithmetic",
+   "plain": "2 + 6 =",
+   "chat": "What is 2 + 6? Reply with only the number.",
+   "gold": "8",
+   "distractors": [
+    "7",
+    "9",
+    "4",
+    "26"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-05",
+   "category": "arithmetic",
+   "plain": "5 + 5 =",
+   "chat": "What is 5 + 5? Reply with only the number.",
+   "gold": "10",
+   "distractors": [
+    "9",
+    "11",
+    "55",
+    "25"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-06",
+   "category": "arithmetic",
+   "plain": "7 + 3 =",
+   "chat": "What is 7 + 3? Reply with only the number.",
+   "gold": "10",
+   "distractors": [
+    "9",
+    "11",
+    "4",
+    "73"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-07",
+   "category": "arithmetic",
+   "plain": "6 + 6 =",
+   "chat": "What is 6 + 6? Reply with only the number.",
+   "gold": "12",
+   "distractors": [
+    "11",
+    "13",
+    "36",
+    "66"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-08",
+   "category": "arithmetic",
+   "plain": "9 + 2 =",
+   "chat": "What is 9 + 2? Reply with only the number.",
+   "gold": "11",
+   "distractors": [
+    "10",
+    "12",
+    "7",
+    "92"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-09",
+   "category": "arithmetic",
+   "plain": "10 + 5 =",
+   "chat": "What is 10 + 5? Reply with only the number.",
+   "gold": "15",
+   "distractors": [
+    "14",
+    "16",
+    "105",
+    "50"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-10",
+   "category": "arithmetic",
+   "plain": "12 + 3 =",
+   "chat": "What is 12 + 3? Reply with only the number.",
+   "gold": "15",
+   "distractors": [
+    "14",
+    "16",
+    "9",
+    "36"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-11",
+   "category": "arithmetic",
+   "plain": "20 + 10 =",
+   "chat": "What is 20 + 10? Reply with only the number.",
+   "gold": "30",
+   "distractors": [
+    "20",
+    "40",
+    "200",
+    "31"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-12",
+   "category": "arithmetic",
+   "plain": "8 - 3 =",
+   "chat": "What is 8 - 3? Reply with only the number.",
+   "gold": "5",
+   "distractors": [
+    "4",
+    "6",
+    "11",
+    "83"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-13",
+   "category": "arithmetic",
+   "plain": "9 - 4 =",
+   "chat": "What is 9 - 4? Reply with only the number.",
+   "gold": "5",
+   "distractors": [
+    "4",
+    "6",
+    "13",
+    "94"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-14",
+   "category": "arithmetic",
+   "plain": "7 - 2 =",
+   "chat": "What is 7 - 2? Reply with only the number.",
+   "gold": "5",
+   "distractors": [
+    "4",
+    "6",
+    "9",
+    "72"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-15",
+   "category": "arithmetic",
+   "plain": "10 - 3 =",
+   "chat": "What is 10 - 3? Reply with only the number.",
+   "gold": "7",
+   "distractors": [
+    "6",
+    "8",
+    "13",
+    "30"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-16",
+   "category": "arithmetic",
+   "plain": "6 - 1 =",
+   "chat": "What is 6 - 1? Reply with only the number.",
+   "gold": "5",
+   "distractors": [
+    "4",
+    "6",
+    "7",
+    "61"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-17",
+   "category": "arithmetic",
+   "plain": "15 - 5 =",
+   "chat": "What is 15 - 5? Reply with only the number.",
+   "gold": "10",
+   "distractors": [
+    "9",
+    "11",
+    "20",
+    "155"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-18",
+   "category": "arithmetic",
+   "plain": "12 - 4 =",
+   "chat": "What is 12 - 4? Reply with only the number.",
+   "gold": "8",
+   "distractors": [
+    "7",
+    "9",
+    "16",
+    "3"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-19",
+   "category": "arithmetic",
+   "plain": "3 times 2 is",
+   "chat": "What is 3 times 2? Reply with only the number.",
+   "gold": "6",
+   "distractors": [
+    "5",
+    "8",
+    "9",
+    "32"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-20",
+   "category": "arithmetic",
+   "plain": "4 times 2 is",
+   "chat": "What is 4 times 2? Reply with only the number.",
+   "gold": "8",
+   "distractors": [
+    "6",
+    "9",
+    "16",
+    "42"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-21",
+   "category": "arithmetic",
+   "plain": "5 times 2 is",
+   "chat": "What is 5 times 2? Reply with only the number.",
+   "gold": "10",
+   "distractors": [
+    "7",
+    "12",
+    "25",
+    "52"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-22",
+   "category": "arithmetic",
+   "plain": "3 times 3 is",
+   "chat": "What is 3 times 3? Reply with only the number.",
+   "gold": "9",
+   "distractors": [
+    "6",
+    "8",
+    "12",
+    "33"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-23",
+   "category": "arithmetic",
+   "plain": "2 times 5 is",
+   "chat": "What is 2 times 5? Reply with only the number.",
+   "gold": "10",
+   "distractors": [
+    "7",
+    "12",
+    "20",
+    "25"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-24",
+   "category": "arithmetic",
+   "plain": "10 times 2 is",
+   "chat": "What is 10 times 2? Reply with only the number.",
+   "gold": "20",
+   "distractors": [
+    "12",
+    "30",
+    "102",
+    "10"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-25",
+   "category": "arithmetic",
+   "plain": "6 divided by 2 is",
+   "chat": "What is 6 divided by 2? Reply with only the number.",
+   "gold": "3",
+   "distractors": [
+    "2",
+    "4",
+    "8",
+    "12"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-26",
+   "category": "arithmetic",
+   "plain": "8 divided by 2 is",
+   "chat": "What is 8 divided by 2? Reply with only the number.",
+   "gold": "4",
+   "distractors": [
+    "2",
+    "6",
+    "10",
+    "16"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-27",
+   "category": "arithmetic",
+   "plain": "10 divided by 5 is",
+   "chat": "What is 10 divided by 5? Reply with only the number.",
+   "gold": "2",
+   "distractors": [
+    "5",
+    "3",
+    "15",
+    "50"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-28",
+   "category": "arithmetic",
+   "plain": "12 divided by 3 is",
+   "chat": "What is 12 divided by 3? Reply with only the number.",
+   "gold": "4",
+   "distractors": [
+    "3",
+    "6",
+    "9",
+    "36"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-29",
+   "category": "arithmetic",
+   "plain": "Half of 10 is",
+   "chat": "What is half of 10? Reply with only the number.",
+   "gold": "5",
+   "distractors": [
+    "2",
+    "10",
+    "20",
+    "4"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-30",
+   "category": "arithmetic",
+   "plain": "Double 4 is",
+   "chat": "What is double 4? Reply with only the number.",
+   "gold": "8",
+   "distractors": [
+    "6",
+    "2",
+    "16",
+    "44"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-31",
+   "category": "arithmetic",
+   "plain": "One more than 9 is",
+   "chat": "What number is one more than 9? Reply with only the number.",
+   "gold": "10",
+   "distractors": [
+    "8",
+    "11",
+    "19",
+    "91"
+   ]
+  },
+  {
+   "id": "v2-arithmetic-32",
+   "category": "arithmetic",
+   "plain": "One less than 7 is",
+   "chat": "What number is one less than 7? Reply with only the number.",
+   "gold": "6",
+   "distractors": [
+    "5",
+    "8",
+    "17",
+    "71"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-01",
+   "category": "copy_extract",
+   "plain": "Color: green. The color is",
+   "chat": "Color: green. What is the color? Reply with only one word.",
+   "gold": "green",
+   "distractors": [
+    "red",
+    "blue",
+    "yellow",
+    "white"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-02",
+   "category": "copy_extract",
+   "plain": "The code word is falcon. The code word is",
+   "chat": "The code word is falcon. What is the code word? Reply with only one word.",
+   "gold": "falcon",
+   "distractors": [
+    "eagle",
+    "hawk",
+    "raven",
+    "robin"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-03",
+   "category": "copy_extract",
+   "plain": "Name: Omar. City: Cairo. The person's name is",
+   "chat": "Name: Omar. City: Cairo. What is the person's name? Reply with only one word.",
+   "gold": "Omar",
+   "distractors": [
+    "Cairo",
+    "Ali",
+    "Hassan",
+    "Karim"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-04",
+   "category": "copy_extract",
+   "plain": "Name: Omar. City: Cairo. The city is",
+   "chat": "Name: Omar. City: Cairo. What is the city? Reply with only one word.",
+   "gold": "Cairo",
+   "distractors": [
+    "Omar",
+    "Giza",
+    "Tunis",
+    "Rabat"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-05",
+   "category": "copy_extract",
+   "plain": "Ticket number: 47. The ticket number is",
+   "chat": "Ticket number: 47. What is the ticket number? Reply with only the number.",
+   "gold": "47",
+   "distractors": [
+    "74",
+    "40",
+    "7",
+    "48"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-06",
+   "category": "copy_extract",
+   "plain": "The box contains apples. The box contains",
+   "chat": "The box contains apples. What does the box contain? Reply with only one word.",
+   "gold": "apples",
+   "distractors": [
+    "pears",
+    "plums",
+    "grapes",
+    "lemons"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-07",
+   "category": "copy_extract",
+   "plain": "Pet: rabbit. Owner: Lucy. The pet is a",
+   "chat": "Pet: rabbit. Owner: Lucy. What is the pet? Reply with only one word.",
+   "gold": "rabbit",
+   "distractors": [
+    "cat",
+    "dog",
+    "Lucy",
+    "hamster"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-08",
+   "category": "copy_extract",
+   "plain": "Pet: rabbit. Owner: Lucy. The owner is",
+   "chat": "Pet: rabbit. Owner: Lucy. Who is the owner? Reply with only one word.",
+   "gold": "Lucy",
+   "distractors": [
+    "Lucas",
+    "Mary",
+    "rabbit",
+    "Linda"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-09",
+   "category": "copy_extract",
+   "plain": "Room 12 is on the second floor. The room number is",
+   "chat": "Room 12 is on the second floor. What is the room number? Reply with only the number.",
+   "gold": "12",
+   "distractors": [
+    "21",
+    "2",
+    "10",
+    "22"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-10",
+   "category": "copy_extract",
+   "plain": "The train leaves at 9. The train leaves at",
+   "chat": "The train leaves at 9. At what time does the train leave? Reply with only the number.",
+   "gold": "9",
+   "distractors": [
+    "8",
+    "10",
+    "6",
+    "19"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-11",
+   "category": "copy_extract",
+   "plain": "Word: river. The word above is",
+   "chat": "The word is river. What is the word? Reply with only one word.",
+   "gold": "river",
+   "distractors": [
+    "lake",
+    "stream",
+    "ocean",
+    "bridge"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-12",
+   "category": "copy_extract",
+   "plain": "First item: pen. Second item: cup. The second item is",
+   "chat": "First item: pen. Second item: cup. What is the second item? Reply with only one word.",
+   "gold": "cup",
+   "distractors": [
+    "pen",
+    "bowl",
+    "mug",
+    "plate"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-13",
+   "category": "copy_extract",
+   "plain": "First item: pen. Second item: cup. The first item is",
+   "chat": "First item: pen. Second item: cup. What is the first item? Reply with only one word.",
+   "gold": "pen",
+   "distractors": [
+    "cup",
+    "pencil",
+    "book",
+    "ink"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-14",
+   "category": "copy_extract",
+   "plain": "Fruit: mango. Vegetable: carrot. The vegetable is",
+   "chat": "Fruit: mango. Vegetable: carrot. What is the vegetable? Reply with only one word.",
+   "gold": "carrot",
+   "distractors": [
+    "mango",
+    "potato",
+    "onion",
+    "pea"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-15",
+   "category": "copy_extract",
+   "plain": "Fruit: mango. Vegetable: carrot. The fruit is",
+   "chat": "Fruit: mango. Vegetable: carrot. What is the fruit? Reply with only one word.",
+   "gold": "mango",
+   "distractors": [
+    "carrot",
+    "apple",
+    "banana",
+    "peach"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-16",
+   "category": "copy_extract",
+   "plain": "Animal: zebra. The animal is a",
+   "chat": "Animal: zebra. What is the animal? Reply with only one word.",
+   "gold": "zebra",
+   "distractors": [
+    "horse",
+    "lion",
+    "giraffe",
+    "donkey"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-17",
+   "category": "copy_extract",
+   "plain": "The secret number is 83. The secret number is",
+   "chat": "The secret number is 83. What is the secret number? Reply with only the number.",
+   "gold": "83",
+   "distractors": [
+    "38",
+    "80",
+    "3",
+    "84"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-18",
+   "category": "copy_extract",
+   "plain": "Tom's favourite colour is purple. Tom's favourite colour is",
+   "chat": "Tom's favourite colour is purple. What is Tom's favourite colour? Reply with only one word.",
+   "gold": "purple",
+   "distractors": [
+    "pink",
+    "blue",
+    "orange",
+    "brown"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-19",
+   "category": "copy_extract",
+   "plain": "Sara lives in Lima. Sara lives in",
+   "chat": "Sara lives in Lima. Where does Sara live? Reply with only one word.",
+   "gold": "Lima",
+   "distractors": [
+    "Lisbon",
+    "Lyon",
+    "Quito",
+    "Bogota"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-20",
+   "category": "copy_extract",
+   "plain": "The key is under the mat. The key is under the",
+   "chat": "The key is under the mat. What is the key under? Reply with only one word.",
+   "gold": "mat",
+   "distractors": [
+    "door",
+    "rug",
+    "bed",
+    "table"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-21",
+   "category": "copy_extract",
+   "plain": "Language: Swahili. The language is",
+   "chat": "Language: Swahili. What is the language? Reply with only one word.",
+   "gold": "Swahili",
+   "distractors": [
+    "Spanish",
+    "Somali",
+    "Zulu",
+    "Arabic"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-22",
+   "category": "copy_extract",
+   "plain": "Score: 15. The score is",
+   "chat": "Score: 15. What is the score? Reply with only the number.",
+   "gold": "15",
+   "distractors": [
+    "51",
+    "5",
+    "10",
+    "16"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-23",
+   "category": "copy_extract",
+   "plain": "Day: Wednesday. The day is",
+   "chat": "Day: Wednesday. What is the day? Reply with only one word.",
+   "gold": "Wednesday",
+   "distractors": [
+    "Tuesday",
+    "Thursday",
+    "Monday",
+    "Friday"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-24",
+   "category": "copy_extract",
+   "plain": "Month: October. The month is",
+   "chat": "Month: October. What is the month? Reply with only one word.",
+   "gold": "October",
+   "distractors": [
+    "September",
+    "November",
+    "August",
+    "December"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-25",
+   "category": "copy_extract",
+   "plain": "Instrument: violin. The instrument is a",
+   "chat": "Instrument: violin. What is the instrument? Reply with only one word.",
+   "gold": "violin",
+   "distractors": [
+    "piano",
+    "cello",
+    "guitar",
+    "flute"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-26",
+   "category": "copy_extract",
+   "plain": "Planet: Neptune. The planet is",
+   "chat": "Planet: Neptune. What is the planet? Reply with only one word.",
+   "gold": "Neptune",
+   "distractors": [
+    "Uranus",
+    "Saturn",
+    "Pluto",
+    "Jupiter"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-27",
+   "category": "copy_extract",
+   "plain": "Tool: hammer. The tool is a",
+   "chat": "Tool: hammer. What is the tool? Reply with only one word.",
+   "gold": "hammer",
+   "distractors": [
+    "saw",
+    "drill",
+    "nail",
+    "spanner"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-28",
+   "category": "copy_extract",
+   "plain": "Drink: coffee. Food: bread. The drink is",
+   "chat": "Drink: coffee. Food: bread. What is the drink? Reply with only one word.",
+   "gold": "coffee",
+   "distractors": [
+    "bread",
+    "tea",
+    "juice",
+    "milk"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-29",
+   "category": "copy_extract",
+   "plain": "Drink: coffee. Food: bread. The food is",
+   "chat": "Drink: coffee. Food: bread. What is the food? Reply with only one word.",
+   "gold": "bread",
+   "distractors": [
+    "coffee",
+    "rice",
+    "cake",
+    "cheese"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-30",
+   "category": "copy_extract",
+   "plain": "Sport: tennis. The sport is",
+   "chat": "Sport: tennis. What is the sport? Reply with only one word.",
+   "gold": "tennis",
+   "distractors": [
+    "football",
+    "golf",
+    "cricket",
+    "hockey"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-31",
+   "category": "copy_extract",
+   "plain": "Bird: parrot. The bird is a",
+   "chat": "Bird: parrot. What is the bird? Reply with only one word.",
+   "gold": "parrot",
+   "distractors": [
+    "pigeon",
+    "crow",
+    "eagle",
+    "owl"
+   ]
+  },
+  {
+   "id": "v2-copy_extract-32",
+   "category": "copy_extract",
+   "plain": "Metal: copper. The metal is",
+   "chat": "Metal: copper. What is the metal? Reply with only one word.",
+   "gold": "copper",
+   "distractors": [
+    "iron",
+    "silver",
+    "gold",
+    "tin"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-01",
+   "category": "sentence_completion",
+   "plain": "The grass is",
+   "chat": "Complete the sentence: The grass is ... Reply with only one word.",
+   "gold": "green",
+   "distractors": [
+    "blue",
+    "red",
+    "loud",
+    "hot"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-02",
+   "category": "sentence_completion",
+   "plain": "Snow is white and coal is",
+   "chat": "Complete the sentence: Snow is white and coal is ... Reply with only one word.",
+   "gold": "black",
+   "distractors": [
+    "white",
+    "green",
+    "sweet",
+    "loud"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-03",
+   "category": "sentence_completion",
+   "plain": "Dogs bark and cats",
+   "chat": "Complete the sentence: Dogs bark and cats ... Reply with only one word.",
+   "gold": "meow",
+   "distractors": [
+    "bark",
+    "fly",
+    "swim",
+    "sing"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-04",
+   "category": "sentence_completion",
+   "plain": "At night we sleep in a",
+   "chat": "Complete the sentence: At night we sleep in a ... Reply with only one word.",
+   "gold": "bed",
+   "distractors": [
+    "car",
+    "tree",
+    "river",
+    "cup"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-05",
+   "category": "sentence_completion",
+   "plain": "You eat soup with a",
+   "chat": "Complete the sentence: You eat soup with a ... Reply with only one word.",
+   "gold": "spoon",
+   "distractors": [
+    "fork",
+    "knife",
+    "pen",
+    "comb"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-06",
+   "category": "sentence_completion",
+   "plain": "The sun is very",
+   "chat": "Complete the sentence: The sun is very ... Reply with only one word.",
+   "gold": "hot",
+   "distractors": [
+    "cold",
+    "wet",
+    "small",
+    "quiet"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-07",
+   "category": "sentence_completion",
+   "plain": "An apple a day keeps the doctor",
+   "chat": "Complete the sentence: An apple a day keeps the doctor ... Reply with only one word.",
+   "gold": "away",
+   "distractors": [
+    "home",
+    "near",
+    "busy",
+    "happy"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-08",
+   "category": "sentence_completion",
+   "plain": "Rain falls from the",
+   "chat": "Complete the sentence: Rain falls from the ... Reply with only one word.",
+   "gold": "sky",
+   "distractors": [
+    "ground",
+    "sea",
+    "tree",
+    "floor"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-09",
+   "category": "sentence_completion",
+   "plain": "Birds have feathers and fish have",
+   "chat": "Complete the sentence: Birds have feathers and fish have ... Reply with only one word.",
+   "gold": "scales",
+   "distractors": [
+    "feathers",
+    "wings",
+    "fur",
+    "hair"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-10",
+   "category": "sentence_completion",
+   "plain": "Monday comes before",
+   "chat": "Complete the sentence: Monday comes before ... Reply with only one word.",
+   "gold": "Tuesday",
+   "distractors": [
+    "Sunday",
+    "Friday",
+    "Monday",
+    "Saturday"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-11",
+   "category": "sentence_completion",
+   "plain": "January is the first month of the",
+   "chat": "Complete the sentence: January is the first month of the ... Reply with only one word.",
+   "gold": "year",
+   "distractors": [
+    "week",
+    "day",
+    "decade",
+    "hour"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-12",
+   "category": "sentence_completion",
+   "plain": "A baby cat is called a",
+   "chat": "Complete the sentence: A baby cat is called a ... Reply with only one word.",
+   "gold": "kitten",
+   "distractors": [
+    "puppy",
+    "calf",
+    "foal",
+    "cub"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-13",
+   "category": "sentence_completion",
+   "plain": "A baby dog is called a",
+   "chat": "Complete the sentence: A baby dog is called a ... Reply with only one word.",
+   "gold": "puppy",
+   "distractors": [
+    "kitten",
+    "calf",
+    "lamb",
+    "chick"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-14",
+   "category": "sentence_completion",
+   "plain": "The opposite of up is",
+   "chat": "Complete the sentence: The opposite of up is ... Reply with only one word.",
+   "gold": "down",
+   "distractors": [
+    "up",
+    "left",
+    "over",
+    "high"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-15",
+   "category": "sentence_completion",
+   "plain": "The opposite of big is",
+   "chat": "Complete the sentence: The opposite of big is ... Reply with only one word.",
+   "gold": "small",
+   "distractors": [
+    "large",
+    "tall",
+    "huge",
+    "wide"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-16",
+   "category": "sentence_completion",
+   "plain": "A bicycle has two",
+   "chat": "Complete the sentence: A bicycle has two ... Reply with only one word.",
+   "gold": "wheels",
+   "distractors": [
+    "doors",
+    "wings",
+    "legs",
+    "eyes"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-17",
+   "category": "sentence_completion",
+   "plain": "We hear with our",
+   "chat": "Complete the sentence: We hear with our ... Reply with only one word.",
+   "gold": "ears",
+   "distractors": [
+    "eyes",
+    "hands",
+    "feet",
+    "nose"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-18",
+   "category": "sentence_completion",
+   "plain": "Children go to school to",
+   "chat": "Complete the sentence: Children go to school to ... Reply with only one word.",
+   "gold": "learn",
+   "distractors": [
+    "sleep",
+    "swim",
+    "cook",
+    "drive"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-19",
+   "category": "sentence_completion",
+   "plain": "Summer is hot and winter is",
+   "chat": "Complete the sentence: Summer is hot and winter is ... Reply with only one word.",
+   "gold": "cold",
+   "distractors": [
+    "hot",
+    "wet",
+    "long",
+    "green"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-20",
+   "category": "sentence_completion",
+   "plain": "People wear shoes on their",
+   "chat": "Complete the sentence: People wear shoes on their ... Reply with only one word.",
+   "gold": "feet",
+   "distractors": [
+    "hands",
+    "heads",
+    "ears",
+    "knees"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-21",
+   "category": "sentence_completion",
+   "plain": "A clock tells the",
+   "chat": "Complete the sentence: A clock tells the ... Reply with only one word.",
+   "gold": "time",
+   "distractors": [
+    "weather",
+    "story",
+    "news",
+    "truth"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-22",
+   "category": "sentence_completion",
+   "plain": "Thank you very",
+   "chat": "Complete the sentence: Thank you very ... Reply with only one word.",
+   "gold": "much",
+   "distractors": [
+    "many",
+    "more",
+    "well",
+    "good"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-23",
+   "category": "sentence_completion",
+   "plain": "Once upon a",
+   "chat": "Complete the sentence: Once upon a ... Reply with only one word.",
+   "gold": "time",
+   "distractors": [
+    "day",
+    "night",
+    "story",
+    "place"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-24",
+   "category": "sentence_completion",
+   "plain": "Ladies and",
+   "chat": "Complete the sentence: Ladies and ... Reply with only one word.",
+   "gold": "gentlemen",
+   "distractors": [
+    "men",
+    "boys",
+    "girls",
+    "ladies"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-25",
+   "category": "sentence_completion",
+   "plain": "Good morning, how are",
+   "chat": "Complete the sentence: Good morning, how are ... Reply with only one word.",
+   "gold": "you",
+   "distractors": [
+    "we",
+    "they",
+    "it",
+    "he"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-26",
+   "category": "sentence_completion",
+   "plain": "A doctor works in a",
+   "chat": "Complete the sentence: A doctor works in a ... Reply with only one word.",
+   "gold": "hospital",
+   "distractors": [
+    "school",
+    "farm",
+    "bank",
+    "kitchen"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-27",
+   "category": "sentence_completion",
+   "plain": "A teacher works in a",
+   "chat": "Complete the sentence: A teacher works in a ... Reply with only one word.",
+   "gold": "school",
+   "distractors": [
+    "hospital",
+    "farm",
+    "bank",
+    "garage"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-28",
+   "category": "sentence_completion",
+   "plain": "Milk comes from",
+   "chat": "Complete the sentence: Milk comes from ... Reply with only one word.",
+   "gold": "cows",
+   "distractors": [
+    "chickens",
+    "trees",
+    "bees",
+    "fish"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-29",
+   "category": "sentence_completion",
+   "plain": "The moon shines at",
+   "chat": "Complete the sentence: The moon shines at ... Reply with only one word.",
+   "gold": "night",
+   "distractors": [
+    "noon",
+    "breakfast",
+    "lunch",
+    "dawn"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-30",
+   "category": "sentence_completion",
+   "plain": "Books are borrowed from a",
+   "chat": "Complete the sentence: Books are borrowed from a ... Reply with only one word.",
+   "gold": "library",
+   "distractors": [
+    "kitchen",
+    "garage",
+    "bathroom",
+    "garden"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-31",
+   "category": "sentence_completion",
+   "plain": "To open a locked door you need a",
+   "chat": "Complete the sentence: To open a locked door you need a ... Reply with only one word.",
+   "gold": "key",
+   "distractors": [
+    "spoon",
+    "cup",
+    "book",
+    "hat"
+   ]
+  },
+  {
+   "id": "v2-sentence_completion-32",
+   "category": "sentence_completion",
+   "plain": "A fish lives in",
+   "chat": "Complete the sentence: A fish lives in ... Reply with only one word.",
+   "gold": "water",
+   "distractors": [
+    "sand",
+    "trees",
+    "fire",
+    "air"
+   ]
+  },
+  {
+   "id": "v2-grammar-01",
+   "category": "grammar",
+   "plain": "He ___ a dog. ({options}) The correct word is",
+   "chat": "Fill the gap: 'He ___ a dog.' Is it {options_or}? Reply with only the word.",
+   "gold": "has",
+   "distractors": [
+    "have"
+   ],
+   "options": [
+    "has",
+    "have"
+   ]
+  },
+  {
+   "id": "v2-grammar-02",
+   "category": "grammar",
+   "plain": "We ___ ready. ({options}) The correct word is",
+   "chat": "Fill the gap: 'We ___ ready.' Is it {options_or}? Reply with only the word.",
+   "gold": "are",
+   "distractors": [
+    "is"
+   ],
+   "options": [
+    "are",
+    "is"
+   ]
+  },
+  {
+   "id": "v2-grammar-03",
+   "category": "grammar",
+   "plain": "She ___ to the shop yesterday. ({options}) The correct word is",
+   "chat": "Fill the gap: 'She ___ to the shop yesterday.' Is it {options_or}? Reply with only the word.",
+   "gold": "went",
+   "distractors": [
+    "go"
+   ],
+   "options": [
+    "went",
+    "go"
+   ]
+  },
+  {
+   "id": "v2-grammar-04",
+   "category": "grammar",
+   "plain": "The cat ___ on the mat every morning. ({options}) The correct word is",
+   "chat": "Fill the gap: 'The cat ___ on the mat every morning.' Is it {options_or}? Reply with only the word.",
+   "gold": "sits",
+   "distractors": [
+    "sit"
+   ],
+   "options": [
+    "sits",
+    "sit"
+   ]
+  },
+  {
+   "id": "v2-grammar-05",
+   "category": "grammar",
+   "plain": "I ___ happy today. ({options}) The correct word is",
+   "chat": "Fill the gap: 'I ___ happy today.' Is it {options_or}? Reply with only the word.",
+   "gold": "am",
+   "distractors": [
+    "are"
+   ],
+   "options": [
+    "am",
+    "are"
+   ]
+  },
+  {
+   "id": "v2-grammar-06",
+   "category": "grammar",
+   "plain": "They ___ playing football. ({options}) The correct word is",
+   "chat": "Fill the gap: 'They ___ playing football.' Is it {options_or}? Reply with only the word.",
+   "gold": "are",
+   "distractors": [
+    "is"
+   ],
+   "options": [
+    "are",
+    "is"
+   ]
+  },
+  {
+   "id": "v2-grammar-07",
+   "category": "grammar",
+   "plain": "My brother ___ tall. ({options}) The correct word is",
+   "chat": "Fill the gap: 'My brother ___ tall.' Is it {options_or}? Reply with only the word.",
+   "gold": "is",
+   "distractors": [
+    "are"
+   ],
+   "options": [
+    "is",
+    "are"
+   ]
+  },
+  {
+   "id": "v2-grammar-08",
+   "category": "grammar",
+   "plain": "Last week we ___ a film. ({options}) The correct word is",
+   "chat": "Fill the gap: 'Last week we ___ a film.' Is it {options_or}? Reply with only the word.",
+   "gold": "watched",
+   "distractors": [
+    "watch"
+   ],
+   "options": [
+    "watched",
+    "watch"
+   ]
+  },
+  {
+   "id": "v2-grammar-09",
+   "category": "grammar",
+   "plain": "She ___ like coffee. ({options}) The correct word is",
+   "chat": "Fill the gap: 'She ___ like coffee.' Is it {options_or}? Reply with only the word.",
+   "gold": "doesn't",
+   "distractors": [
+    "don't"
+   ],
+   "options": [
+    "doesn't",
+    "don't"
+   ]
+  },
+  {
+   "id": "v2-grammar-10",
+   "category": "grammar",
+   "plain": "There ___ a book on the table. ({options}) The correct word is",
+   "chat": "Fill the gap: 'There ___ a book on the table.' Is it {options_or}? Reply with only the word.",
+   "gold": "is",
+   "distractors": [
+    "are"
+   ],
+   "options": [
+    "is",
+    "are"
+   ]
+  },
+  {
+   "id": "v2-grammar-11",
+   "category": "grammar",
+   "plain": "The dogs ___ loudly every night. ({options}) The correct word is",
+   "chat": "Fill the gap: 'The dogs ___ loudly every night.' Is it {options_or}? Reply with only the word.",
+   "gold": "bark",
+   "distractors": [
+    "barks"
+   ],
+   "options": [
+    "bark",
+    "barks"
+   ]
+  },
+  {
+   "id": "v2-grammar-12",
+   "category": "grammar",
+   "plain": "He ___ his homework every day. ({options}) The correct word is",
+   "chat": "Fill the gap: 'He ___ his homework every day.' Is it {options_or}? Reply with only the word.",
+   "gold": "does",
+   "distractors": [
+    "do"
+   ],
+   "options": [
+    "does",
+    "do"
+   ]
+  },
+  {
+   "id": "v2-grammar-13",
+   "category": "grammar",
+   "plain": "You ___ my friend. ({options}) The correct word is",
+   "chat": "Fill the gap: 'You ___ my friend.' Is it {options_or}? Reply with only the word.",
+   "gold": "are",
+   "distractors": [
+    "is"
+   ],
+   "options": [
+    "are",
+    "is"
+   ]
+  },
+  {
+   "id": "v2-grammar-14",
+   "category": "grammar",
+   "plain": "It ___ cold yesterday. ({options}) The correct word is",
+   "chat": "Fill the gap: 'It ___ cold yesterday.' Is it {options_or}? Reply with only the word.",
+   "gold": "was",
+   "distractors": [
+    "is"
+   ],
+   "options": [
+    "was",
+    "is"
+   ]
+  },
+  {
+   "id": "v2-grammar-15",
+   "category": "grammar",
+   "plain": "Tomorrow we ___ visit Grandma. ({options}) The correct word is",
+   "chat": "Fill the gap: 'Tomorrow we ___ visit Grandma.' Is it {options_or}? Reply with only the word.",
+   "gold": "will",
+   "distractors": [
+    "did"
+   ],
+   "options": [
+    "will",
+    "did"
+   ]
+  },
+  {
+   "id": "v2-grammar-16",
+   "category": "grammar",
+   "plain": "I have ___ apple. ({options}) The correct word is",
+   "chat": "Fill the gap: 'I have ___ apple.' Is it {options_or}? Reply with only the word.",
+   "gold": "an",
+   "distractors": [
+    "a"
+   ],
+   "options": [
+    "an",
+    "a"
+   ]
+  },
+  {
+   "id": "v2-grammar-17",
+   "category": "grammar",
+   "plain": "She is ___ teacher. ({options}) The correct word is",
+   "chat": "Fill the gap: 'She is ___ teacher.' Is it {options_or}? Reply with only the word.",
+   "gold": "a",
+   "distractors": [
+    "an"
+   ],
+   "options": [
+    "a",
+    "an"
+   ]
+  },
+  {
+   "id": "v2-grammar-18",
+   "category": "grammar",
+   "plain": "This is ___ book. ({options}) The correct word is",
+   "chat": "Fill the gap: 'This is ___ book.' Is it {options_or}? Reply with only the word.",
+   "gold": "my",
+   "distractors": [
+    "me"
+   ],
+   "options": [
+    "my",
+    "me"
+   ]
+  },
+  {
+   "id": "v2-grammar-19",
+   "category": "grammar",
+   "plain": "Give the pen to ___. ({options}) The correct word is",
+   "chat": "Fill the gap: 'Give the pen to ___.' Is it {options_or}? Reply with only the word.",
+   "gold": "me",
+   "distractors": [
+    "I"
+   ],
+   "options": [
+    "me",
+    "I"
+   ]
+  },
+  {
+   "id": "v2-grammar-20",
+   "category": "grammar",
+   "plain": "___ is my sister. ({options}) The correct word is",
+   "chat": "Fill the gap: '___ is my sister.' Is it {options_or}? Reply with only the word.",
+   "gold": "She",
+   "distractors": [
+    "Her"
+   ],
+   "options": [
+    "She",
+    "Her"
+   ]
+  },
+  {
+   "id": "v2-grammar-21",
+   "category": "grammar",
+   "plain": "The boys ___ already eaten lunch. ({options}) The correct word is",
+   "chat": "Fill the gap: 'The boys ___ already eaten lunch.' Is it {options_or}? Reply with only the word.",
+   "gold": "have",
+   "distractors": [
+    "has"
+   ],
+   "options": [
+    "have",
+    "has"
+   ]
+  },
+  {
+   "id": "v2-grammar-22",
+   "category": "grammar",
+   "plain": "Yesterday she ___ a letter. ({options}) The correct word is",
+   "chat": "Fill the gap: 'Yesterday she ___ a letter.' Is it {options_or}? Reply with only the word.",
+   "gold": "wrote",
+   "distractors": [
+    "write"
+   ],
+   "options": [
+    "wrote",
+    "write"
+   ]
+  },
+  {
+   "id": "v2-grammar-23",
+   "category": "grammar",
+   "plain": "He can ___ very fast. ({options}) The correct word is",
+   "chat": "Fill the gap: 'He can ___ very fast.' Is it {options_or}? Reply with only the word.",
+   "gold": "run",
+   "distractors": [
+    "runs"
+   ],
+   "options": [
+    "run",
+    "runs"
+   ]
+  },
+  {
+   "id": "v2-grammar-24",
+   "category": "grammar",
+   "plain": "We ___ in London last year. ({options}) The correct word is",
+   "chat": "Fill the gap: 'We ___ in London last year.' Is it {options_or}? Reply with only the word.",
+   "gold": "were",
+   "distractors": [
+    "are"
+   ],
+   "options": [
+    "were",
+    "are"
+   ]
+  },
+  {
+   "id": "v2-grammar-25",
+   "category": "grammar",
+   "plain": "Mary and John ___ friends. ({options}) The correct word is",
+   "chat": "Fill the gap: 'Mary and John ___ friends.' Is it {options_or}? Reply with only the word.",
+   "gold": "are",
+   "distractors": [
+    "is"
+   ],
+   "options": [
+    "are",
+    "is"
+   ]
+  },
+  {
+   "id": "v2-grammar-26",
+   "category": "grammar",
+   "plain": "The sun ___ in the east. ({options}) The correct word is",
+   "chat": "Fill the gap: 'The sun ___ in the east.' Is it {options_or}? Reply with only the word.",
+   "gold": "rises",
+   "distractors": [
+    "rise"
+   ],
+   "options": [
+    "rises",
+    "rise"
+   ]
+  },
+  {
+   "id": "v2-grammar-27",
+   "category": "grammar",
+   "plain": "I ___ seen that film before. ({options}) The correct word is",
+   "chat": "Fill the gap: 'I ___ seen that film before.' Is it {options_or}? Reply with only the word.",
+   "gold": "have",
+   "distractors": [
+    "has"
+   ],
+   "options": [
+    "have",
+    "has"
+   ]
+  },
+  {
+   "id": "v2-grammar-28",
+   "category": "grammar",
+   "plain": "My shoes ___ new. ({options}) The correct word is",
+   "chat": "Fill the gap: 'My shoes ___ new.' Is it {options_or}? Reply with only the word.",
+   "gold": "are",
+   "distractors": [
+    "is"
+   ],
+   "options": [
+    "are",
+    "is"
+   ]
+  },
+  {
+   "id": "v2-grammar-29",
+   "category": "grammar",
+   "plain": "Look at ___ birds over there. ({options}) The correct word is",
+   "chat": "Fill the gap: 'Look at ___ birds over there.' Is it {options_or}? Reply with only the word.",
+   "gold": "those",
+   "distractors": [
+    "that"
+   ],
+   "options": [
+    "those",
+    "that"
+   ]
+  },
+  {
+   "id": "v2-grammar-30",
+   "category": "grammar",
+   "plain": "This box is ___ than that one. ({options}) The correct word is",
+   "chat": "Fill the gap: 'This box is ___ than that one.' Is it {options_or}? Reply with only the word.",
+   "gold": "heavier",
+   "distractors": [
+    "heavy"
+   ],
+   "options": [
+    "heavier",
+    "heavy"
+   ]
+  },
+  {
+   "id": "v2-grammar-31",
+   "category": "grammar",
+   "plain": "He is the ___ boy in the class. ({options}) The correct word is",
+   "chat": "Fill the gap: 'He is the ___ boy in the class.' Is it {options_or}? Reply with only the word.",
+   "gold": "tallest",
+   "distractors": [
+    "tall"
+   ],
+   "options": [
+    "tallest",
+    "tall"
+   ]
+  },
+  {
+   "id": "v2-grammar-32",
+   "category": "grammar",
+   "plain": "They ___ to music every evening. ({options}) The correct word is",
+   "chat": "Fill the gap: 'They ___ to music every evening.' Is it {options_or}? Reply with only the word.",
+   "gold": "listen",
+   "distractors": [
+    "listens"
+   ],
+   "options": [
+    "listen",
+    "listens"
+   ]
+  },
+  {
+   "id": "v2-reasoning-01",
+   "category": "reasoning",
+   "plain": "Ann is older than Ben. The younger one is",
+   "chat": "Ann is older than Ben. Who is younger? Reply with only the name.",
+   "gold": "Ben",
+   "distractors": [
+    "Ann"
+   ]
+  },
+  {
+   "id": "v2-reasoning-02",
+   "category": "reasoning",
+   "plain": "Sam finished before Leo. The first to finish was",
+   "chat": "Sam finished before Leo. Who finished first? Reply with only the name.",
+   "gold": "Sam",
+   "distractors": [
+    "Leo"
+   ]
+  },
+  {
+   "id": "v2-reasoning-03",
+   "category": "reasoning",
+   "plain": "The red box is heavier than the blue box. The lighter box is the",
+   "chat": "The red box is heavier than the blue box. Which box is lighter? Reply with only the colour.",
+   "gold": "blue",
+   "distractors": [
+    "red"
+   ]
+  },
+  {
+   "id": "v2-reasoning-04",
+   "category": "reasoning",
+   "plain": "Kim gave a pen to Raj. Now the pen belongs to",
+   "chat": "Kim gave a pen to Raj. Who has the pen now? Reply with only the name.",
+   "gold": "Raj",
+   "distractors": [
+    "Kim"
+   ]
+  },
+  {
+   "id": "v2-reasoning-05",
+   "category": "reasoning",
+   "plain": "Today is Friday. Tomorrow will be",
+   "chat": "Today is Friday. What day is tomorrow? Reply with only one word.",
+   "gold": "Saturday",
+   "distractors": [
+    "Thursday",
+    "Sunday",
+    "Friday",
+    "Monday"
+   ]
+  },
+  {
+   "id": "v2-reasoning-06",
+   "category": "reasoning",
+   "plain": "Yesterday was Monday. Today is",
+   "chat": "Yesterday was Monday. What day is today? Reply with only one word.",
+   "gold": "Tuesday",
+   "distractors": [
+    "Monday",
+    "Sunday",
+    "Wednesday",
+    "Friday"
+   ]
+  },
+  {
+   "id": "v2-reasoning-07",
+   "category": "reasoning",
+   "plain": "I had 5 sweets and ate 2. Now I have",
+   "chat": "I had 5 sweets and ate 2. How many sweets do I have now? Reply with only the number.",
+   "gold": "3",
+   "distractors": [
+    "2",
+    "5",
+    "7",
+    "4"
+   ]
+  },
+  {
+   "id": "v2-reasoning-08",
+   "category": "reasoning",
+   "plain": "There were 4 birds and 1 flew away. Now there are",
+   "chat": "There were 4 birds and 1 flew away. How many birds are left? Reply with only the number.",
+   "gold": "3",
+   "distractors": [
+    "4",
+    "5",
+    "1",
+    "2"
+   ]
+  },
+  {
+   "id": "v2-reasoning-09",
+   "category": "reasoning",
+   "plain": "A cup is full of water. After you pour all the water out, the cup is",
+   "chat": "A cup is full of water. You pour all the water out. Is the cup full or empty? Reply with only one word.",
+   "gold": "empty",
+   "distractors": [
+    "full",
+    "heavy",
+    "hot",
+    "broken"
+   ]
+  },
+  {
+   "id": "v2-reasoning-10",
+   "category": "reasoning",
+   "plain": "The lamp is on. After you switch it off, the lamp is",
+   "chat": "The lamp is on. You switch it off. Is the lamp on or off? Reply with only one word.",
+   "gold": "off",
+   "distractors": [
+    "on",
+    "bright",
+    "hot",
+    "new"
+   ]
+  },
+  {
+   "id": "v2-reasoning-11",
+   "category": "reasoning",
+   "plain": "Mia has 2 cats and 1 dog. The number of pets Mia has is",
+   "chat": "Mia has 2 cats and 1 dog. How many pets does Mia have? Reply with only the number.",
+   "gold": "3",
+   "distractors": [
+    "2",
+    "1",
+    "4",
+    "5"
+   ]
+  },
+  {
+   "id": "v2-reasoning-12",
+   "category": "reasoning",
+   "plain": "Tom is taller than Sue, and Sue is taller than Ali. The tallest is",
+   "chat": "Tom is taller than Sue, and Sue is taller than Ali. Who is the tallest? Reply with only the name.",
+   "gold": "Tom",
+   "distractors": [
+    "Sue",
+    "Ali"
+   ]
+  },
+  {
+   "id": "v2-reasoning-13",
+   "category": "reasoning",
+   "plain": "Tom is taller than Sue, and Sue is taller than Ali. The shortest is",
+   "chat": "Tom is taller than Sue, and Sue is taller than Ali. Who is the shortest? Reply with only the name.",
+   "gold": "Ali",
+   "distractors": [
+    "Tom",
+    "Sue"
+   ]
+  },
+  {
+   "id": "v2-reasoning-14",
+   "category": "reasoning",
+   "plain": "The shop opens at 9 in the morning and closes at 5 in the afternoon. At 7 in the evening the shop is",
+   "chat": "The shop opens at 9 in the morning and closes at 5 in the afternoon. Is the shop open or closed at 7 in the evening? Reply with only one word.",
+   "gold": "closed",
+   "distractors": [
+    "open",
+    "busy",
+    "new",
+    "full"
+   ]
+  },
+  {
+   "id": "v2-reasoning-15",
+   "category": "reasoning",
+   "plain": "A glass falls on the floor and breaks. Now the glass is",
+   "chat": "A glass falls on the floor and breaks. What state is the glass in now? Reply with only one word.",
+   "gold": "broken",
+   "distractors": [
+    "whole",
+    "full",
+    "new",
+    "clean"
+   ]
+  },
+  {
+   "id": "v2-reasoning-16",
+   "category": "reasoning",
+   "plain": "Ella has a red ball and Max has a green ball. Max's ball is",
+   "chat": "Ella has a red ball and Max has a green ball. What colour is Max's ball? Reply with only one word.",
+   "gold": "green",
+   "distractors": [
+    "red"
+   ]
+  },
+  {
+   "id": "v2-reasoning-17",
+   "category": "reasoning",
+   "plain": "Ella has a red ball and Max has a green ball. The red ball belongs to",
+   "chat": "Ella has a red ball and Max has a green ball. Who owns the red ball? Reply with only the name.",
+   "gold": "Ella",
+   "distractors": [
+    "Max"
+   ]
+  },
+  {
+   "id": "v2-reasoning-18",
+   "category": "reasoning",
+   "plain": "The bus left at 3 and the train left at 4. The one that left first was the",
+   "chat": "The bus left at 3 and the train left at 4. Which left first, the bus or the train? Reply with only one word.",
+   "gold": "bus",
+   "distractors": [
+    "train"
+   ]
+  },
+  {
+   "id": "v2-reasoning-19",
+   "category": "reasoning",
+   "plain": "Lily is Ben's sister. Ben is Lily's",
+   "chat": "Lily is Ben's sister. What is Ben to Lily? Reply with only one word.",
+   "gold": "brother",
+   "distractors": [
+    "sister",
+    "father",
+    "mother",
+    "uncle"
+   ]
+  },
+  {
+   "id": "v2-reasoning-20",
+   "category": "reasoning",
+   "plain": "Tom is Jack's father. Jack is Tom's",
+   "chat": "Tom is Jack's father. What is Jack to Tom? Reply with only one word.",
+   "gold": "son",
+   "distractors": [
+    "father",
+    "brother",
+    "uncle",
+    "daughter"
+   ]
+  },
+  {
+   "id": "v2-reasoning-21",
+   "category": "reasoning",
+   "plain": "Leo had 4 coins and found 1 more. Now Leo has",
+   "chat": "Leo had 4 coins and found 1 more. How many coins does Leo have? Reply with only the number.",
+   "gold": "5",
+   "distractors": [
+    "4",
+    "6",
+    "3",
+    "1"
+   ]
+  },
+  {
+   "id": "v2-reasoning-22",
+   "category": "reasoning",
+   "plain": "Nina is in the kitchen and Paul is in the garden. The person in the garden is",
+   "chat": "Nina is in the kitchen and Paul is in the garden. Who is in the garden? Reply with only the name.",
+   "gold": "Paul",
+   "distractors": [
+    "Nina"
+   ]
+  },
+  {
+   "id": "v2-reasoning-23",
+   "category": "reasoning",
+   "plain": "Nina is in the kitchen and Paul is in the garden. Nina is in the",
+   "chat": "Nina is in the kitchen and Paul is in the garden. Which room is Nina in? Reply with only one word.",
+   "gold": "kitchen",
+   "distractors": [
+    "garden",
+    "bedroom",
+    "garage",
+    "hall"
+   ]
+  },
+  {
+   "id": "v2-reasoning-24",
+   "category": "reasoning",
+   "plain": "The cake was baked before the bread. The bread was baked",
+   "chat": "The cake was baked before the bread. Was the bread baked before or after the cake? Reply with only one word.",
+   "gold": "after",
+   "distractors": [
+    "before",
+    "during",
+    "never",
+    "again"
+   ]
+  },
+  {
+   "id": "v2-reasoning-25",
+   "category": "reasoning",
+   "plain": "All birds have feathers. A robin is a bird, so a robin has",
+   "chat": "All birds have feathers. A robin is a bird. What does a robin have? Reply with only one word.",
+   "gold": "feathers",
+   "distractors": [
+    "fur",
+    "scales",
+    "fins",
+    "wheels"
+   ]
+  },
+  {
+   "id": "v2-reasoning-26",
+   "category": "reasoning",
+   "plain": "If today is Sunday, then yesterday was",
+   "chat": "Today is Sunday. What day was yesterday? Reply with only one word.",
+   "gold": "Saturday",
+   "distractors": [
+    "Monday",
+    "Friday",
+    "Sunday",
+    "Tuesday"
+   ]
+  },
+  {
+   "id": "v2-reasoning-27",
+   "category": "reasoning",
+   "plain": "Ben is 10 years old and Eva is 7. The older child is",
+   "chat": "Ben is 10 years old and Eva is 7. Who is older? Reply with only the name.",
+   "gold": "Ben",
+   "distractors": [
+    "Eva"
+   ]
+  },
+  {
+   "id": "v2-reasoning-28",
+   "category": "reasoning",
+   "plain": "Ben is 10 years old and Eva is 7. The younger child is",
+   "chat": "Ben is 10 years old and Eva is 7. Who is younger? Reply with only the name.",
+   "gold": "Eva",
+   "distractors": [
+    "Ben"
+   ]
+  },
+  {
+   "id": "v2-reasoning-29",
+   "category": "reasoning",
+   "plain": "The bottle is empty, so the bottle contains",
+   "chat": "The bottle is empty. What does the bottle contain? Reply with only one word.",
+   "gold": "nothing",
+   "distractors": [
+    "water",
+    "milk",
+    "juice",
+    "sand"
+   ]
+  },
+  {
+   "id": "v2-reasoning-30",
+   "category": "reasoning",
+   "plain": "Ali arrived after Zoe. The last to arrive was",
+   "chat": "Ali arrived after Zoe. Who arrived last? Reply with only the name.",
+   "gold": "Ali",
+   "distractors": [
+    "Zoe"
+   ]
+  },
+  {
+   "id": "v2-reasoning-31",
+   "category": "reasoning",
+   "plain": "A week has 7 days, so two weeks have",
+   "chat": "A week has 7 days. How many days are in two weeks? Reply with only the number.",
+   "gold": "14",
+   "distractors": [
+    "7",
+    "12",
+    "21",
+    "10"
+   ]
+  },
+  {
+   "id": "v2-reasoning-32",
+   "category": "reasoning",
+   "plain": "Rosa is taller than Kai. The taller person is",
+   "chat": "Rosa is taller than Kai. Who is taller? Reply with only the name.",
+   "gold": "Rosa",
+   "distractors": [
+    "Kai"
+   ]
+  },
+  {
+   "id": "v2-exact_format-01",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the word YES.\nAnswer:",
+   "chat": "Reply with only the word YES.",
+   "gold": "YES",
+   "distractors": [
+    "Yes",
+    "yes",
+    "NO",
+    "OK"
+   ]
+  },
+  {
+   "id": "v2-exact_format-02",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the word apple.\nAnswer:",
+   "chat": "Reply with only the word apple.",
+   "gold": "apple",
+   "distractors": [
+    "Apple",
+    "APPLE",
+    "pear",
+    "fruit"
+   ]
+  },
+  {
+   "id": "v2-exact_format-03",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the number 3.\nAnswer:",
+   "chat": "Reply with only the number 3.",
+   "gold": "3",
+   "distractors": [
+    "three",
+    "4",
+    "2",
+    "30"
+   ]
+  },
+  {
+   "id": "v2-exact_format-04",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the number 12.\nAnswer:",
+   "chat": "Reply with only the number 12.",
+   "gold": "12",
+   "distractors": [
+    "twelve",
+    "21",
+    "11",
+    "13"
+   ]
+  },
+  {
+   "id": "v2-exact_format-05",
+   "category": "exact_format",
+   "plain": "Instruction: Write only the letter B.\nAnswer:",
+   "chat": "Write only the letter B.",
+   "gold": "B",
+   "distractors": [
+    "b",
+    "A",
+    "C",
+    "Bee"
+   ]
+  },
+  {
+   "id": "v2-exact_format-06",
+   "category": "exact_format",
+   "plain": "Instruction: Write only the letter z.\nAnswer:",
+   "chat": "Write only the letter z.",
+   "gold": "z",
+   "distractors": [
+    "Z",
+    "y",
+    "a",
+    "zed"
+   ]
+  },
+  {
+   "id": "v2-exact_format-07",
+   "category": "exact_format",
+   "plain": "Instruction: Answer yes or no: Is ice cold? No explanation.\nAnswer:",
+   "chat": "Answer yes or no: Is ice cold? No explanation.",
+   "gold": "yes",
+   "distractors": [
+    "no",
+    "Yes",
+    "maybe",
+    "No"
+   ]
+  },
+  {
+   "id": "v2-exact_format-08",
+   "category": "exact_format",
+   "plain": "Instruction: Answer yes or no: Is the sun cold? No explanation.\nAnswer:",
+   "chat": "Answer yes or no: Is the sun cold? No explanation.",
+   "gold": "no",
+   "distractors": [
+    "yes",
+    "No",
+    "maybe",
+    "Yes"
+   ]
+  },
+  {
+   "id": "v2-exact_format-09",
+   "category": "exact_format",
+   "plain": "Instruction: Answer true or false: Two plus two is four.\nAnswer:",
+   "chat": "Answer true or false: Two plus two is four.",
+   "gold": "true",
+   "distractors": [
+    "false",
+    "True",
+    "yes",
+    "maybe"
+   ]
+  },
+  {
+   "id": "v2-exact_format-10",
+   "category": "exact_format",
+   "plain": "Instruction: Answer true or false: Snow is hot.\nAnswer:",
+   "chat": "Answer true or false: Snow is hot.",
+   "gold": "false",
+   "distractors": [
+    "true",
+    "False",
+    "no",
+    "maybe"
+   ]
+  },
+  {
+   "id": "v2-exact_format-11",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the word OK.\nAnswer:",
+   "chat": "Reply with only the word OK.",
+   "gold": "OK",
+   "distractors": [
+    "ok",
+    "Ok",
+    "YES",
+    "Okay"
+   ]
+  },
+  {
+   "id": "v2-exact_format-12",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the word green.\nAnswer:",
+   "chat": "Reply with only the word green.",
+   "gold": "green",
+   "distractors": [
+    "Green",
+    "GREEN",
+    "blue",
+    "red"
+   ]
+  },
+  {
+   "id": "v2-exact_format-13",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the number 100.\nAnswer:",
+   "chat": "Reply with only the number 100.",
+   "gold": "100",
+   "distractors": [
+    "hundred",
+    "10",
+    "1000",
+    "101"
+   ]
+  },
+  {
+   "id": "v2-exact_format-14",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the word DONE.\nAnswer:",
+   "chat": "Reply with only the word DONE.",
+   "gold": "DONE",
+   "distractors": [
+    "Done",
+    "done",
+    "OK",
+    "READY"
+   ]
+  },
+  {
+   "id": "v2-exact_format-15",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the word cat.\nAnswer:",
+   "chat": "Reply with only the word cat.",
+   "gold": "cat",
+   "distractors": [
+    "Cat",
+    "CAT",
+    "dog",
+    "kitten"
+   ]
+  },
+  {
+   "id": "v2-exact_format-16",
+   "category": "exact_format",
+   "plain": "Instruction: Write only the digit 5.\nAnswer:",
+   "chat": "Write only the digit 5.",
+   "gold": "5",
+   "distractors": [
+    "five",
+    "6",
+    "4",
+    "55"
+   ]
+  },
+  {
+   "id": "v2-exact_format-17",
+   "category": "exact_format",
+   "plain": "Instruction: Answer with only the colour of a ripe banana, in lowercase.\nAnswer:",
+   "chat": "Answer with only the colour of a ripe banana, in lowercase.",
+   "gold": "yellow",
+   "distractors": [
+    "Yellow",
+    "green",
+    "red",
+    "brown"
+   ]
+  },
+  {
+   "id": "v2-exact_format-18",
+   "category": "exact_format",
+   "plain": "Instruction: Answer with only the number of days in a week, as a digit.\nAnswer:",
+   "chat": "Answer with only the number of days in a week, as a digit.",
+   "gold": "7",
+   "distractors": [
+    "seven",
+    "5",
+    "6",
+    "8"
+   ]
+  },
+  {
+   "id": "v2-exact_format-19",
+   "category": "exact_format",
+   "plain": "Instruction: Answer with only the first letter of the alphabet, as a capital letter.\nAnswer:",
+   "chat": "Answer with only the first letter of the alphabet, as a capital letter.",
+   "gold": "A",
+   "distractors": [
+    "a",
+    "B",
+    "Z",
+    "Alpha"
+   ]
+  },
+  {
+   "id": "v2-exact_format-20",
+   "category": "exact_format",
+   "plain": "Instruction: Answer with only the opposite of yes, in lowercase.\nAnswer:",
+   "chat": "Answer with only the opposite of yes, in lowercase.",
+   "gold": "no",
+   "distractors": [
+    "No",
+    "yes",
+    "maybe",
+    "not"
+   ]
+  },
+  {
+   "id": "v2-exact_format-21",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the word hello in capital letters.\nAnswer:",
+   "chat": "Reply with only the word hello in capital letters.",
+   "gold": "HELLO",
+   "distractors": [
+    "Hello",
+    "hello",
+    "HI",
+    "HEY"
+   ]
+  },
+  {
+   "id": "v2-exact_format-22",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the word goodbye in lowercase.\nAnswer:",
+   "chat": "Reply with only the word goodbye in lowercase.",
+   "gold": "goodbye",
+   "distractors": [
+    "Goodbye",
+    "GOODBYE",
+    "bye",
+    "hello"
+   ]
+  },
+  {
+   "id": "v2-exact_format-23",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the number that comes after 4, as a digit.\nAnswer:",
+   "chat": "Reply with only the number that comes after 4, as a digit.",
+   "gold": "5",
+   "distractors": [
+    "4",
+    "6",
+    "five",
+    "3"
+   ]
+  },
+  {
+   "id": "v2-exact_format-24",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the word STOP in lowercase.\nAnswer:",
+   "chat": "Reply with only the word STOP in lowercase.",
+   "gold": "stop",
+   "distractors": [
+    "STOP",
+    "Stop",
+    "go",
+    "halt"
+   ]
+  },
+  {
+   "id": "v2-exact_format-25",
+   "category": "exact_format",
+   "plain": "Instruction: Answer with one lowercase word: what colour is snow?\nAnswer:",
+   "chat": "Answer with one lowercase word: what colour is snow?",
+   "gold": "white",
+   "distractors": [
+    "White",
+    "black",
+    "grey",
+    "blue"
+   ]
+  },
+  {
+   "id": "v2-exact_format-26",
+   "category": "exact_format",
+   "plain": "Instruction: Answer with one lowercase word: what animal says moo?\nAnswer:",
+   "chat": "Answer with one lowercase word: what animal says moo?",
+   "gold": "cow",
+   "distractors": [
+    "Cow",
+    "dog",
+    "cat",
+    "sheep"
+   ]
+  },
+  {
+   "id": "v2-exact_format-27",
+   "category": "exact_format",
+   "plain": "Instruction: Answer with one lowercase word: what is frozen water called?\nAnswer:",
+   "chat": "Answer with one lowercase word: what is frozen water called?",
+   "gold": "ice",
+   "distractors": [
+    "Ice",
+    "snow",
+    "steam",
+    "water"
+   ]
+  },
+  {
+   "id": "v2-exact_format-28",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the capital letter X.\nAnswer:",
+   "chat": "Reply with only the capital letter X.",
+   "gold": "X",
+   "distractors": [
+    "x",
+    "Y",
+    "Z",
+    "ex"
+   ]
+  },
+  {
+   "id": "v2-exact_format-29",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the digit 0.\nAnswer:",
+   "chat": "Reply with only the digit 0.",
+   "gold": "0",
+   "distractors": [
+    "zero",
+    "1",
+    "O",
+    "10"
+   ]
+  },
+  {
+   "id": "v2-exact_format-30",
+   "category": "exact_format",
+   "plain": "Instruction: Reply with only the word maybe.\nAnswer:",
+   "chat": "Reply with only the word maybe.",
+   "gold": "maybe",
+   "distractors": [
+    "Maybe",
+    "MAYBE",
+    "yes",
+    "no"
+   ]
+  },
+  {
+   "id": "v2-exact_format-31",
+   "category": "exact_format",
+   "plain": "Instruction: Answer yes or no: Do fish live in water? No explanation.\nAnswer:",
+   "chat": "Answer yes or no: Do fish live in water? No explanation.",
+   "gold": "yes",
+   "distractors": [
+    "no",
+    "Yes",
+    "maybe",
+    "No"
+   ]
+  },
+  {
+   "id": "v2-exact_format-32",
+   "category": "exact_format",
+   "plain": "Instruction: Answer with only the number of legs a cat has, as a digit.\nAnswer:",
+   "chat": "Answer with only the number of legs a cat has, as a digit.",
+   "gold": "4",
+   "distractors": [
+    "four",
+    "2",
+    "3",
+    "6"
+   ]
+  },
+  {
+   "id": "v2-conversational-01",
+   "category": "conversational",
+   "plain": null,
+   "chat": "Good evening!",
+   "gold": null,
+   "distractors": []
+  },
+  {
+   "id": "v2-conversational-02",
+   "category": "conversational",
+   "plain": null,
+   "chat": "Can you tell me a joke?",
+   "gold": null,
+   "distractors": []
+  },
+  {
+   "id": "v2-conversational-03",
+   "category": "conversational",
+   "plain": null,
+   "chat": "What is the weather usually like in summer?",
+   "gold": null,
+   "distractors": []
+  },
+  {
+   "id": "v2-conversational-04",
+   "category": "conversational",
+   "plain": null,
+   "chat": "I feel tired today.",
+   "gold": null,
+   "distractors": []
+  },
+  {
+   "id": "v2-conversational-05",
+   "category": "conversational",
+   "plain": null,
+   "chat": "Please introduce yourself.",
+   "gold": null,
+   "distractors": []
+  },
+  {
+   "id": "v2-conversational-06",
+   "category": "conversational",
+   "plain": null,
+   "chat": "What should I cook for dinner tonight?",
+   "gold": null,
+   "distractors": []
+  },
+  {
+   "id": "v2-conversational-07",
+   "category": "conversational",
+   "plain": null,
+   "chat": "Do you like music?",
+   "gold": null,
+   "distractors": []
+  },
+  {
+   "id": "v2-conversational-08",
+   "category": "conversational",
+   "plain": null,
+   "chat": "See you tomorrow!",
+   "gold": null,
+   "distractors": []
+  }
+ ]
+}

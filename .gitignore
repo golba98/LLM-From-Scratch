@@ -45,3 +45,6 @@ LLM-From-Scratch/
 
 # Local Ubume Native checkpoint registry
 /artifacts.codexa-native.local.json
+
+# Private local status report (machine paths, asset inventory); kept with docs, never committed
+/documentation/workspace/CHATGPT_CURRENT_STATE.md

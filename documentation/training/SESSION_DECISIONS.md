@@ -2255,3 +2255,111 @@ Report: `outputs/diagnostics/post-repair-integration/20261012T095454Z/REPORT.md`
   - Earlier SFT models are siblings, not ancestors, of the initialization checkpoint.
   - Step zero reconfirmed 16/16 token-identical under the committed identity.
 - GO/NO-GO: `tools/codexa-dev scripts/sft_readiness.py --experiment <job.json>`. Authorization-time commands are `scripts/sft_pilot.py approve|launch`; neither was run.
+
+## 2026-10-12 — Step 5B SFT pilot executed; 10-hour SFT not recommended (Claude Code)
+
+- **Job.** Step 5A job 924da9f3 had been superseded by the Step 5B re-freeze f36f5478. The re-freeze fixed the final-save and deadline-state trainer defects (a9adc65, 6d3e522) and kept the same experiment settings. The user chose f36f5478.
+- **Preflight.** Readiness was READY FOR AUTHORIZATION, 24/24 checks (free VRAM 14,775 MiB).
+- **Launch.** The user ran `approve` and `launch` themselves (wakeup provider claude). The recorded statement is the literal placeholder `I authorize ...`.
+- **Outcome.** COMPLETED, STEP_CAP: 128 updates, 51,026 supervised tokens, 331 s.
+  - Final checkpoint 43002c4d and update-64 checkpoint 2ddf6d80, both re-hashed independently.
+  - Foundation ca779a16 unchanged.
+- **Acceptance: FAIL.**
+  - Severe repetition 5/16 (limit 4); strict accuracy 0/7.
+  - END, natural endings, premature END and reference CE PASS.
+  - Human review PENDING.
+  - All behavioural metrics flat from update 32 to 128; historical-nucleus repetition 15 to 30.
+- **Decision.**
+  - No promotion, no resume, no extension, no second run.
+  - A 10-hour General Chat v2 SFT is not recommended.
+  - Next: a bounded investigation (decoding, data, a foundation completion probe, a real blinded review) and consider pretraining. The foundation has about 773M tokens, about 0.8 tokens per parameter.
+- **Defects found.**
+  - The supervisor completion schema has null validation and generations for SFT runs.
+  - The handoff text uses the foundation-run template.
+  - There is no per-update metrics file and peak VRAM is not logged.
+- **Separate change.** The run-end agent window is now 100x22 and the dashboard stays 120x30 (bb5cd0f; PR #6).
+- **Reports.** `outputs/diagnostics/codexa-934m-sft-pilot-v1-results/20261012T211243Z/`.
+
+## 2026-10-12 — Post-SFT foundation assessment and training instrumentation repair (Claude Code; no training)
+
+- **Telemetry.** New `training_telemetry` gives append-only, deduplicated, crash- and resume-safe per-update records:
+  - loss, learning rate, pre-clip and derived post-clip gradient norm, tokens;
+  - allocated, reserved, peak and driver-free VRAM, throughput;
+  - evaluation and checkpoint timing, stop records.
+  - It is wired into `sft_pilot_trainer`. Telemetry failures are never fatal.
+- **Reporting.** New `run_reporting` distinguishes SFT and foundation jobs, reads the real SFT evaluations and the sealed baseline, separates execution from quality, names the best non-promoted candidate, and marks missing data as unavailable.
+  - `training_notifications` writes a new `supervisor/run-summary.json` and a job-aware handoff and prompt, falling back to the legacy text on error.
+  - `completion.json`, `training_supervisor` and `training_wakeup` are unchanged (hash-bound).
+- **Capability probe** (inference only, 3 checkpoints, 360 rows):
+  - foundation plain-form top-1 26/56 (p=0.0007); arithmetic, grammar and reasoning at chance;
+  - SFT changed the chat surface, not knowledge; P(END after a bare answer) ≈ 0; 0 exact answers in every configuration;
+  - a repetition penalty removes loops but halves correct statements.
+- **Data** (frozen set read-only): 30% of targets restate the prompt (UltraChat 42%); the authored constrained examples are 1% of supervised tokens, in 4 rigid templates; 2 of 7 strict cases expect bare answers to open questions.
+- **Strategy.** Continuing the 934M beats a fresh 150–350M model at 10 h and is level at 50–300 h. Throughput is measured (8,012 vs 52,851 tok/s); the loss fit is relative only.
+  - Correction to the earlier 10-hour note: steady throughput is 8,012 tok/s, not 3,024.
+  - Verdict: READY TO PREPARE NEW FOUNDATION EXPERIMENT. No job was prepared or launched.
+- **Commits** (local, not pushed): 9427fa0, fbcc5c0, eccd16a. Audit CLD-000029 to CLD-000031.
+
+## 2026-10-13 — Step 6: prepare the 10-hour foundation continuation (Claude Code; no training)
+
+- **New job identity** `codexa-934m-foundation-continuation-10h-v1`, not an exact continuation of the predecessor:
+  - weights only from ca779a16 with a fresh AdamW8bit optimizer and a fresh, independent cosine schedule;
+  - the predecessor's schedule had already decayed to its floor, its order was exhausted and its code identity is superseded;
+  - hyperparameters are identical to the predecessor apart from the cap and cadences;
+  - the 2e-5 peak is kept as the proven, conservative value; no new hyperparameter was invented.
+- **Data:** the predecessor's seed-42 permutation continued from position 57,344 (114,688 windows):
+  - verified disjoint from the 5-hour run, validation and base-v1's reconstructed positions;
+  - exact source mix 61.10/38.90 from index metadata;
+  - full corpus SHA-256 matches, and every token is in range;
+  - base-v1 exclusion is positional and reconstructed, not content-level.
+- **Budget:** at most 36,000 s wall-clock including finalization (SessionBudget), with a supervisor backstop at +120 s. Cap 3,584 updates, the largest multiple of the cadence whose p95 plan leaves at least 10% slack. Reserve 540 s, which is 1.25 × the measured final validation, save/verify and full evaluation.
+- **Evaluation:**
+  - validation, then plain-form capability scoring every 224 updates;
+  - full evaluation at 896, 1,792 and 2,688 and at the end: historical 48 + both-form scoring + greedy generations;
+  - capability guard: McNemar p < 0.01 plus a lower margin, at 2 consecutive judgements.
+- **Telemetry:** moved into LLM-Training (`llm_training.telemetry`, aliased by the integration). `pretrain_run` now records updates, gates, evaluations, checkpoints, stop and recovery state. Real tiny-run evidence exposed two defects, both fixed before freezing:
+  - CPU VRAM was logged as 0; it is now null;
+  - an all-writes-failed run reported 'unavailable'; it now reports 'degraded'.
+- **Benchmark:** v1, the 56 + 8 items, is preserved byte-identical. v2 adds 224 + 8 new items (32 per category). Measured per item: likelihood rank, length-normalized rank, margin, both option orders, P(END), and greedy and repetition-penalty generations; Wilson and McNemar statistics. Independent human review of v2 is pending.
+- **Baseline** b9e0a920 (inference only): grammar choices follow word frequency (0 order-sensitive items); arithmetic and reasoning at chance; the repetition penalty removes repetition but lowers correct statements.
+- **First frozen attempt** a5373cf3 is superseded and preserved:
+  - its paths were relative;
+  - its trial readiness exposed the btrfs st_dev identity defect, fixed in 046af65.
+- **Readiness for 6d9d8453:** 0 engineering failures (focused tests 24 + 58 pass). CONDITIONALLY READY, because free disk is 43.7 MB below the 180 GiB gate. The space was taken by the SFT pilot checkpoints and new user files. Nothing was deleted and no gate was lowered.
+- **Regression:** integration 489 passed, all components pass, audit 65 passed.
+- **Commits:** local only. No push, no PR, PR #6 untouched.
+
+
+## 2026-10-13 — Dedicated encrypted SSD asset cutover
+
+- Copied 75 Codexa checkpoint/export payloads and 141 small companion files to
+  `/mnt/codexa`; original assets remain intact. Datasets, logs, repositories,
+  environments, external model caches and Windows storage were not migrated.
+- Saved PyTorch inputs use `/mnt/codexa/pytorch/saved`; selected workspace
+  checkpoint stores retain relative layout under `pytorch/workspace-outputs`.
+  NumPy inputs use `/mnt/codexa/numpy/current`, with deprecated and smoke assets
+  in separate siblings. Dataset/log/recovery references remain on original storage.
+- Fresh source/destination SHA-256 inventories matched. Native model schemas and
+  three component-store snapshots loaded; representative PyTorch and NumPy CPU
+  inference agreed with originals. NumPy optimizer/RNG restoration and bounded
+  native smoke optimizer/scheduler loading passed without training updates.
+- All five HF-format Codexa exports loaded offline and passed CPU inference; all
+  five GGUF exports passed structure/tokenizer parsing. GGUF runtime generation
+  and large CUDA optimizer/RNG restoration were not executed.
+- Local asset roots, specific checkpoint aliases and six-model native registry
+  paths changed without altering identities/hashes. Relative historical input
+  references resolve to copied files. Optional mount-UUID checks prevent missing
+  volume fallback; copied run trees and retained asset sources are read-only
+  output destinations. Canonical source-first bridge readiness was verified.
+- Historical installed wheels/frozen training code, production gates and output
+  roots remain unchanged. Resolver changes remain uncommitted, so normal
+  committed-source approval is still needed before a new production launch.
+- SELinux remains enforcing; asset directories/files have user_home_t labels.
+  A persistent fcontext rule requires the prepared local administrator step;
+  its completion is recorded in private migration evidence, not assumed here.
+- No sources were deleted or deduplicated. Fedora capacity is therefore unchanged.
+  Independent protected backup and restore testing plus separate authorization
+  are required before original retirement. Header/config backup remains protected
+  on the encrypted Fedora system; an independent copy is still required.
+- Operational commands, exact drive identity, rollback instructions and validation
+  artifacts are documented in Documents/codexa-migration outside Git.

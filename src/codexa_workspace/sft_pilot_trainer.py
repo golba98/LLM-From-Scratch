@@ -18,6 +18,7 @@ from pathlib import Path
 import time
 from typing import Callable
 
+from codexa_workspace import training_telemetry
 from codexa_workspace.sft_pilot_runtime import StopPolicy, outcome, terminal_state
 
 
@@ -48,6 +49,17 @@ def run_sft_pilot(job: dict, run_dir: Path, *, approval: dict, environment: dict
         raise FileExistsError('Fresh run namespace required; never overwrite a run.')
     metrics.mkdir(parents=True, exist_ok=True)
     evaluations = run_dir / 'evaluations'
+    # Per-update telemetry (append-only JSONL). A telemetry failure is recorded, never fatal to training.
+    telemetry_errors = []
+    telemetry = training_telemetry.TelemetryWriter(
+        metrics / training_telemetry.FILENAME, run_id=spec['run_name'], job_kind='sft',
+        clip=spec['training'].get('gradient_clip'))
+
+    def observe(method, *args, **values):
+        try:
+            method(*args, **values)
+        except Exception as error:  # noqa: BLE001 - observability must not stop a run
+            telemetry_errors.append(f'{type(error).__name__}: {error}'[:500])
     budget = parts.budget(spec['budget']['total_seconds'], spec['budget']['finalization_reserve_seconds'])
     heartbeat = parts.heartbeat(metrics / 'heartbeat.json')
     policy = StopPolicy(max_updates=spec['training']['max_steps'],
@@ -56,7 +68,8 @@ def run_sft_pilot(job: dict, run_dir: Path, *, approval: dict, environment: dict
     step_zero = json.loads(Path(spec['evaluation']['step_zero_path']).read_text())
     report = dict(run_name=spec['run_name'], job_sha256=job['job_sha256'], approval=approval,
                   environment=environment, initialized_from=spec['initialization'], exact_resume=False,
-                  state='STARTING', checkpoints=[], evaluations=[], final_checkpoint_verified=False)
+                  state='STARTING', checkpoints=[], evaluations=[], final_checkpoint_verified=False,
+                  telemetry=str(metrics / training_telemetry.FILENAME), telemetry_errors=telemetry_errors)
     progress = dict(phase='conversational-sft-pilot', run_name=spec['run_name'], state='STARTING', step=0,
                     total_steps=spec['training']['max_steps'], pid=os.getpid())
     stop_reason = None
@@ -69,21 +82,37 @@ def run_sft_pilot(job: dict, run_dir: Path, *, approval: dict, environment: dict
     def evaluate(step: int) -> None:
         nonlocal stop_reason
         heartbeat.set('GENERATION_EVAL', optimizer_step=step)
+        started = time.monotonic()
         summary = parts.evaluate(model, validation, spec, step)
         parts.write(evaluations / f'step-{step:05d}.json', summary)
+        observe(telemetry.evaluation, step, summary, seconds=time.monotonic() - started)
         report['evaluations'].append(dict(step=step, summary_path=str(evaluations / f'step-{step:05d}.json')))
         decision = policy.after_evaluation(step=step, step_zero=step_zero, result=summary)
         if decision:
             stop_reason = decision
         heartbeat.set('TRAINING')
 
-    def on_update(step: int, loss: float, gradient_norm: float) -> None:
+    def save(role: str, step: int, final: bool) -> dict:
+        started = time.monotonic()
+        try:
+            record = store.save(model, optimizer, state_holder['state'], final=final)
+        except Exception as error:
+            observe(telemetry.checkpoint, step, role=role, record=None, seconds=time.monotonic() - started,
+                    error=f'{type(error).__name__}: {error}'[:500])
+            raise
+        observe(telemetry.checkpoint, step, role=role, record=record, seconds=time.monotonic() - started)
+        return record
+
+    def on_update(step: int, loss: float, gradient_norm: float, record=None) -> None:
         nonlocal stop_reason
         progress.update(state='RUNNING', step=step, training_loss=loss, gradient_norm=gradient_norm,
                         remaining_seconds=budget.remaining)
         heartbeat.set(optimizer_step=step, last_step_utc=time.time())
+        free_vram = parts.free_vram()
+        observe(telemetry.update, record if record is not None else
+                dict(optimizer_step=step, training_loss=loss, gradient_norm=gradient_norm), free_vram_bytes=free_vram)
         decision = policy.after_update(step=step, loss=loss, gradient_norm=gradient_norm,
-                                       free_vram_bytes=parts.free_vram(),
+                                       free_vram_bytes=free_vram,
                                        training_deadline_passed=time.monotonic() >= budget.training_deadline)
         if decision in ('NONFINITE',):
             raise FloatingPointError('Nonfinite loss or gradient norm.')
@@ -93,7 +122,7 @@ def run_sft_pilot(job: dict, run_dir: Path, *, approval: dict, environment: dict
             evaluate(step)
         if step in [u for u in spec['checkpoint']['publications'] if isinstance(u, int)] and stop_reason is None:
             heartbeat.set('CHECKPOINTING')
-            report['checkpoints'].append(store.save(model, optimizer, state_holder['state'], final=False))
+            report['checkpoints'].append(save('intermediate', step, final=False))
             heartbeat.set('TRAINING')
         document()
 
@@ -133,7 +162,7 @@ def run_sft_pilot(job: dict, run_dir: Path, *, approval: dict, environment: dict
         else:
             # Save the live training state object (as at update 64); ``state`` is its JSON summary.
             final_state = state_holder['state']
-            record = store.save(model, optimizer, final_state, final=True)
+            record = save('final', state['optimizer_step'], final=True)
             report['checkpoints'].append(record)
             report['final_checkpoint'] = store.verify(record, final_state)
             report['final_checkpoint_verified'] = True
@@ -151,6 +180,10 @@ def run_sft_pilot(job: dict, run_dir: Path, *, approval: dict, environment: dict
         report['viewer_closed'] = viewer is not None and viewer.poll() is not None
         heartbeat.set('FINALIZING', terminal_state=report['state'])
         heartbeat.stop()
+        observe(telemetry.stop, state=report['state'], reason=report.get('stop_reason'),
+                step=(report.get('training_state') or {}).get('optimizer_step', progress.get('step')),
+                error=report.get('error'), error_type=report.get('error_type'))
+        observe(telemetry.close)
         parts.write(metrics / 'report.json', report)
         document()
         del model, optimizer
@@ -216,7 +249,7 @@ def default_components(device: str = 'cuda') -> Components:
 
         def callback(current, metrics):
             holder['state'] = current
-            on_update(current.optimizer_step, metrics.training_loss, metrics.gradient_norm)
+            on_update(current.optimizer_step, metrics.training_loss, metrics.gradient_norm, metrics)
 
         final, _ = train_model(network, loader, optim, device=torch.device(device),
                                precision=resolve_precision(t['precision'], torch.device(device)),

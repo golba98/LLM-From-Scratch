@@ -28,6 +28,7 @@ import time
 from llm_training.session import atomic_document
 
 from .training_supervisor import read_json, process_start_ticks, boot_id
+from . import run_reporting
 from .training_wakeup import (agent_environment, handoff_text, prompt_text, provider_command,
                               resume_command, session_identity)
 
@@ -192,6 +193,19 @@ WINDOW_ENVIRONMENT = ('PATH', 'HOME', 'USER', 'LOGNAME', 'LANG', 'SHELL', 'WAYLA
 WINDOW_SIZE = ('initial_window_width=100c', 'initial_window_height=22c')
 
 
+def run_summary(run_dir: Path, completion: dict | None = None) -> dict | None:
+    """Job-type-aware summary (run_reporting); None falls back to the legacy foundation-only text."""
+    try:
+        return run_reporting.build_summary(Path(run_dir), completion)
+    except Exception:  # noqa: BLE001 - reporting must never block a terminal notification
+        return None
+
+
+def wakeup_prompt(run_dir: Path, provider: str, completion: dict | None = None) -> str:
+    summary = run_summary(run_dir, completion)
+    return run_reporting.prompt_text(run_dir, provider, summary) if summary else prompt_text(run_dir, provider)
+
+
 def window_prompt(run_dir: Path, provider: str, completion: dict, session_id: str | None, ai_status: str) -> str | None:
     """None when resuming the analysis session (its transcript is the context)."""
     if session_id:
@@ -200,7 +214,7 @@ def window_prompt(run_dir: Path, provider: str, completion: dict, session_id: st
         return (f"The Codexa run {completion['run_id']} ended ({completion['terminal_state']}: {completion.get('reason')}). "
                 f"Read {Path(run_dir) / 'final-report'} and {Path(run_dir) / 'supervisor/completion.json'}, "
                 "summarise the outcome briefly, then wait for my instructions.")
-    return prompt_text(run_dir, provider)
+    return wakeup_prompt(run_dir, provider, completion)
 
 
 def agent_window_command(provider: str, root: Path, session_id: str | None, prompt: str | None) -> list[str]:
@@ -377,7 +391,11 @@ def outcome_message(completion: dict, ai_phrase: str | None) -> tuple[str, str, 
     verified = completion.get('final_checkpoint_verification') == 'verified'
     if state == 'COMPLETED':
         summary = 'Codexa — Training completed'
-        body = f"{run_id}: foundational run finished ({completion.get('optimizer_steps')} updates)"
+        try:
+            label = run_reporting.outcome_label(Path((completion.get('paths') or {})['run']))
+        except Exception:  # noqa: BLE001 - fall back to a neutral label
+            label = 'training run'
+        body = f"{run_id}: {label} finished ({completion.get('optimizer_steps')} updates)"
         body += '; final checkpoint verified' if verified else '; final checkpoint NOT verified'
         urgency = 'normal' if verified else 'critical'
     else:
@@ -401,7 +419,7 @@ def outcome_message(completion: dict, ai_phrase: str | None) -> tuple[str, str, 
 def _manual_fallback(run_dir: Path, root: Path, provider: str, status: str) -> None:
     report = Path(run_dir) / 'final-report'
     report.mkdir(parents=True, exist_ok=True)
-    (report / 'prompt.txt').write_text(prompt_text(run_dir, provider))
+    (report / 'prompt.txt').write_text(wakeup_prompt(run_dir, provider))
     command, options = provider_command(provider, run_dir, root)
     quoted = ' '.join(json.dumps(part) if (' ' in part or '(' in part) else part for part in command)
     (report / 'RESUME_MANUALLY.md').write_text(
@@ -461,8 +479,12 @@ def deliver(run_dir: Path, root: Path, *, provider: str | None = None, defer_ai:
     with lock_path.open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         _import_legacy(supervisor, completion)
+        summary_document = run_summary(run_dir, completion)
+        if summary_document and not (supervisor / run_reporting.SUMMARY_FILE).exists():
+            run_reporting.write_summary(summary_document, supervisor / run_reporting.SUMMARY_FILE)
         if not (supervisor / 'ai-handoff.md').exists():
-            (supervisor / 'ai-handoff.md').write_text(handoff_text(completion))
+            (supervisor / 'ai-handoff.md').write_text(run_reporting.handoff_text(summary_document)
+                                                      if summary_document else handoff_text(completion))
         base = dict(run_id=completion['run_id'], terminal_event_id=completion['event_id'],
                     event_type=completion['terminal_state'], execution_class=classification['effective'],
                     classification_source=classification['source'])
@@ -489,7 +511,7 @@ def deliver(run_dir: Path, root: Path, *, provider: str | None = None, defer_ai:
             ai.update(status='deferred', deferred_utc=now())
             ai_phrase = 'AI analysis deferred until next start'
         elif ai['submissions'] < MAX_AI_SUBMISSIONS:
-            result = ai_backend.submit(provider, run_dir, root, prompt_text(run_dir, provider))
+            result = ai_backend.submit(provider, run_dir, root, wakeup_prompt(run_dir, provider, completion))
             ai['submissions'] += 1
             entry = {key: value for key, value in result.items() if not key.startswith('_')}
             ai['history'].append(dict(at=now(), outcome='submitted' if result['submitted'] else 'submit_failed', **entry))

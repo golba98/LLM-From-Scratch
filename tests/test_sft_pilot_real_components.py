@@ -121,6 +121,16 @@ def test_real_components_train_publish_verify_and_evaluate(toy_job, tmp_path):
     assert final['finite'] and final['gold']['conversations'] == 2
     for name in ('heartbeat', 'progress', 'budget', 'report'):
         assert (run_dir / f'metrics/{name}.json').exists(), name
+    # Real train_model metrics reach the per-update telemetry (CPU: no VRAM fields to report).
+    from codexa_workspace import training_telemetry
+    effective = training_telemetry.read_telemetry(run_dir / 'metrics/telemetry.jsonl')
+    updates = [r for r in effective['records'] if r['kind'] == 'update']
+    assert [r['step'] for r in updates] == list(range(1, 9)) and report['telemetry_errors'] == []
+    assert all(r['learning_rate'] is not None and r['supervised_tokens'] and r['micro_step'] for r in updates)
+    assert all(r['gradient_norm_post_clip'] <= r['gradient_norm_pre_clip'] + 1e-9 for r in updates)
+    assert [r['step'] for r in effective['records'] if r['kind'].startswith('evaluation')] == [2, 4, 8]
+    assert [r['step'] for r in effective['records'] if r['kind'].startswith('checkpoint:')] == [4, 8]
+    assert effective['records'][-1]['kind'] == 'stop' and effective['records'][-1]['reason'] == 'STEP_CAP'
     assert data.read(run_dir / 'metrics/heartbeat.json')['terminal_state'] in TERMINAL
     assert {'deadline_utc', 'remaining_seconds'} <= set(data.read(run_dir / 'metrics/budget.json'))
     # The read-only dashboard renders this run's files (it is the trainer's required viewer).

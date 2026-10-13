@@ -76,3 +76,30 @@ While a job may still resume, put changes in new modules or the unhashed `script
 - Keep everything else under about 2 GiB total.
 
 Run details are in `documentation/training/CODEXA_934M_TRAINING_SUPERVISOR.md`.
+
+
+## Dedicated Codexa asset SSD — 2026-10-13
+
+Active historical model inputs now use the manually unlocked encrypted filesystem
+at `/mnt/codexa`; ignored `artifacts.local.json` pins its filesystem/LUKS UUIDs
+with `asset_mount`. Source-first input/output resolvers require the expected mount
+and protect `read_only_asset_roots`. Historical installed wheels and frozen
+training modules remain unchanged; use the existing source-first launchers for
+current asset resolution. Production committed-source and resource gates remain
+in force. No commit or training launch was performed during this migration.
+
+Only checkpoint/export weights and required tokenizer/configuration/index/checksum
+companions were copied. The original 31/32 Source and selected workspace outputs
+remain intact for rollback. Dataset/log/recovery navigation links point back to
+original storage; do not follow those links during copying or label operations.
+Keep legacy compatibility links and original checkpoints until independent backup,
+restore verification and separate user authorization permit retirement.
+
+Local settings and the native registry have pre-cutover backups outside Git under
+`/home/k9-vortex/Documents/codexa-migration/rollback`. The report and complete
+inventory/validation evidence are under that migration directory and the SSD's
+`manifests/20261013-initial`. Never commit that private evidence.
+Future output roots are unchanged; this migration does not redirect new training
+outputs. Choose explicit new checkpoint paths outside historical read-only trees
+for separately approved jobs. Do not repair/restart the legacy inference service
+as part of storage migration.

@@ -2,6 +2,7 @@
 import json
 import os
 from pathlib import Path
+from .asset_mount import require_asset_mount
 
 
 def workspace_root(explicit=None):
@@ -27,7 +28,9 @@ def local_settings(root):
 
 
 def asset_root(root):
-    value = os.environ.get("CODEXA_ASSET_ROOT") or local_settings(root).get("asset_root")
+    settings = local_settings(root)
+    require_asset_mount(settings)
+    value = os.environ.get("CODEXA_ASSET_ROOT") or settings.get("asset_root")
     if not value:
         raise ValueError("Set CODEXA_ASSET_ROOT or asset_root in artifacts.local.json")
     path = Path(value).expanduser().resolve()
@@ -38,7 +41,9 @@ def asset_root(root):
 
 def resolve_input(root, value):
     path = Path(value)
-    aliases = local_settings(root).get("input_aliases", {})
+    settings = local_settings(root)
+    require_asset_mount(settings)
+    aliases = settings.get("input_aliases", {})
     if path.is_absolute():
         for old, new in aliases.items():
             try:
@@ -47,6 +52,12 @@ def resolve_input(root, value):
                 continue
         return path
     canonical = Path(root) / path
+    # Preserve relative run references while routing explicitly migrated inputs.
+    for old, new in aliases.items():
+        try:
+            return Path(new) / canonical.relative_to(old)
+        except ValueError:
+            continue
     return canonical if canonical.exists() else asset_root(root) / path
 
 
@@ -63,7 +74,9 @@ def output_root(root):
 def resolve_output(root, value):
     path = Path(value)
     path = path.resolve() if path.is_absolute() else (output_root(root) / path).resolve()
-    protected = [asset_root(root), *[Path(p).resolve() for p in local_settings(root).get("input_aliases", {})]]
+    settings = local_settings(root)
+    protected = [asset_root(root), *[Path(p).resolve() for p in settings.get("input_aliases", {})],
+                 *[Path(p).resolve() for p in settings.get("read_only_asset_roots", [])]]
     if any(path == p or p in path.parents for p in protected):
         raise ValueError("Outputs must not overwrite historical or retired inputs")
     return path

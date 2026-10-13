@@ -863,3 +863,32 @@ Phase 4 conversational SFT preparation completed with no training.
 - Built and tested a non-runnable SFT job and runtime (prepare/evaluate/train-gated).
 - Verdict and conditions: `outputs/preparation/codexa-934m-sft-phase4/20261012T145429Z-643f4379/SFT_PHASE4_READINESS_REPORT.md`.
 - Zero optimizer constructions, zero updates, no launch.
+
+## 2026-10-12 — Step 5B conversational SFT pilot executed (FAIL)
+
+Ran the first conversational SFT pilot, `codexa-934m-sft-feasibility-pilot-v1`. The job is the Step 5B re-freeze f36f5478 (it supersedes Step 5A 924da9f3), approved by the user and launched through the OS supervisor.
+- Result: 128/128 updates, 51,026 supervised tokens in 331 s; STEP_CAP; checkpoints at update 64 and the final update verified; foundation ca779a16 unchanged; nothing promoted.
+- Gates: natural endings 0→11/16 and END NLL 18.16→1.14 PASS; reference CE +0.03 PASS; severe repetition 15→5/16 FAIL (limit 4); strict accuracy 0/7 FAIL; human review PENDING. Overall FAIL.
+- Every metric plateaued from update 32.
+- Reports: `outputs/diagnostics/codexa-934m-sft-pilot-v1-results/20261012T211243Z/CODEXA_SFT_PILOT_V1_RESULTS.md` and `TEN_HOUR_FOLLOWUP_RECOMMENDATION.md`. The recommendation: no 10-hour SFT; investigate. The foundation has seen about 773M tokens (about 0.8 tokens per parameter).
+
+## 2026-10-12 — Foundation capability assessment and telemetry repair (no training)
+
+Repaired per-update telemetry for SFT runs (append-only `metrics/telemetry.jsonl`, crash and resume safe; 9427fa0). Added job-type-aware supervisor reporting (`run_reporting`, `supervisor/run-summary.json`; fbcc5c0) and an inference-only capability probe (eccd16a).
+- **Foundation, plain form:** gold answer ranked first on 26/56 items (chance 14.8, p=0.0007). Factual, copy and completion are well above chance; arithmetic, grammar and reasoning are at chance.
+- **SFT:** added no plain-form knowledge (25/56). It installed a "The X is Y." answer template with P(END after a bare answer) ≈ 0, giving 0 exact answers.
+- **SFT data:** 30% of targets restate the prompt; the constrained examples carry 1% of supervised tokens.
+- **Regression:** 464 integration tests plus all component and audit suites pass; checkpoints unchanged.
+- **Verdict:** READY TO PREPARE NEW FOUNDATION EXPERIMENT (10 h continuation of the 934M; not prepared or launched).
+- **Reports:** `outputs/diagnostics/codexa-934m-foundation-capability/20261012T213231Z/{FOUNDATION_CAPABILITY_ASSESSMENT,TRAINING_TELEMETRY_REPAIR,NEXT_TRAINING_STRATEGY}.md`.
+
+## 2026-10-13 — Step 6: 10-hour foundation continuation prepared and frozen (not authorized)
+
+Prepared `codexa-934m-foundation-continuation-10h-v1`, job `6d9d8453fa504f15841b7e3b6a1b31cc0776462a40d19db717ee893a039e0ef6`. No training was run.
+- **Initialization:** weights only from foundation ca779a16, with a fresh AdamW8bit optimizer and a fresh cosine schedule (warmup 20, 2e-5 to 2e-6).
+- **Data:** the seed-42 permutation continued from position 57,344, giving 114,688 windows and 234.9M tokens. It is disjoint from the 5-hour run, from validation and from base-v1's reconstructed positions. Mix 61.10% FineWeb-Edu / 38.90% Wikipedia; full corpus checksum verified.
+- **Budget:** 36,000 s with a 540 s reserve and a 3,584-update cap; the p95 plan is 31,687 s.
+- **Sealed step-zero baseline** b9e0a920: CE 3.0132 (Wikipedia) / 3.1403 (FineWeb-Edu); plain top-1 126/280.
+- **Engineering:** foundation telemetry (LLM-Training 933358c, 6d4acbc); expanded benchmark (v1 preserved, v2 with 32 per category).
+- **Readiness:** 0 engineering failures. CONDITIONALLY READY: free disk is 43.7 MB below the 180 GiB launch gate.
+- **Reports:** `outputs/preparation/codexa-934m-foundation-10h/20261012T223033Z/`.
