@@ -11,7 +11,7 @@ ROOT = workspace_root()
 
 
 def main():
-    catalog = json.loads((ROOT / 'artifact-catalog/catalog.json').read_text())
+    catalog = json.loads((ROOT / 'configs/artifact-catalog.json').read_text())
     assets = asset_root(ROOT)
     checkpoint = assets / catalog['chat_baseline']['path']
     tokenizer = assets / catalog['tokenizer']['path']

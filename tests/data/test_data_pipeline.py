@@ -8,9 +8,9 @@ import subprocess
 import sys
 from tempfile import TemporaryDirectory
 
-from scripts.data.prepare_dataset import prepare_dataset
-from src.data.io import read_documents
-from src.data.statistics import DatasetStatistics
+from llm_data.cli.prepare_dataset import prepare_dataset
+from llm_data.data.io import read_documents
+from llm_data.data.statistics import DatasetStatistics
 
 
 SAMPLE_PATH = Path("tests/fixtures/data/sample.txt")
@@ -219,7 +219,7 @@ def test_sample_cli() -> DatasetStatistics:
         output_dir = Path(directory) / "prepared"
         command = [
             sys.executable,
-            "scripts/data/prepare_dataset.py",
+            "-m", "llm_data.cli.prepare_dataset",
             str(SAMPLE_PATH),
             "--output-dir",
             str(output_dir),

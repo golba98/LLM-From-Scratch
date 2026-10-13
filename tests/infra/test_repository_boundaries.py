@@ -19,7 +19,7 @@ from llm_memory.service import ConversationMemory
 
 ROOT = Path(__file__).resolve().parents[2]
 WORKSPACE = ROOT.parent
-CATALOG = json.loads((ROOT / "artifact-catalog/catalog.json").read_text())
+CATALOG = json.loads((ROOT / "configs/artifact-catalog.json").read_text())
 LOCAL_PATH = ROOT / "artifacts.local.json"
 LOCAL = json.loads(LOCAL_PATH.read_text()) if LOCAL_PATH.is_file() else {}
 ORIGINAL = Path(LOCAL.get("reference_source", ROOT / "missing-reference"))

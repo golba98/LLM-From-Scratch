@@ -8,10 +8,10 @@ from types import SimpleNamespace
 import pytest
 import torch
 
-import src.native_chat as native
-from src.checkpointing import file_sha256
-from src.memory.service import ConversationMemory
-from src.model import LanguageModel, ModelConfig
+import llm_inference.native_chat as native
+from llm_training.checkpointing import file_sha256
+from llm_memory.service import ConversationMemory
+from llm_architecture.model import LanguageModel, ModelConfig
 
 
 class Tokenizer:
@@ -86,7 +86,7 @@ def test_actual_tiny_generation_is_deterministic(monkeypatch):
 
 
 def test_cli_and_bridge_memory_defaults():
-    from scripts.inference.chat_native import build_parser
+    from llm_inference.cli.chat_native import build_parser
     from llm_inference.cli.native_chat_bridge import build_parser as bridge_parser
     for parser in (build_parser(), bridge_parser()):
         args = parser.parse_args(['--checkpoint', 'unused.pt', '--tokenizer', 'unused.json'])

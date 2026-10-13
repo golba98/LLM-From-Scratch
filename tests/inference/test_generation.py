@@ -6,14 +6,14 @@ import tempfile
 import torch
 from torch import nn
 
-from scripts.inference.generate import build_argument_parser, run
-from src.checkpointing import (
+from llm_inference.cli.generate import build_argument_parser, run
+from llm_training.checkpointing import (
     CheckpointManager,
     SchedulerState,
     build_checkpoint_payload,
 )
-from src.config import ProjectConfig, TrainingConfig
-from src.generate import (
+from llm_training.config import ProjectConfig, TrainingConfig
+from llm_inference.generate import (
     GenerationConfig,
     apply_repetition_penalty,
     ban_repeated_ngrams,
@@ -21,10 +21,10 @@ from src.generate import (
     generate_sequences,
     generate_token_ids,
 )
-from src.model import LanguageModel, ModelConfig
-from src.token_data import file_sha256
-from src.tokenizer import train_tokenizer
-from src.training import TrainingState, create_adamw_optimizer
+from llm_architecture.model import LanguageModel, ModelConfig
+from llm_data.token_data import file_sha256
+from llm_tokenizer.tokenizer import train_tokenizer
+from llm_training.training import TrainingState, create_adamw_optimizer
 
 
 class ScriptedModel(nn.Module):

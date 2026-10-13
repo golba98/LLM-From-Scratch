@@ -1,16 +1,53 @@
 """Deterministic offline memory contracts; no external model or data required."""
 
+import hashlib
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from types import SimpleNamespace
 
 import numpy as np
 import pytest
+import torch
+from torch import nn
 
-from src.memory.context import build_context, prompt_ids
-from src.memory.service import ConversationMemory
-from src.memory.store import MemoryHit, MemoryStore, unit_vectors
-from src.sft import ChatMessage
+from llm_inference.context import build_context, prompt_ids
+from llm_memory.service import ConversationMemory
+from llm_memory.store import MemoryHit, MemoryStore, unit_vectors
+from llm_specialist.config import CLASSIFICATION_PREFIX, EMBEDDING_DIM
+from llm_tokenizer.sft import ChatMessage
+
+
+class FakeSentenceTransformer(nn.Module):
+    """Tiny injected module that tests adapter contracts without a download."""
+
+    def __init__(self, model_id: str, **kwargs) -> None:
+        super().__init__()
+        self.weight = nn.Parameter(torch.ones(1))
+        self.arguments = {"model_id": model_id, **kwargs}
+        self.prompts = {"Classification": CLASSIFICATION_PREFIX}
+        self.backbone = SimpleNamespace(
+            config=SimpleNamespace(vision_config=None, audio_config=None),
+            vision_tower=None, audio_tower=None,
+        )
+        self.last_encode = None
+
+    def __getitem__(self, index: int):
+        return SimpleNamespace(auto_model=self.backbone)
+
+    def get_embedding_dimension(self) -> int:
+        return EMBEDDING_DIM
+
+    def tokenizer(self, texts: list[str], **kwargs) -> dict:
+        assert kwargs["truncation"] is False
+        return {"input_ids": [[0] + list(range(len(text.split()))) + [1] for text in texts]}
+
+    def encode(self, texts: list[str], **kwargs) -> torch.Tensor:
+        self.last_encode = (texts, kwargs)
+        values = torch.zeros((len(texts), EMBEDDING_DIM))
+        for i, text in enumerate(texts):
+            column = int.from_bytes(hashlib.sha256(text.encode()).digest()[:2]) % EMBEDDING_DIM
+            values[i, column] = 1.0
+        return values
 
 
 def vectors(texts, task):
@@ -136,9 +173,8 @@ def test_chunking_preserves_raw_unicode_and_bounds():
 
 
 def test_retrieval_prompts_preserve_classifier():
-    from tests.inference.test_specialist import FakeSentenceTransformer
-    from src.specialist.config import EncoderConfig
-    from src.specialist.encoder import FrozenEncoder
+    from llm_specialist.config import EncoderConfig
+    from llm_specialist.encoder import FrozenEncoder
     encoder = FrozenEncoder(EncoderConfig(device='cpu'), factory=FakeSentenceTransformer)
     original = encoder.metadata()
     encoder.model.prompts.update(SearchQuery='task: search result | query: ', Document='title: none | text: ')
@@ -155,7 +191,7 @@ def test_retrieval_prompts_preserve_classifier():
 
 
 def test_missing_worker_fails_without_breaking_chat(monkeypatch):
-    import src.memory.service as service
+    import llm_memory.service as service
     def unavailable(*args):
         raise OSError('missing specialist environment')
     monkeypatch.setattr(service, 'EncoderClient', unavailable)
@@ -183,7 +219,7 @@ def test_client_embedding_cache_returns_copies():
     import io
     import queue
     import threading
-    from src.memory.client import EncoderClient
+    from llm_memory.client import EncoderClient
     client = EncoderClient.__new__(EncoderClient)
     client.metadata = {'revision': 'test'}
     client.failed = False

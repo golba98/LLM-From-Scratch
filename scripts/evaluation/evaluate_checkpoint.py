@@ -26,7 +26,7 @@ if __package__ in {None, ""}:
 
 from llm_architecture.checkpointing import checkpoint_model_config as _checkpoint_model_config
 from llm_training.checkpointing import load_model_checkpoint, verify_checkpoint_checksum
-from src.evaluation import (
+from codexa_workspace.evaluation import (
     analyze_generated_text,
     ngram_overlap_rate,
     perplexity_from_loss,

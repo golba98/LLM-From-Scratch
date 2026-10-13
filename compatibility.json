@@ -74,7 +74,7 @@
     "documentation": "documentation/workspace/ENVIRONMENTS.md"
   },
   "memory_transport": "JSON lines over separate subprocess",
-  "assets": "artifact-catalog/catalog.json",
+  "assets": "configs/artifact-catalog.json",
   "github_published": true,
   "layout": "eight independent sibling repositories"
 }

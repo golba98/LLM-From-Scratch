@@ -8,8 +8,8 @@ import subprocess
 import sys
 from tempfile import TemporaryDirectory
 
-from scripts.data.prepare_dataset import prepare_dataset
-from src.tokenizer import (
+from llm_data.cli.prepare_dataset import prepare_dataset
+from llm_tokenizer.tokenizer import (
     ASSISTANT_TOKEN,
     BOS_TOKEN,
     END_TOKEN,
@@ -256,7 +256,7 @@ def test_cli_tools() -> None:
 
         train_command = [
             sys.executable,
-            "scripts/data/train_tokenizer.py",
+            "-m", "llm_tokenizer.cli.train_tokenizer",
             str(train_path),
             str(validation_path),
             "--output-dir",
@@ -299,7 +299,7 @@ def test_cli_tools() -> None:
 
         inspect_command = [
             sys.executable,
-            "scripts/data/inspect_tokenizer.py",
+            "-m", "llm_tokenizer.cli.inspect_tokenizer",
             str(tokenizer_dir / "tokenizer.json"),
             str(train_path),
             str(validation_path),

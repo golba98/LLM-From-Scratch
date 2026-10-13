@@ -10,11 +10,11 @@ import pytest
 import torch
 from torch.utils.data import DataLoader, TensorDataset
 
-from src.conversational_training import ChatDataset
-from src.data.general_chat import prepare_general_chat
-from src.model import LanguageModel, ModelConfig
-from src.sft import IGNORE_LABEL
-from src.training import resolve_precision, train_model
+from llm_training.conversational_training import ChatDataset
+from llm_data.data.general_chat import prepare_general_chat
+from llm_architecture.model import LanguageModel, ModelConfig
+from llm_tokenizer.sft import IGNORE_LABEL
+from llm_training.training import resolve_precision, train_model
 from tests.inference.test_native_memory import Tokenizer
 
 
@@ -62,7 +62,7 @@ def test_training_deadline_before_update():
 
 @pytest.mark.usefixtures("development_training_environment")
 def test_partial_accumulation_deadline_restores_counters(monkeypatch):
-    import src.training as training_module
+    import llm_training.training as training_module
     model = LanguageModel(ModelConfig(vocab_size=32, context_length=8, hidden_size=16, num_heads=4, num_layers=1, intermediate_size=32))
     optimizer = torch.optim.AdamW(model.parameters(), lr=0.001)
     loader = DataLoader(TensorDataset(torch.ones(2, 8, dtype=torch.long), torch.ones(2, 8, dtype=torch.long)), batch_size=1)

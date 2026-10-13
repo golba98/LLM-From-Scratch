@@ -1,6 +1,0 @@
-# Opt-in fragment for a NEW chat configuration; not a standalone launch configuration.
-# Merge with a separately reviewed new run config. Never edit a historical run specification.
-checkpoint_storage_backend: optimized
-# Relative to the configured output root; share only within this explicit experiment group.
-checkpoint_store_root: checkpoint-groups/new-reviewed-experiment-v1
-# Capacity gate counts all retained states. No automatic pruning or historical migration.

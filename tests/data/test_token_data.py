@@ -10,8 +10,8 @@ from tempfile import TemporaryDirectory
 import numpy as np
 import torch
 
-from scripts.data.prepare_dataset import prepare_dataset
-from src.token_data import (
+from llm_data.cli.prepare_dataset import prepare_dataset
+from llm_data.token_data import (
     MemmapTokenDataset,
     build_token_data,
     benchmark_token_dataloader,
@@ -22,7 +22,7 @@ from src.token_data import (
     inspect_token_data,
     production_packing_policy,
 )
-from src.tokenizer import train_tokenizer
+from llm_tokenizer.tokenizer import train_tokenizer
 
 
 SAMPLE_PATH = Path("tests/fixtures/data/sample.txt")
@@ -449,7 +449,7 @@ def test_cli_tools() -> None:
         output_dir = root / "token-data"
         tokenize_command = [
             sys.executable,
-            "scripts/data/tokenize_dataset.py",
+            "-m", "llm_data.cli.tokenize_dataset",
             "--train-jsonl",
             str(train_input),
             "--validation-jsonl",
@@ -475,7 +475,7 @@ def test_cli_tools() -> None:
         inspected = subprocess.run(
             [
                 sys.executable,
-                "scripts/data/inspect_token_data.py",
+                "-m", "llm_data.cli.inspect_token_data",
                 str(output_dir / "token_data_manifest.json"),
             ],
             check=False,

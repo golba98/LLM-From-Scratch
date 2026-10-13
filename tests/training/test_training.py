@@ -14,10 +14,10 @@ import torch
 from torch import nn
 from torch.utils.data import DataLoader, Dataset, TensorDataset
 
-from scripts.train import _record_resume, build_argument_parser, run
-from src.model import LanguageModel, ModelConfig
-from src.token_data import file_sha256
-from src.training import (
+from llm_training.cli.train import _record_resume, build_argument_parser, run
+from llm_architecture.model import LanguageModel, ModelConfig
+from llm_data.token_data import file_sha256
+from llm_training.training import (
     CyclingDataIterator,
     JsonlRunLogger,
     TrainingMetrics,
