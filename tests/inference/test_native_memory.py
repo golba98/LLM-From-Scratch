@@ -87,7 +87,7 @@ def test_actual_tiny_generation_is_deterministic(monkeypatch):
 
 def test_cli_and_bridge_memory_defaults():
     from scripts.inference.chat_native import build_parser
-    from scripts.inference.native_chat_bridge import build_parser as bridge_parser
+    from llm_inference.cli.native_chat_bridge import build_parser as bridge_parser
     for parser in (build_parser(), bridge_parser()):
         args = parser.parse_args(['--checkpoint', 'unused.pt', '--tokenizer', 'unused.json'])
         assert args.memory == 'off' and args.memory_device == 'cpu'
