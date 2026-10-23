@@ -1,0 +1,71 @@
+version: 1
+seed: 42
+sources:
+  fineweb_edu:
+    repository: HuggingFaceFW/fineweb-edu
+    revision: 87f09149ef4734204d70ed1d046ddc9ca3f2b8f9
+    configuration: sample-10BT
+    shard_count: 10
+    role: base_pretraining
+  wikipedia:
+    repository: wikimedia/wikipedia
+    revision: b04c8d1ceb2f5cd4588862100d08de323dccfbaa
+    configuration: 20231101.en
+    shard_count: 41
+    role: base_pretraining
+  ultrachat:
+    repository: HuggingFaceH4/ultrachat_200k
+    revision: 8049631c405ae6576f93f445c6b8166f76f5505a
+    training_split: train_sft
+    final_evaluation_split: test_sft
+    role: future_sft
+  oasst1:
+    repository: OpenAssistant/oasst1
+    revision: fdf72ae0827c1cda404aff25b6603abec9e3399b
+    grouping_key: message_tree_id
+    final_evaluation_split: validation
+    role: future_sft
+cleaning_order:
+  - normalize
+  - reject_invalid
+  - exact_deduplicate_within_source
+  - exact_deduplicate_across_sources
+  - record_near_duplicate_fingerprints
+  - assign_duplicate_groups_to_splits
+  - tokenize
+  - pack
+split:
+  method: sha256_seeded_duplicate_cluster
+  validation_ratio: 0.005
+  test_ratio: 0.0
+  stable_identity_preference:
+    - canonical_source_identifier
+    - normalized_text_sha256
+near_duplicate:
+  status: exact_only_approved_limitation
+  completed: false
+  current_artifact: sorted_word_5_shingle_sha256
+  production_gate: satisfied_by_recorded_limitation
+  limitation: >-
+    Scalable near-duplicate similarity clustering was not available in this
+    checkout. Production proceeds with deterministic within-source and
+    cross-source exact deduplication only; residual near-duplicate documents
+    and near-duplicate split leakage may remain.
+packing:
+  context_length: 2048
+  eos_tokens_between_documents: 1
+  attention_crosses_document_boundaries: true
+  position_ids_reset_at_document_boundaries: false
+  trailing_partial_sequence: discard
+  padding: none
+mixture:
+  requested_token_percentages:
+    fineweb_edu: 0.6109974366329489
+    wikipedia: 0.38900256336705114
+  selection_status: frozen_full_corpus_proportions
+  achieved_total_tokens: 12819847234
+  sampler_state_sha256: e837d43afc45c8fabdb922e345e69942af1ed317b68473fb0c2f4402db9d2a7b
+  accounting_report_sha256: d801c6d2b88c488f999c190d9169294ddfb72fc0ce7df36230d3a5480aa6a1a4
+  mixed_manifest_sha256: 8ebb7744498c11f216ab6eb7b955128e310ec9294d055ab2eaeb2585e76b59a0
+  oversampling_allowed: false
+  interleaving: deterministic_token_deficit_schedule

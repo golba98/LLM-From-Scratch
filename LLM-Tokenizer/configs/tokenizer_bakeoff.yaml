@@ -1,0 +1,18 @@
+version: 1
+seed: 42
+documents_per_source: 50000
+candidate_vocab_sizes:
+  - 8192
+  - 16384
+min_frequency: 2
+context_length: 2048
+model_hidden_size: 1536
+tie_embeddings: true
+position_embedding_type: learned
+rope_theta: 10000.0
+timing_rounds: 3
+production_selection: 16384
+selection_rule: >-
+  Choose only after comparing compression, speed, projected corpus tokens,
+  projected runtime, and embedding parameter impact. This file does not change
+  the production tokenizer automatically.

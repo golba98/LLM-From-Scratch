@@ -1,57 +1,100 @@
-# Codexa v1 — PyTorch integration repository
+<h1 align="center">LLM From Scratch</h1>
 
-Codexa is a 934M-parameter language model built from scratch in PyTorch. Its reusable code lives in seven sibling repositories. **This repository ties them together**: it holds the training jobs and their OS-level supervision, the evaluation suites, run notifications and monitoring, and the operator scripts. It also keeps the decision log for the whole project.
+<p align="center"><strong>PyTorch Codexa v1</strong></p>
 
-| Sibling repository | Responsibility |
-| --- | --- |
-| LLM-Architecture | Native Transformer, RMSNorm, SwiGLU, learned/RoPE positions, KV cache, checkpoint readers |
-| LLM-Tokenizer | Byte-level BPE and conversation/SFT serialization |
-| LLM-Data | Corpus provenance, preparation, packing and token data |
-| LLM-Training | Base/SFT training, optimizer state, restoration and telemetry |
-| LLM-Inference | Native completion, chat and exports |
-| LLM-Memory | Scoped SQLite persistence, retrieval and worker client |
-| LLM-Specialist | Frozen EmbeddingGemma 2 and classifier heads |
+<p align="center">
+  An independently developed language-model engineering project.<br>
+  From tokenization and Transformer architecture to training, inference, and memory.
+</p>
 
-Exact sibling Git pins are in `compatibility.json`. See [SIBLING_LAYOUT.md](documentation/migration/SIBLING_LAYOUT.md) to check out a workspace.
+<p align="center">
+  <a href="#architecture">Architecture</a> &nbsp;·&nbsp;
+  <a href="#components">Components</a> &nbsp;·&nbsp;
+  <a href="#getting-started">Getting started</a> &nbsp;·&nbsp;
+  <a href="#project-status">Project status</a>
+</p>
 
-## Quick start
+---
 
-```bash
-cd LLM-From-Scratch
-tools/codexa-dev -m pytest -q                          # tests, with component sources first
-python run.py --repo LLM-Architecture test -q          # a sibling's tests
-scripts/training_status.py                             # status of the latest training run
-scripts/training_dashboard.py                          # live read-only dashboard
-python run.py generate --help                          # any sibling CLI by name
-python run.py module codexa_workspace.chat --describe  # chat with the catalog model
-```
+## Architecture
 
-Use the existing `.venv` (generative) and `.venv-specialist` (specialist) environments, and never merge them. Assets resolve through the ignored `artifacts.local.json` (copy `artifacts.local.example.json`) or `CODEXA_ASSET_ROOT`. Weights, datasets, private logs and recovery bundles are never committed.
+Eight Python packages cover the main parts of building and running a language
+model. Each package has a defined responsibility; model formats and tokenizer
+conventions connect them.
 
-## Repository layout
+<p align="center"><code>Text → Tokenization → Data preparation → Training → Inference</code></p>
+
+The architecture package defines the Transformer and checkpoint interfaces used
+by training and inference. Conversation memory adds storage and retrieval;
+specialist models use a separate embedding encoder. The integration package
+provides shared evaluation utilities.
+
+## Components
+
+| Component | Focus |
+| :--- | :--- |
+| **[LLM-Architecture](LLM-Architecture)** | Decoder-only Transformer, runtime policies, and checkpoint readers |
+| **[LLM-Data](LLM-Data)** | Text preparation, conversation mixtures, and binary token processing |
+| **[LLM-From-Scratch](LLM-From-Scratch)** | Shared evaluation and integration utilities |
+| **[LLM-Inference](LLM-Inference)** | Generation, native chat, context composition, and model export |
+| **[LLM-Memory](LLM-Memory)** | Scoped SQLite conversation storage and exact cosine retrieval |
+| **[LLM-Specialist](LLM-Specialist)** | Frozen embedding encoder and trainable classifier heads |
+| **[LLM-Tokenizer](LLM-Tokenizer)** | Byte-level BPE and shared conversation serialization |
+| **[LLM-Training](LLM-Training)** | Base and conversational training, checkpoint recovery, and monitoring |
+
+<details>
+<summary><strong>Repository layout</strong></summary>
 
 ```text
-src/codexa_workspace/      the integration package (layered; see the development guide)
-  assets/                  asset, input and output resolution on the guarded SSD
-  evaluation/              metrics, language suite, generation helpers, capability benchmark
-  training/                gates, guard adapter, runs, supervisor/, foundation/ (the current job)
-  notifications/           run-end popup, AI wakeup, run summary, agent window
-  monitoring/              dashboard, window and status
-  review/                  human review packages and the public review page
-scripts/                   thin operator entry points (see scripts/README.md)
-tests/                     mirrors the package; integration/ holds cross-component tests
-tools/                     codexa-dev, the training guard, packaging and archive tools
-configs/                   model config, specialist config, asset catalog
-documentation/             guides, reference, reports, live logs (documentation/README.md)
-outputs/                   local run state (ignored)
+LLM-From-Scratch/
+├── LLM-Architecture/
+├── LLM-Data/
+├── LLM-From-Scratch/
+├── LLM-Inference/
+├── LLM-Memory/
+├── LLM-Specialist/
+├── LLM-Tokenizer/
+├── LLM-Training/
+└── README.md
 ```
 
-## Read next
+The repository presents the approved source as one project while preserving
+separate package boundaries. Each component declares its dependencies and entry
+points in `pyproject.toml`.
 
-- [documentation/guides/DEVELOPMENT.md](documentation/guides/DEVELOPMENT.md): setup, layout, layer rules, where new code goes
-- [documentation/guides/TRAINING_OPERATIONS.md](documentation/guides/TRAINING_OPERATIONS.md): preparing, launching and watching a run
-- [documentation/README.md](documentation/README.md): map of every document
-- [AGENTS.md](AGENTS.md): rules for AI agents working in this repository
-- [VALIDATION.md](VALIDATION.md): what to run before a PR
+</details>
 
-Removed history (old experiments, adapters, archived reports) is preserved at git tag `pre-rewrite-2026-10-13`.
+## Getting started
+
+**Python 3.11 or later** is required. From the repository root, make the local
+packages available on the Python path:
+
+```bash
+for component in LLM-*/src; do
+  export PYTHONPATH="$PWD/$component${PYTHONPATH:+:$PYTHONPATH}"
+done
+```
+
+Try a small integration utility using only the Python standard library:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python - <<'PY'
+from codexa_workspace.hashing import fingerprint
+
+print(fingerprint({"example": 1}))
+PY
+```
+
+Install a component's declared dependencies before running its model or data
+tools. The project packages are supplied here as local source. Model execution
+also requires compatible checkpoint and tokenizer files.
+
+## Project status
+
+Model architecture, tokenization, data processing, training, inference, and
+conversation memory are implemented, with synthetic tests in the component
+directories. Specialist systems and evaluation methods remain experimental.
+
+**Weights, trained tokenizers, and datasets are not included.** This repository
+provides source code; it does not publish benchmark claims or large-scale training
+results.

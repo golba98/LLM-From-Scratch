@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codexa-workspace"
+version = "0.2.0"
+description = "Integration, evaluation and operator workflows for Codexa PyTorch"
+requires-python = ">=3.11"
+readme = "README.md"
+license = "MIT"
+dependencies = ["llm-architecture==0.1.0", "llm-tokenizer==0.1.0", "llm-data[torch,parquet]==0.1.0", "llm-training==0.1.0", "llm-inference[memory]==0.1.0", "llm-memory==0.1.0"]
+
+[project.optional-dependencies]
+specialist = ["llm-specialist==0.1.0"]
+test = ["pytest>=9,<10"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["codexa_workspace*"]
+
+[tool.pytest.ini_options]
+pythonpath = [".", "src"]
+testpaths = ["tests"]

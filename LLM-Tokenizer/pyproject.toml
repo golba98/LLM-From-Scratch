@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm-tokenizer"
+version = "0.1.0"
+description = "Byte-level BPE and shared conversation serialization"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["tokenizers>=0.22.2,<0.24"]
+
+[project.optional-dependencies]
+test = ["pytest>=9,<10"]
+
+[project.scripts]
+"llm-tokenizer-train-tokenizer" = "llm_tokenizer.cli.train_tokenizer:main"
+"llm-tokenizer-inspect-tokenizer" = "llm_tokenizer.cli.inspect_tokenizer:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["llm_tokenizer*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

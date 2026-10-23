@@ -1,0 +1,9 @@
+# LLM-Architecture
+
+Decoder-only Transformer, neutral runtime policies and native checkpoint readers.
+
+Source lives in `src/`; synthetic tests live in `tests/`.
+Package requirements and entry points are declared in `pyproject.toml`.
+
+This package is part of [LLM From Scratch](../README.md). Model weights,
+trained tokenizers, and datasets must be supplied separately.

@@ -1,6 +1,0 @@
-{
-  "asset_root": "/protected/storage/pytorch",
-  "output_root": "outputs",
-  "reference_source": "/protected/recovery/pytorch-source",
-  "recovery_root": "/protected/recovery/2026-10-08-consolidation"
-}
