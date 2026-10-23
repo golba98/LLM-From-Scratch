@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm-inference"
+version = "0.1.0"
+description = "Native completion, chat, context composition and export"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["llm-architecture==0.1.0", "llm-tokenizer==0.1.0"]
+
+[project.optional-dependencies]
+test = ["pytest>=9,<10"]
+memory = ["llm-memory==0.1.0"]
+
+[project.scripts]
+"llm-inference-generate" = "llm_inference.cli.generate:main"
+"llm-inference-chat-native" = "llm_inference.cli.chat_native:main"
+"llm-inference-native-chat-bridge" = "llm_inference.cli.native_chat_bridge:main"
+"llm-inference-export-chat-native" = "llm_inference.cli.export_chat_native:main"
+"llm-inference-export-codexa-lmstudio" = "llm_inference.cli.export_codexa_lmstudio:main"
+"llm-inference-export-codexa-llama-lmstudio" = "llm_inference.cli.export_codexa_llama_lmstudio:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["llm_inference*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

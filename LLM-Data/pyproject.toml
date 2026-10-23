@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm-data"
+version = "0.1.0"
+description = "Reproducible text, conversational and binary token preparation"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["llm-tokenizer==0.1.0", "numpy==2.5.1"]
+
+[project.optional-dependencies]
+test = ["pytest>=9,<10"]
+torch = ["torch==2.13.0"]
+parquet = ["pyarrow==25.0.0"]
+hub = ["huggingface-hub>=1.25,<2"]
+
+[project.scripts]
+"llm-data-benchmark-token-data" = "llm_data.cli.benchmark_token_data:main"
+"llm-data-build-mixed-token-data" = "llm_data.cli.build_mixed_token_data:main"
+"llm-data-build-mixed-token-data-bucketed" = "llm_data.cli.build_mixed_token_data_bucketed:main"
+"llm-data-build-smoke-dataset" = "llm_data.cli.build_smoke_dataset:main"
+"llm-data-build-token-accounting" = "llm_data.cli.build_token_accounting:main"
+"llm-data-download-fineweb-edu" = "llm_data.cli.download_fineweb_edu:main"
+"llm-data-download-language-corpora" = "llm_data.cli.download_language_corpora:main"
+"llm-data-estimate-parquet-tokens" = "llm_data.cli.estimate_parquet_tokens:main"
+"llm-data-inspect-token-data" = "llm_data.cli.inspect_token_data:main"
+"llm-data-prepare-base-corpus" = "llm_data.cli.prepare_base_corpus:main"
+"llm-data-prepare-conversational-sft" = "llm_data.cli.prepare_conversational_sft:main"
+"llm-data-prepare-dataset" = "llm_data.cli.prepare_dataset:main"
+"llm-data-prepare-fineweb-edu" = "llm_data.cli.prepare_fineweb_edu:main"
+"llm-data-prepare-general-chat" = "llm_data.cli.prepare_general_chat:main"
+"llm-data-prepare-repair-sft" = "llm_data.cli.prepare_repair_sft:main"
+"llm-data-sample-conversation-jsonl" = "llm_data.cli.sample_conversation_jsonl:main"
+"llm-data-tokenize-dataset" = "llm_data.cli.tokenize_dataset:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["llm_data*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
